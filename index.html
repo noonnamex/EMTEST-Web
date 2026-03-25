@@ -21,7 +21,7 @@
         }
 
         .main-container {
-            max-width: 3200px;
+            max-width: 1800px;
             margin: 0 auto;
         }
 
@@ -35,13 +35,13 @@
             flex-wrap: wrap;
         }
 
-        /* Prvé okno - LEN ČAS (fixná šírka) */
+        /* Prvé okno - LEN ČAS (širšie) */
         .clock-window {
             background-color: #f0f0f0;
             border-radius: 25px;
             box-shadow: 0 8px 20px rgba(0,0,0,0.15);
             padding: 30px 50px;
-            width: 650px;
+            width: 800px;
             border: 2px solid #ddd;
         }
 
@@ -78,7 +78,7 @@
             transform: scale(1.3);
         }
 
-        /* Tretie okno - DLHÝ OBDĹŽNIK pre farbu (od checkboxu po pravý okraj) */
+        /* Tretie okno - DLHÝ OBDĹŽNIK pre farbu */
         .color-window {
             background-color: #f0f0f0;
             border-radius: 25px;
@@ -104,23 +104,23 @@
         }
 
         .section-title {
-            font-size: 32px;
+            font-size: 36px;
             font-weight: bold;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
             color: #333;
         }
 
         .color-grid {
             display: flex;
             flex-wrap: wrap;
-            gap: 25px;
-            margin-bottom: 50px;
+            gap: 30px;
+            margin-bottom: 60px;
         }
 
         .color-square {
-            width: 120px;
-            height: 120px;
-            border-radius: 12px;
+            width: 140px;
+            height: 140px;
+            border-radius: 15px;
             cursor: pointer;
             transition: transform 0.2s ease, box-shadow 0.2s ease;
             border: 3px solid #ddd;
@@ -139,14 +139,14 @@
         .extended-grid {
             display: flex;
             flex-wrap: wrap;
-            gap: 15px;
-            margin-bottom: 50px;
+            gap: 18px;
+            margin-bottom: 60px;
         }
 
         .extended-square {
-            width: 90px;
-            height: 90px;
-            border-radius: 10px;
+            width: 100px;
+            height: 100px;
+            border-radius: 12px;
             cursor: pointer;
             transition: transform 0.2s ease, box-shadow 0.2s ease;
             border: 2px solid #ccc;
@@ -164,16 +164,16 @@
 
         /* REBOOT sekcia */
         .reboot-section {
-            margin-top: 60px;
-            padding: 30px;
+            margin-top: 70px;
+            padding: 35px;
             background-color: #f8f8f8;
-            border-radius: 25px;
+            border-radius: 30px;
             text-align: center;
             border: 2px solid #e0e0e0;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 50px;
+            gap: 60px;
             flex-wrap: wrap;
         }
 
@@ -181,10 +181,10 @@
             background-color: #ff4444;
             color: white;
             border: none;
-            padding: 30px 60px;
-            font-size: 36px;
+            padding: 35px 70px;
+            font-size: 40px;
             font-weight: bold;
-            border-radius: 20px;
+            border-radius: 25px;
             cursor: pointer;
             transition: all 0.3s ease;
             box-shadow: 0 6px 12px rgba(0,0,0,0.15);
@@ -202,43 +202,43 @@
         .counter-container {
             display: inline-flex;
             align-items: center;
-            gap: 25px;
+            gap: 30px;
             background-color: white;
-            padding: 20px 35px;
-            border-radius: 20px;
+            padding: 25px 40px;
+            border-radius: 25px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
 
         .counter-label {
-            font-size: 28px;
+            font-size: 32px;
             font-weight: bold;
             color: #333;
         }
 
         .counter-value {
-            font-size: 64px;
+            font-size: 72px;
             font-weight: bold;
             color: #ff4444;
             font-family: 'Courier New', monospace;
-            min-width: 120px;
+            min-width: 140px;
             text-align: center;
         }
 
         /* Kresliace plátno */
         .draw-section {
-            margin-top: 60px;
+            margin-top: 70px;
         }
 
         .draw-title {
-            font-size: 32px;
+            font-size: 36px;
             font-weight: bold;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
             color: #333;
         }
 
         canvas {
             border: 4px solid #333;
-            border-radius: 15px;
+            border-radius: 20px;
             background-color: white;
             cursor: crosshair;
             display: block;
@@ -254,7 +254,7 @@
     <div class="main-container">
         <!-- Horná lišta s tromi oknami -->
         <div class="top-bar">
-            <!-- Prvé okno: LEN ČAS (fixná šírka) -->
+            <!-- Prvé okno: LEN ČAS (širšie) -->
             <div class="clock-window">
                 <div class="clock" id="clock">--:--:--</div>
             </div>
@@ -266,7 +266,7 @@
                 </div>
             </div>
 
-            <!-- Tretie okno: DLHÝ OBDĹŽNIK pre farbu (roztiahne sa od checkboxu po pravý okraj) -->
+            <!-- Tretie okno: DLHÝ OBDĹŽNIK pre farbu -->
             <div class="color-window">
                 <div class="color-display" id="colorDisplay"></div>
             </div>
@@ -290,7 +290,7 @@
 
         <div class="draw-section">
             <div class="draw-title">Kresliace plátno</div>
-            <canvas id="drawCanvas" width="1200" height="800"></canvas>
+            <canvas id="drawCanvas" width="1600" height="1000"></canvas>
         </div>
     </div>
 
@@ -377,7 +377,6 @@
             
             let timeString;
             if (hideSeconds) {
-                // Zachováme fixnú šírku tým, že sekundy nahradíme medzerami
                 timeString = hours + ":" + minutes + "  ";
             } else {
                 timeString = hours + ":" + minutes + ":" + seconds;
@@ -399,7 +398,7 @@
         let drawing = false;
         
         ctx.strokeStyle = currentDrawColor;
-        ctx.lineWidth = 8;
+        ctx.lineWidth = 10;
         ctx.lineCap = 'round';
         ctx.lineJoin = 'round';
         
