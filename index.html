@@ -2,13 +2,15 @@
 <html lang="sk">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Farebná paleta</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
@@ -18,7 +20,6 @@
             padding: 30px;
         }
 
-        /* Hlavný kontajner pre veľké rozlíšenie 3200x1800 */
         .main-container {
             max-width: 3200px;
             margin: 0 auto;
@@ -34,15 +35,21 @@
             gap: 30px;
         }
 
-        /* Ľavá časť - hodiny a checkbox */
+        /* Samostatný kontajner pre čas - FIXNÁ ŠÍRKA A VÝŠKA */
+        .clock-wrapper {
+            display: inline-block;
+        }
+
         .clock-container {
             display: flex;
             align-items: center;
-            gap: 30px;
+            justify-content: center;
             background-color: #f0f0f0;
             padding: 20px 35px;
             border-radius: 20px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            width: 500px;
+            height: 160px;
         }
 
         .clock {
@@ -51,20 +58,24 @@
             font-family: 'Courier New', monospace;
             letter-spacing: 8px;
             color: #333;
-            /* FIXNÁ ŠÍRKA - aby sa checkbox neposúval */
-            min-width: 420px;
-            text-align: center;
             background-color: #fff;
             padding: 10px 20px;
             border-radius: 15px;
+            width: 420px;
+            text-align: center;
         }
 
-        /* Veľký checkbox - fixná šírka */
-        .big-checkbox {
+        /* Samostatný kontajner pre checkbox - FIXNÁ ŠÍRKA */
+        .checkbox-wrapper {
+            display: inline-block;
+            width: 100px;
+            height: 160px;
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 80px;
+            background-color: #f0f0f0;
+            border-radius: 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
 
         .big-checkbox input {
@@ -75,11 +86,11 @@
             transform: scale(1.2);
         }
 
-        /* Plocha na zobrazenie farby vpravo hore */
+        /* Zväčšená plocha na zobrazenie farby */
         .color-display {
-            width: 350px;
-            height: 180px;
-            background-color: #ffffff;
+            width: 500px;
+            height: 160px;
+            background-color: #000000;
             border: 4px solid #333;
             border-radius: 20px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
@@ -120,7 +131,10 @@
             border-color: #333;
         }
 
-        /* Rozšírené farby - usporiadané podľa dúhy */
+        .color-square:active {
+            transform: scale(0.95);
+        }
+
         .extended-grid {
             display: flex;
             flex-wrap: wrap;
@@ -141,6 +155,10 @@
             transform: scale(1.05);
             box-shadow: 0 6px 15px rgba(0,0,0,0.15);
             border-color: #333;
+        }
+
+        .extended-square:active {
+            transform: scale(0.95);
         }
 
         /* REBOOT sekcia */
@@ -205,45 +223,11 @@
             text-align: center;
         }
 
-        /* Kresliace plátno */
+        /* Kresliace plátno - až do spodku */
         .draw-section {
             margin-top: 60px;
-            padding: 30px;
-            background-color: #f8f8f8;
-            border-radius: 25px;
-            border: 2px solid #e0e0e0;
-        }
-
-        .draw-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 25px;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
-
-        .draw-title {
-            font-size: 32px;
-            font-weight: bold;
-            color: #333;
-        }
-
-        .clear-button {
-            background-color: #6c757d;
-            color: white;
-            border: none;
-            padding: 15px 40px;
-            font-size: 24px;
-            font-weight: bold;
-            border-radius: 15px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .clear-button:hover {
-            background-color: #5a6268;
-            transform: scale(1.02);
+            padding: 0;
+            background-color: transparent;
         }
 
         canvas {
@@ -256,104 +240,95 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
             width: 100%;
             height: auto;
-            background-color: white;
-        }
-
-        .draw-info {
-            margin-top: 20px;
-            font-size: 18px;
-            color: #666;
-            text-align: center;
+            touch-action: none;
         }
     </style>
 </head>
 <body>
     <div class="main-container">
         <div class="top-bar">
-            <div class="clock-container">
-                <div class="clock" id="clock">--:--:--</div>
-                <div class="big-checkbox">
-                    <input type="checkbox" id="hideSecondsCheckbox">
+            <div style="display: flex; gap: 20px; align-items: center;">
+                <div class="clock-wrapper">
+                    <div class="clock-container">
+                        <div class="clock" id="clock">--:--:--</div>
+                    </div>
+                </div>
+                <div class="checkbox-wrapper">
+                    <div class="big-checkbox">
+                        <input type="checkbox" id="hideSecondsCheckbox">
+                    </div>
                 </div>
             </div>
             <div class="color-display" id="colorDisplay"></div>
         </div>
 
         <div class="colors-section">
-            <div class="section-title">🎨 Základné farby (epapier)</div>
+            <div class="section-title">Zakladne farby (epapier)</div>
             <div class="color-grid" id="basicColors"></div>
 
-            <div class="section-title">🌈 Rozšírené farby</div>
+            <div class="section-title">Rozsirene farby</div>
             <div class="extended-grid" id="extendedColors"></div>
         </div>
 
         <div class="reboot-section">
-            <button class="reboot-button" id="rebootButton">🔄 REBOOT</button>
+            <button class="reboot-button" id="rebootButton">REBOOT</button>
             <div class="counter-container">
-                <span class="counter-label">Počet REBOOTOV:</span>
+                <span class="counter-label">Pocet REBOOTOV:</span>
                 <span class="counter-value" id="counterValue">0</span>
             </div>
         </div>
 
         <div class="draw-section">
-            <div class="draw-header">
-                <span class="draw-title">✏️ Kresliace plátno</span>
-                <button class="clear-button" id="clearCanvas">🗑️ VYMAZAŤ</button>
-            </div>
             <canvas id="drawCanvas" width="1200" height="800"></canvas>
-            <div class="draw-info">💡 Kliknite na farbu a potom kreslite myšou | Predvolená farba: čierna</div>
         </div>
     </div>
 
     <script>
-        // Základné farby (7 farieb epapiera)
         const basicColors = [
-            { name: "Červená", code: "#FF0000" },
-            { name: "Zelená", code: "#00FF00" },
-            { name: "Modrá", code: "#0000FF" },
-            { name: "Žltá", code: "#FFFF00" },
-            { name: "Oranžová", code: "#FFA500" },
-            { name: "Fialová", code: "#800080" },
-            { name: "Ružová", code: "#FFC0CB" }
+            { name: "Cervena", code: "#FF0000" },
+            { name: "Zelena", code: "#00FF00" },
+            { name: "Modra", code: "#0000FF" },
+            { name: "Zlta", code: "#FFFF00" },
+            { name: "Oranzova", code: "#FFA500" },
+            { name: "Fialova", code: "#800080" },
+            { name: "Ruzova", code: "#FFC0CB" }
         ];
 
-        // Rozšírené farby - usporiadané podľa dúhy
         const extendedColors = [
-            { name: "Červená", code: "#FF0000" },
-            { name: "Tmavočervená", code: "#8B0000" },
-            { name: "Vínová", code: "#800000" },
-            { name: "Koralová", code: "#FF7F50" },
-            { name: "Lososová", code: "#FA8072" },
-            { name: "Oranžová", code: "#FFA500" },
-            { name: "Oranžovočervená", code: "#FF4500" },
+            { name: "Cervena", code: "#FF0000" },
+            { name: "Tmavocervena", code: "#8B0000" },
+            { name: "Vinova", code: "#800000" },
+            { name: "Koralova", code: "#FF7F50" },
+            { name: "Lososova", code: "#FA8072" },
+            { name: "Oranzova", code: "#FFA500" },
+            { name: "Oranzovocervena", code: "#FF4500" },
             { name: "Oker", code: "#CC7722" },
-            { name: "Jantárová", code: "#FFBF00" },
-            { name: "Žltá", code: "#FFFF00" },
-            { name: "Zlatá", code: "#FFD700" },
-            { name: "Krémová", code: "#FFFDD0" },
-            { name: "Béžová", code: "#F5F5DC" },
-            { name: "Zelená", code: "#00FF00" },
-            { name: "Tmavozelená", code: "#006400" },
-            { name: "Olivová", code: "#808000" },
-            { name: "Mätová", code: "#98FB98" },
-            { name: "Tyrkysová", code: "#40E0D0" },
-            { name: "Modrá", code: "#0000FF" },
-            { name: "Tmavomodrá", code: "#00008B" },
-            { name: "Námornícka modrá", code: "#000080" },
-            { name: "Azúrová", code: "#007FFF" },
-            { name: "Neónová modrá", code: "#1E90FF" },
+            { name: "Jantarova", code: "#FFBF00" },
+            { name: "Zlta", code: "#FFFF00" },
+            { name: "Zlata", code: "#FFD700" },
+            { name: "Kremova", code: "#FFFDD0" },
+            { name: "Bezova", code: "#F5F5DC" },
+            { name: "Zelena", code: "#00FF00" },
+            { name: "Tmavozelena", code: "#006400" },
+            { name: "Olivova", code: "#808000" },
+            { name: "Matova", code: "#98FB98" },
+            { name: "Tyrkysova", code: "#40E0D0" },
+            { name: "Modra", code: "#0000FF" },
+            { name: "Tmavomodra", code: "#00008B" },
+            { name: "Namornicka modra", code: "#000080" },
+            { name: "Azurova", code: "#007FFF" },
+            { name: "Neonova modra", code: "#1E90FF" },
             { name: "Indigo", code: "#4B0082" },
-            { name: "Fialová", code: "#800080" },
-            { name: "Levanduľová", code: "#E6E6FA" },
-            { name: "Fuchsiová", code: "#FF00FF" },
-            { name: "Ružová", code: "#FFC0CB" },
+            { name: "Fialova", code: "#800080" },
+            { name: "Levandulova", code: "#E6E6FA" },
+            { name: "Fuchsia", code: "#FF00FF" },
+            { name: "Ruzova", code: "#FFC0CB" },
             { name: "Biela", code: "#FFFFFF" },
-            { name: "Sivá", code: "#808080" },
-            { name: "Čierna", code: "#000000" },
-            { name: "Hnedá", code: "#A52A2A" }
+            { name: "Siva", code: "#808080" },
+            { name: "Cierna", code: "#000000" },
+            { name: "Hneda", code: "#A52A2A" }
         ];
 
-        // Premenné pre počítadlo REBOOT
         let rebootCounter = 0;
         
         function loadCounter() {
@@ -381,7 +356,6 @@
             saveCounter();
         }
 
-        // Funkcia na aktualizáciu času
         function updateClock() {
             const now = new Date();
             const hours = String(now.getHours()).padStart(2, '0');
@@ -392,15 +366,14 @@
             
             let timeString;
             if (hideSeconds) {
-                timeString = `${hours}:${minutes}`;
+                timeString = hours + ":" + minutes;
             } else {
-                timeString = `${hours}:${minutes}:${seconds}`;
+                timeString = hours + ":" + minutes + ":" + seconds;
             }
             
             document.getElementById('clock').textContent = timeString;
         }
 
-        // Funkcia na zafarbenie plochy
         let currentDrawColor = "#000000";
         
         function setColor(colorCode) {
@@ -409,51 +382,62 @@
             currentDrawColor = colorCode;
         }
 
-        // Kresliace plátno
         let canvas = document.getElementById('drawCanvas');
         let ctx = canvas.getContext('2d');
         let drawing = false;
         
         ctx.strokeStyle = currentDrawColor;
-        ctx.lineWidth = 5;
+        ctx.lineWidth = 8;
         ctx.lineCap = 'round';
         ctx.lineJoin = 'round';
         
-        function startDrawing(e) {
-            drawing = true;
-            draw(e);
+        function getCanvasCoordinates(e) {
+            const rect = canvas.getBoundingClientRect();
+            const scaleX = canvas.width / rect.width;
+            const scaleY = canvas.height / rect.height;
+            
+            let clientX, clientY;
+            
+            if (e.touches) {
+                clientX = e.touches[0].clientX;
+                clientY = e.touches[0].clientY;
+            } else {
+                clientX = e.clientX;
+                clientY = e.clientY;
+            }
+            
+            let x = (clientX - rect.left) * scaleX;
+            let y = (clientY - rect.top) * scaleY;
+            
+            x = Math.max(0, Math.min(canvas.width, x));
+            y = Math.max(0, Math.min(canvas.height, y));
+            
+            return { x, y };
         }
         
-        function stopDrawing() {
-            drawing = false;
+        function startDrawing(e) {
+            e.preventDefault();
+            drawing = true;
+            const { x, y } = getCanvasCoordinates(e);
             ctx.beginPath();
+            ctx.moveTo(x, y);
         }
         
         function draw(e) {
             if (!drawing) return;
             e.preventDefault();
-            
-            const rect = canvas.getBoundingClientRect();
-            const scaleX = canvas.width / rect.width;
-            const scaleY = canvas.height / rect.height;
-            
-            let x, y;
-            
-            if (e.touches) {
-                x = (e.touches[0].clientX - rect.left) * scaleX;
-                y = (e.touches[0].clientY - rect.top) * scaleY;
-            } else {
-                x = (e.clientX - rect.left) * scaleX;
-                y = (e.clientY - rect.top) * scaleY;
-            }
-            
-            if (x >= 0 && x <= canvas.width && y >= 0 && y <= canvas.height) {
-                ctx.strokeStyle = currentDrawColor;
-                ctx.lineTo(x, y);
-                ctx.stroke();
-                ctx.beginPath();
-                ctx.moveTo(x, y);
-            }
+            const { x, y } = getCanvasCoordinates(e);
+            ctx.strokeStyle = currentDrawColor;
+            ctx.lineTo(x, y);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(x, y);
+        }
+        
+        function stopDrawing(e) {
+            if (e) e.preventDefault();
+            drawing = false;
+            ctx.beginPath();
         }
         
         function clearCanvas() {
@@ -462,13 +446,14 @@
         }
         
         canvas.addEventListener('mousedown', startDrawing);
-        canvas.addEventListener('mouseup', stopDrawing);
         canvas.addEventListener('mousemove', draw);
+        canvas.addEventListener('mouseup', stopDrawing);
         canvas.addEventListener('mouseleave', stopDrawing);
-        canvas.addEventListener('touchstart', startDrawing);
+        canvas.addEventListener('touchstart', startDrawing, { passive: false });
+        canvas.addEventListener('touchmove', draw, { passive: false });
         canvas.addEventListener('touchend', stopDrawing);
-        canvas.addEventListener('touchmove', draw);
         canvas.addEventListener('touchcancel', stopDrawing);
+        canvas.addEventListener('contextmenu', (e) => e.preventDefault());
         
         function renderBasicColors() {
             const container = document.getElementById('basicColors');
@@ -478,6 +463,10 @@
                 square.style.backgroundColor = color.code;
                 square.title = color.name;
                 square.onclick = () => setColor(color.code);
+                square.ontouchstart = (e) => {
+                    e.preventDefault();
+                    setColor(color.code);
+                };
                 container.appendChild(square);
             });
         }
@@ -490,6 +479,10 @@
                 square.style.backgroundColor = color.code;
                 square.title = color.name;
                 square.onclick = () => setColor(color.code);
+                square.ontouchstart = (e) => {
+                    e.preventDefault();
+                    setColor(color.code);
+                };
                 container.appendChild(square);
             });
         }
@@ -503,7 +496,10 @@
         
         document.getElementById('hideSecondsCheckbox').addEventListener('change', updateClock);
         document.getElementById('rebootButton').addEventListener('click', reboot);
-        document.getElementById('clearCanvas').addEventListener('click', clearCanvas);
+        document.getElementById('rebootButton').addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            reboot();
+        });
         
         setColor("#000000");
     </script>
