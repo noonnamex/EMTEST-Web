@@ -118,8 +118,8 @@
         }
 
         .color-square {
-            width: 150px;
-            height: 150px;
+            width: 200px;
+            height: 200px;
             border-radius: 12px;
             cursor: pointer;
             transition: transform 0.2s ease, box-shadow 0.2s ease;
@@ -139,8 +139,8 @@
         }
 
         .extended-square {
-            width: 130px;
-            height: 130px;
+            width: 180px;
+            height: 180px;
             border-radius: 10px;
             cursor: pointer;
             transition: transform 0.2s ease, box-shadow 0.2s ease;
@@ -235,6 +235,32 @@
             touch-action: none;
         }
         
+        /* Štýl pre tlačidlo Clear */
+        .clear-button {
+            margin-top: 20px;
+            padding: 20px 40px;
+            background-color: #666;
+            color: white;
+            border: none;
+            border-radius: 15px;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            touch-action: manipulation;
+            transition: all 0.3s ease;
+            display: block;
+            width: 100%;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+        }
+        
+        .clear-button:active {
+            transform: scale(0.98);
+            background-color: #555;
+        }
+        
         /* Responzívne úpravy pre menšie obrazovky */
         @media (max-width: 1200px) {
             body {
@@ -250,13 +276,13 @@
             }
             
             .color-square {
-                width: 120px;
-                height: 120px;
+                width: 180px;
+                height: 180px;
             }
             
             .extended-square {
-                width: 100px;
-                height: 100px;
+                width: 160px;
+                height: 160px;
             }
             
             .reboot-button {
@@ -267,21 +293,33 @@
             .counter-value {
                 font-size: 48px;
             }
+            
+            .clear-button {
+                padding: 15px 30px;
+                font-size: 24px;
+                max-width: 350px;
+            }
         }
         
         @media (max-width: 768px) {
             .color-square {
-                width: 100px;
-                height: 100px;
+                width: 150px;
+                height: 150px;
             }
             
             .extended-square {
-                width: 85px;
-                height: 85px;
+                width: 130px;
+                height: 130px;
             }
             
             .section-title {
                 font-size: 24px;
+            }
+            
+            .clear-button {
+                padding: 12px 25px;
+                font-size: 20px;
+                max-width: 300px;
             }
         }
     </style>
@@ -571,20 +609,10 @@
         
         setColor("#000000");
         
-        // Pridanie tlačidla na vymazanie canvasu (voliteľné)
+        // Pridanie tlačidla na vymazanie canvasu (väčšie)
         const clearButton = document.createElement('button');
-        clearButton.textContent = 'Vymazať plátno';
-        clearButton.style.cssText = `
-            margin-top: 15px;
-            padding: 10px 20px;
-            background-color: #666;
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-size: 16px;
-            cursor: pointer;
-            touch-action: manipulation;
-        `;
+        clearButton.textContent = 'VYMAZAŤ PLÁTNO';
+        clearButton.className = 'clear-button';
         clearButton.onclick = clearCanvas;
         clearButton.ontouchstart = (e) => {
             e.preventDefault();
