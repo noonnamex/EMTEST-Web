@@ -2,7 +2,7 @@
 <html lang="sk">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>Farebná paleta</title>
     <style>
         * {
@@ -15,7 +15,13 @@
             background-color: white;
             font-family: Arial, sans-serif;
             min-height: 100vh;
-            padding: 20px;
+            padding: 30px;
+        }
+
+        /* Hlavný kontajner pre veľké rozlíšenie 3200x1800 */
+        .main-container {
+            max-width: 3200px;
+            margin: 0 auto;
         }
 
         /* Horná lišta */
@@ -23,84 +29,94 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 40px;
+            margin-bottom: 50px;
             flex-wrap: wrap;
-            gap: 20px;
+            gap: 30px;
         }
 
         /* Ľavá časť - hodiny a checkbox */
         .clock-container {
             display: flex;
             align-items: center;
-            gap: 20px;
+            gap: 30px;
             background-color: #f0f0f0;
-            padding: 15px 25px;
-            border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            padding: 20px 35px;
+            border-radius: 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
 
         .clock {
-            font-size: 72px;
+            font-size: 96px;
             font-weight: bold;
             font-family: 'Courier New', monospace;
-            letter-spacing: 5px;
+            letter-spacing: 8px;
+            color: #333;
+            /* FIXNÁ ŠÍRKA - aby sa checkbox neposúval */
+            min-width: 420px;
+            text-align: center;
+            background-color: #fff;
+            padding: 10px 20px;
+            border-radius: 15px;
         }
 
-        /* Veľký checkbox */
+        /* Veľký checkbox - fixná šírka */
         .big-checkbox {
             display: flex;
             align-items: center;
             justify-content: center;
+            width: 80px;
         }
 
         .big-checkbox input {
-            width: 40px;
-            height: 40px;
+            width: 60px;
+            height: 60px;
             cursor: pointer;
+            margin: 0;
+            transform: scale(1.2);
         }
 
         /* Plocha na zobrazenie farby vpravo hore */
         .color-display {
-            width: 200px;
-            height: 100px;
+            width: 350px;
+            height: 180px;
             background-color: #ffffff;
-            border: 3px solid #333;
-            border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border: 4px solid #333;
+            border-radius: 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
             transition: background-color 0.2s ease;
         }
 
         /* Sekcia farieb */
         .colors-section {
-            margin-top: 30px;
+            margin-top: 50px;
         }
 
         .section-title {
-            font-size: 18px;
+            font-size: 32px;
             font-weight: bold;
-            margin-bottom: 15px;
+            margin-bottom: 25px;
             color: #333;
         }
 
         .color-grid {
             display: flex;
             flex-wrap: wrap;
-            gap: 15px;
-            margin-bottom: 30px;
+            gap: 25px;
+            margin-bottom: 50px;
         }
 
         .color-square {
-            width: 80px;
-            height: 80px;
-            border-radius: 8px;
+            width: 120px;
+            height: 120px;
+            border-radius: 12px;
             cursor: pointer;
             transition: transform 0.2s ease, box-shadow 0.2s ease;
-            border: 2px solid #ddd;
+            border: 3px solid #ddd;
         }
 
         .color-square:hover {
             transform: scale(1.05);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
             border-color: #333;
         }
 
@@ -108,37 +124,37 @@
         .extended-grid {
             display: flex;
             flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 30px;
+            gap: 15px;
+            margin-bottom: 50px;
         }
 
         .extended-square {
-            width: 60px;
-            height: 60px;
-            border-radius: 6px;
+            width: 90px;
+            height: 90px;
+            border-radius: 10px;
             cursor: pointer;
             transition: transform 0.2s ease, box-shadow 0.2s ease;
-            border: 1px solid #ccc;
+            border: 2px solid #ccc;
         }
 
         .extended-square:hover {
             transform: scale(1.05);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.15);
             border-color: #333;
         }
 
         /* REBOOT sekcia */
         .reboot-section {
-            margin-top: 40px;
-            padding: 20px;
+            margin-top: 60px;
+            padding: 30px;
             background-color: #f8f8f8;
-            border-radius: 15px;
+            border-radius: 25px;
             text-align: center;
-            border: 1px solid #e0e0e0;
+            border: 2px solid #e0e0e0;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 30px;
+            gap: 50px;
             flex-wrap: wrap;
         }
 
@@ -146,19 +162,18 @@
             background-color: #ff4444;
             color: white;
             border: none;
-            padding: 20px 40px;
-            font-size: 24px;
+            padding: 30px 60px;
+            font-size: 36px;
             font-weight: bold;
-            border-radius: 10px;
+            border-radius: 20px;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
         }
 
         .reboot-button:hover {
             background-color: #cc0000;
             transform: scale(1.02);
-            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
         }
 
         .reboot-button:active {
@@ -168,53 +183,125 @@
         .counter-container {
             display: inline-flex;
             align-items: center;
-            gap: 15px;
+            gap: 25px;
             background-color: white;
-            padding: 15px 25px;
-            border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            padding: 20px 35px;
+            border-radius: 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
 
         .counter-label {
-            font-size: 20px;
+            font-size: 28px;
             font-weight: bold;
             color: #333;
         }
 
         .counter-value {
-            font-size: 48px;
+            font-size: 64px;
             font-weight: bold;
             color: #ff4444;
             font-family: 'Courier New', monospace;
-            min-width: 80px;
+            min-width: 120px;
+            text-align: center;
+        }
+
+        /* Kresliace plátno */
+        .draw-section {
+            margin-top: 60px;
+            padding: 30px;
+            background-color: #f8f8f8;
+            border-radius: 25px;
+            border: 2px solid #e0e0e0;
+        }
+
+        .draw-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .draw-title {
+            font-size: 32px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .clear-button {
+            background-color: #6c757d;
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 24px;
+            font-weight: bold;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .clear-button:hover {
+            background-color: #5a6268;
+            transform: scale(1.02);
+        }
+
+        canvas {
+            border: 4px solid #333;
+            border-radius: 15px;
+            background-color: white;
+            cursor: crosshair;
+            display: block;
+            margin: 0 auto;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            width: 100%;
+            height: auto;
+            background-color: white;
+        }
+
+        .draw-info {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #666;
             text-align: center;
         }
     </style>
 </head>
 <body>
-    <div class="top-bar">
-        <div class="clock-container">
-            <div class="clock" id="clock">--:--:--</div>
-            <div class="big-checkbox">
-                <input type="checkbox" id="hideSecondsCheckbox">
+    <div class="main-container">
+        <div class="top-bar">
+            <div class="clock-container">
+                <div class="clock" id="clock">--:--:--</div>
+                <div class="big-checkbox">
+                    <input type="checkbox" id="hideSecondsCheckbox">
+                </div>
+            </div>
+            <div class="color-display" id="colorDisplay"></div>
+        </div>
+
+        <div class="colors-section">
+            <div class="section-title">🎨 Základné farby (epapier)</div>
+            <div class="color-grid" id="basicColors"></div>
+
+            <div class="section-title">🌈 Rozšírené farby</div>
+            <div class="extended-grid" id="extendedColors"></div>
+        </div>
+
+        <div class="reboot-section">
+            <button class="reboot-button" id="rebootButton">🔄 REBOOT</button>
+            <div class="counter-container">
+                <span class="counter-label">Počet REBOOTOV:</span>
+                <span class="counter-value" id="counterValue">0</span>
             </div>
         </div>
-        <div class="color-display" id="colorDisplay"></div>
-    </div>
 
-    <div class="colors-section">
-        <div class="section-title">🎨 Základné farby (epapier)</div>
-        <div class="color-grid" id="basicColors"></div>
-
-        <div class="section-title">🌈 Rozšírené farby</div>
-        <div class="extended-grid" id="extendedColors"></div>
-    </div>
-
-    <div class="reboot-section">
-        <button class="reboot-button" id="rebootButton">🔄 REBOOT</button>
-        <div class="counter-container">
-            <span class="counter-label">Počet REBOOTOV:</span>
-            <span class="counter-value" id="counterValue">0</span>
+        <div class="draw-section">
+            <div class="draw-header">
+                <span class="draw-title">✏️ Kresliace plátno</span>
+                <button class="clear-button" id="clearCanvas">🗑️ VYMAZAŤ</button>
+            </div>
+            <canvas id="drawCanvas" width="1200" height="800"></canvas>
+            <div class="draw-info">💡 Kliknite na farbu a potom kreslite myšou | Predvolená farba: čierna</div>
         </div>
     </div>
 
@@ -230,43 +317,36 @@
             { name: "Ružová", code: "#FFC0CB" }
         ];
 
-        // Rozšírené farby - usporiadané podľa dúhy (červená, oranžová, žltá, zelená, modrá, indigová, fialová)
+        // Rozšírené farby - usporiadané podľa dúhy
         const extendedColors = [
-            // Červená odtiene
             { name: "Červená", code: "#FF0000" },
             { name: "Tmavočervená", code: "#8B0000" },
             { name: "Vínová", code: "#800000" },
             { name: "Koralová", code: "#FF7F50" },
             { name: "Lososová", code: "#FA8072" },
-            // Oranžová odtiene
             { name: "Oranžová", code: "#FFA500" },
             { name: "Oranžovočervená", code: "#FF4500" },
             { name: "Oker", code: "#CC7722" },
             { name: "Jantárová", code: "#FFBF00" },
-            // Žltá odtiene
             { name: "Žltá", code: "#FFFF00" },
             { name: "Zlatá", code: "#FFD700" },
             { name: "Krémová", code: "#FFFDD0" },
             { name: "Béžová", code: "#F5F5DC" },
-            // Zelená odtiene
             { name: "Zelená", code: "#00FF00" },
             { name: "Tmavozelená", code: "#006400" },
             { name: "Olivová", code: "#808000" },
             { name: "Mätová", code: "#98FB98" },
             { name: "Tyrkysová", code: "#40E0D0" },
-            // Modrá odtiene
             { name: "Modrá", code: "#0000FF" },
             { name: "Tmavomodrá", code: "#00008B" },
             { name: "Námornícka modrá", code: "#000080" },
             { name: "Azúrová", code: "#007FFF" },
             { name: "Neónová modrá", code: "#1E90FF" },
-            // Indigová a fialová odtiene
             { name: "Indigo", code: "#4B0082" },
             { name: "Fialová", code: "#800080" },
             { name: "Levanduľová", code: "#E6E6FA" },
             { name: "Fuchsiová", code: "#FF00FF" },
             { name: "Ružová", code: "#FFC0CB" },
-            // Neutrálne farby
             { name: "Biela", code: "#FFFFFF" },
             { name: "Sivá", code: "#808080" },
             { name: "Čierna", code: "#000000" },
@@ -276,7 +356,6 @@
         // Premenné pre počítadlo REBOOT
         let rebootCounter = 0;
         
-        // Načítanie uloženého počítadla z localStorage
         function loadCounter() {
             const savedCounter = localStorage.getItem('rebootCounter');
             if (savedCounter !== null) {
@@ -285,30 +364,21 @@
             }
         }
         
-        // Uloženie počítadla do localStorage
         function saveCounter() {
             localStorage.setItem('rebootCounter', rebootCounter);
         }
         
-        // Aktualizácia zobrazenia počítadla
         function updateCounterDisplay() {
             document.getElementById('counterValue').textContent = rebootCounter;
         }
         
-        // Funkcia na REBOOT (inkrementácia počítadla)
         function reboot() {
             rebootCounter++;
-            
-            // Po hodnote 10 sa vynuluje
             if (rebootCounter >= 10) {
                 rebootCounter = 0;
             }
-            
             updateCounterDisplay();
             saveCounter();
-            
-            // Simulácia REBOOT - v reálnom prostredí by tu bola skutočná reboot funkcia
-            console.log(`REBOOT č. ${rebootCounter} - Systém sa reštartuje...`);
         }
 
         // Funkcia na aktualizáciu času
@@ -331,12 +401,75 @@
         }
 
         // Funkcia na zafarbenie plochy
+        let currentDrawColor = "#000000";
+        
         function setColor(colorCode) {
             const colorDisplay = document.getElementById('colorDisplay');
             colorDisplay.style.backgroundColor = colorCode;
+            currentDrawColor = colorCode;
         }
 
-        // Vytvorenie základných farieb
+        // Kresliace plátno
+        let canvas = document.getElementById('drawCanvas');
+        let ctx = canvas.getContext('2d');
+        let drawing = false;
+        
+        ctx.strokeStyle = currentDrawColor;
+        ctx.lineWidth = 5;
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
+        
+        function startDrawing(e) {
+            drawing = true;
+            draw(e);
+        }
+        
+        function stopDrawing() {
+            drawing = false;
+            ctx.beginPath();
+        }
+        
+        function draw(e) {
+            if (!drawing) return;
+            e.preventDefault();
+            
+            const rect = canvas.getBoundingClientRect();
+            const scaleX = canvas.width / rect.width;
+            const scaleY = canvas.height / rect.height;
+            
+            let x, y;
+            
+            if (e.touches) {
+                x = (e.touches[0].clientX - rect.left) * scaleX;
+                y = (e.touches[0].clientY - rect.top) * scaleY;
+            } else {
+                x = (e.clientX - rect.left) * scaleX;
+                y = (e.clientY - rect.top) * scaleY;
+            }
+            
+            if (x >= 0 && x <= canvas.width && y >= 0 && y <= canvas.height) {
+                ctx.strokeStyle = currentDrawColor;
+                ctx.lineTo(x, y);
+                ctx.stroke();
+                ctx.beginPath();
+                ctx.moveTo(x, y);
+            }
+        }
+        
+        function clearCanvas() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.beginPath();
+        }
+        
+        canvas.addEventListener('mousedown', startDrawing);
+        canvas.addEventListener('mouseup', stopDrawing);
+        canvas.addEventListener('mousemove', draw);
+        canvas.addEventListener('mouseleave', stopDrawing);
+        canvas.addEventListener('touchstart', startDrawing);
+        canvas.addEventListener('touchend', stopDrawing);
+        canvas.addEventListener('touchmove', draw);
+        canvas.addEventListener('touchcancel', stopDrawing);
+        
         function renderBasicColors() {
             const container = document.getElementById('basicColors');
             basicColors.forEach(color => {
@@ -349,7 +482,6 @@
             });
         }
 
-        // Vytvorenie rozšírených farieb (usporiadané podľa dúhy)
         function renderExtendedColors() {
             const container = document.getElementById('extendedColors');
             extendedColors.forEach(color => {
@@ -362,25 +494,18 @@
             });
         }
 
-        // Načítanie počítadla pri štarte
         loadCounter();
-        
-        // Inicializácia
         renderBasicColors();
         renderExtendedColors();
         
-        // Spustenie hodín (aktualizácia každú sekundu)
         updateClock();
         setInterval(updateClock, 1000);
         
-        // Event listener pre checkbox
         document.getElementById('hideSecondsCheckbox').addEventListener('change', updateClock);
-        
-        // Event listener pre REBOOT tlačidlo
         document.getElementById('rebootButton').addEventListener('click', reboot);
+        document.getElementById('clearCanvas').addEventListener('click', clearCanvas);
         
-        // Predvolená farba plochy
-        setColor("#FFFFFF");
+        setColor("#000000");
     </script>
 </body>
 </html>
