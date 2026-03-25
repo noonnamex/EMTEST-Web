@@ -18,11 +18,13 @@
             font-family: Arial, sans-serif;
             min-height: 100vh;
             padding: 20px;
+            overflow-x: hidden;
         }
 
         .main-container {
             max-width: 1800px;
             margin: 0 auto;
+            position: relative;
         }
 
         /* Horná lišta */
@@ -33,6 +35,8 @@
             margin-bottom: 40px;
             gap: 20px;
             flex-wrap: wrap;
+            position: relative;
+            z-index: 100;
         }
 
         /* Prvé okno - LEN ČAS (širšie) */
@@ -101,6 +105,8 @@
         /* Sekcia farieb */
         .colors-section {
             margin-top: 40px;
+            position: relative;
+            z-index: 100;
         }
 
         .section-title {
@@ -125,6 +131,8 @@
             transition: transform 0.2s ease, box-shadow 0.2s ease;
             border: 2px solid #ddd;
             touch-action: manipulation;
+            position: relative;
+            z-index: 101;
         }
 
         .color-square:active {
@@ -146,6 +154,8 @@
             transition: transform 0.2s ease, box-shadow 0.2s ease;
             border: 2px solid #ccc;
             touch-action: manipulation;
+            position: relative;
+            z-index: 101;
         }
 
         .extended-square:active {
@@ -165,6 +175,8 @@
             justify-content: center;
             gap: 40px;
             flex-wrap: wrap;
+            position: relative;
+            z-index: 100;
         }
 
         .reboot-button {
@@ -210,9 +222,11 @@
             text-align: center;
         }
 
-        /* Kresliace plátno */
+        /* Kresliace plátno - DÔLEŽITÉ: musí mať nižšie z-index */
         .draw-section {
             margin-top: 50px;
+            position: relative;
+            z-index: 1;
         }
 
         .draw-title {
@@ -222,17 +236,25 @@
             color: #333;
         }
 
+        .canvas-wrapper {
+            position: relative;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+
         canvas {
             border: 3px solid #333;
             border-radius: 15px;
             background-color: white;
             cursor: crosshair;
-            display: block;
-            margin: 0 auto;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            width: 100%;
-            height: auto;
             touch-action: none;
+            display: block;
+            max-width: 100%;
+            height: auto;
+            position: relative;
+            z-index: 1;
         }
         
         /* Štýl pre tlačidlo Clear */
@@ -254,6 +276,8 @@
             margin-left: auto;
             margin-right: auto;
             text-align: center;
+            position: relative;
+            z-index: 100;
         }
         
         .clear-button:active {
@@ -328,19 +352,16 @@
     <div class="main-container">
         <!-- Horná lišta s tromi oknami -->
         <div class="top-bar">
-            <!-- Prvé okno: LEN ČAS (širšie) -->
             <div class="clock-window">
                 <div class="clock" id="clock">--:--:--</div>
             </div>
 
-            <!-- Druhé okno: LEN CHECKBOX -->
             <div class="checkbox-window">
                 <div class="big-checkbox">
                     <input type="checkbox" id="hideSecondsCheckbox">
                 </div>
             </div>
 
-            <!-- Tretie okno: DLHÝ OBDĹŽNIK pre farbu -->
             <div class="color-window">
                 <div class="color-display" id="colorDisplay"></div>
             </div>
@@ -364,7 +385,9 @@
 
         <div class="draw-section">
             <div class="draw-title">Kresliace plátno</div>
-            <canvas id="drawCanvas"></canvas>
+            <div class="canvas-wrapper">
+                <canvas id="drawCanvas"></canvas>
+            </div>
         </div>
     </div>
 
@@ -471,22 +494,12 @@
         let ctx = canvas.getContext('2d');
         let drawing = false;
         
-        // Nastavenie canvasu na správnu veľkosť
         function resizeCanvas() {
-            // Získanie šírky rodičovského kontajnera
-            const container = canvas.parentElement;
-            const containerWidth = container.clientWidth - 40; // odpočet paddingov
-            
-            // Nastavenie logickej veľkosti canvasu (pre kreslenie)
-            // Používame pomer strán 16:10 pre lepšiu kompatibilitu
             canvas.width = 1600;
             canvas.height = 1000;
+            canvas.style.width = '100%';
+            canvas.style.height = 'auto';
             
-            // Nastavenie zobrazovacej veľkosti (prispôsobenie šírke)
-            canvas.style.width = containerWidth + 'px';
-            canvas.style.height = (containerWidth * 1000 / 1600) + 'px';
-            
-            // Obnovenie nastavení kreslenia po zmene veľkosti
             ctx.strokeStyle = currentDrawColor;
             ctx.lineWidth = 8;
             ctx.lineCap = 'round';
@@ -547,7 +560,6 @@
             ctx.beginPath();
         }
         
-        // Inicializácia canvasu
         resizeCanvas();
         window.addEventListener('resize', resizeCanvas);
         
@@ -609,7 +621,6 @@
         
         setColor("#000000");
         
-        // Pridanie tlačidla na vymazanie canvasu (väčšie)
         const clearButton = document.createElement('button');
         clearButton.textContent = 'VYMAZAŤ PLÁTNO';
         clearButton.className = 'clear-button';
