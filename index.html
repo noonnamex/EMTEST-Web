@@ -25,7 +25,7 @@
             margin: 0 auto;
         }
 
-        /* Horná lišta - 3 samostatné okná */
+        /* Horná lišta */
         .top-bar {
             display: flex;
             justify-content: space-between;
@@ -35,13 +35,13 @@
             flex-wrap: wrap;
         }
 
-        /* Prvé okno - LEN ČAS (veľké) */
+        /* Prvé okno - LEN ČAS (fixná šírka) */
         .clock-window {
             background-color: #f0f0f0;
             border-radius: 25px;
             box-shadow: 0 8px 20px rgba(0,0,0,0.15);
             padding: 30px 50px;
-            min-width: 550px;
+            width: 650px;
             border: 2px solid #ddd;
         }
 
@@ -55,7 +55,7 @@
             padding: 20px 30px;
             border-radius: 20px;
             text-align: center;
-            min-width: 450px;
+            width: 100%;
         }
 
         /* Druhé okno - checkbox */
@@ -67,7 +67,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            min-width: 200px;
+            width: 200px;
             border: 2px solid #ddd;
         }
 
@@ -78,18 +78,19 @@
             transform: scale(1.3);
         }
 
-        /* Tretie okno - dlhý obdĺžnik pre farbu */
+        /* Tretie okno - DLHÝ OBDĹŽNIK pre farbu (od checkboxu po pravý okraj) */
         .color-window {
             background-color: #f0f0f0;
             border-radius: 25px;
             box-shadow: 0 8px 20px rgba(0,0,0,0.15);
             padding: 20px 30px;
-            min-width: 350px;
+            flex: 1;
+            min-width: 400px;
             border: 2px solid #ddd;
         }
 
         .color-display {
-            width: 300px;
+            width: 100%;
             height: 140px;
             background-color: #000000;
             border: 4px solid #333;
@@ -226,8 +227,13 @@
         /* Kresliace plátno */
         .draw-section {
             margin-top: 60px;
-            padding: 0;
-            background-color: transparent;
+        }
+
+        .draw-title {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            color: #333;
         }
 
         canvas {
@@ -246,9 +252,9 @@
 </head>
 <body>
     <div class="main-container">
-        <!-- Horná lišta s tromi samostatnými oknami -->
+        <!-- Horná lišta s tromi oknami -->
         <div class="top-bar">
-            <!-- Prvé okno: LEN ČAS (veľké) -->
+            <!-- Prvé okno: LEN ČAS (fixná šírka) -->
             <div class="clock-window">
                 <div class="clock" id="clock">--:--:--</div>
             </div>
@@ -260,77 +266,78 @@
                 </div>
             </div>
 
-            <!-- Tretie okno: DLHÝ OBDĹŽNIK pre farbu -->
+            <!-- Tretie okno: DLHÝ OBDĹŽNIK pre farbu (roztiahne sa od checkboxu po pravý okraj) -->
             <div class="color-window">
                 <div class="color-display" id="colorDisplay"></div>
             </div>
         </div>
 
         <div class="colors-section">
-            <div class="section-title">Zakladne farby (epapier)</div>
+            <div class="section-title">Základné farby (epapier)</div>
             <div class="color-grid" id="basicColors"></div>
 
-            <div class="section-title">Rozsirene farby</div>
+            <div class="section-title">Rozšírené farby</div>
             <div class="extended-grid" id="extendedColors"></div>
         </div>
 
         <div class="reboot-section">
             <button class="reboot-button" id="rebootButton">REBOOT</button>
             <div class="counter-container">
-                <span class="counter-label">Pocet REBOOTOV:</span>
+                <span class="counter-label">Počet REBOOTOV:</span>
                 <span class="counter-value" id="counterValue">0</span>
             </div>
         </div>
 
         <div class="draw-section">
+            <div class="draw-title">Kresliace plátno</div>
             <canvas id="drawCanvas" width="1200" height="800"></canvas>
         </div>
     </div>
 
     <script>
         const basicColors = [
-            { name: "Cervena", code: "#FF0000" },
-            { name: "Zelena", code: "#00FF00" },
-            { name: "Modra", code: "#0000FF" },
-            { name: "Zlta", code: "#FFFF00" },
-            { name: "Oranzova", code: "#FFA500" },
-            { name: "Fialova", code: "#800080" },
-            { name: "Ruzova", code: "#FFC0CB" }
+            { name: "Červená", code: "#FF0000" },
+            { name: "Zelená", code: "#00FF00" },
+            { name: "Modrá", code: "#0000FF" },
+            { name: "Žltá", code: "#FFFF00" },
+            { name: "Oranžová", code: "#FFA500" },
+            { name: "Fialová", code: "#800080" },
+            { name: "Ružová", code: "#FFC0CB" }
         ];
 
         const extendedColors = [
-            { name: "Cervena", code: "#FF0000" },
-            { name: "Tmavocervena", code: "#8B0000" },
-            { name: "Vinova", code: "#800000" },
-            { name: "Koralova", code: "#FF7F50" },
-            { name: "Lososova", code: "#FA8072" },
-            { name: "Oranzova", code: "#FFA500" },
-            { name: "Oranzovocervena", code: "#FF4500" },
+            { name: "Červená", code: "#FF0000" },
+            { name: "Tmavočervená", code: "#8B0000" },
+            { name: "Vínová", code: "#800000" },
+            { name: "Koralová", code: "#FF7F50" },
+            { name: "Lososová", code: "#FA8072" },
+            { name: "Oranžová", code: "#FFA500" },
+            { name: "Oranžovočervená", code: "#FF4500" },
             { name: "Oker", code: "#CC7722" },
-            { name: "Jantarova", code: "#FFBF00" },
-            { name: "Zlta", code: "#FFFF00" },
-            { name: "Zlata", code: "#FFD700" },
-            { name: "Kremova", code: "#FFFDD0" },
-            { name: "Bezova", code: "#F5F5DC" },
-            { name: "Zelena", code: "#00FF00" },
-            { name: "Tmavozelena", code: "#006400" },
-            { name: "Olivova", code: "#808000" },
-            { name: "Matova", code: "#98FB98" },
-            { name: "Tyrkysova", code: "#40E0D0" },
-            { name: "Modra", code: "#0000FF" },
-            { name: "Tmavomodra", code: "#00008B" },
-            { name: "Namornicka modra", code: "#000080" },
-            { name: "Azurova", code: "#007FFF" },
-            { name: "Neonova modra", code: "#1E90FF" },
+            { name: "Jantárová", code: "#FFBF00" },
+            { name: "Žltá", code: "#FFFF00" },
+            { name: "Zlatá", code: "#FFD700" },
+            { name: "Krémová", code: "#FFFDD0" },
+            { name: "Béžová", code: "#F5F5DC" },
+            { name: "Zelená", code: "#00FF00" },
+            { name: "Tmavozelená", code: "#006400" },
+            { name: "Olivová", code: "#808000" },
+            { name: "Mätová", code: "#98FB98" },
+            { name: "Tyrkysová", code: "#40E0D0" },
+            { name: "Modrá", code: "#0000FF" },
+            { name: "Tmavomodrá", code: "#00008B" },
+            { name: "Námornícka modrá", code: "#000080" },
+            { name: "Azúrová", code: "#007FFF" },
+            { name: "Neónová modrá", code: "#1E90FF" },
             { name: "Indigo", code: "#4B0082" },
-            { name: "Fialova", code: "#800080" },
-            { name: "Levandulova", code: "#E6E6FA" },
-            { name: "Fuchsia", code: "#FF00FF" },
-            { name: "Ruzova", code: "#FFC0CB" },
+            { name: "Fialová", code: "#800080" },
+            { name: "Levanduľová", code: "#E6E6FA" },
+            { name: "Fuchsiová", code: "#FF00FF" },
+            { name: "Ružová", code: "#FFC0CB" },
             { name: "Biela", code: "#FFFFFF" },
-            { name: "Siva", code: "#808080" },
-            { name: "Cierna", code: "#000000" },
-            { name: "Hneda", code: "#A52A2A" }
+            { name: "Sivá", code: "#808080" },
+            { name: "Čierna", code: "#000000" },
+            { name: "Hnedá", code: "#A52A2A" }
         ];
 
         let rebootCounter = 0;
@@ -370,7 +377,8 @@
             
             let timeString;
             if (hideSeconds) {
-                timeString = hours + ":" + minutes;
+                // Zachováme fixnú šírku tým, že sekundy nahradíme medzerami
+                timeString = hours + ":" + minutes + "  ";
             } else {
                 timeString = hours + ":" + minutes + ":" + seconds;
             }
