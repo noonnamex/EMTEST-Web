@@ -19,12 +19,12 @@
             min-height: 100vh;
             padding: 20px;
             overflow-x: hidden;
+            touch-action: pan-y; /* Povolí vertikálne scrollovanie, ale nie horizontálne */
         }
 
         .main-container {
             max-width: 1800px;
             margin: 0 auto;
-            position: relative;
         }
 
         /* Horná lišta */
@@ -35,11 +35,9 @@
             margin-bottom: 40px;
             gap: 20px;
             flex-wrap: wrap;
-            position: relative;
-            z-index: 100;
         }
 
-        /* Prvé okno - LEN ČAS (širšie) */
+        /* Prvé okno - LEN ČAS */
         .clock-window {
             background-color: #f0f0f0;
             border-radius: 20px;
@@ -80,9 +78,10 @@
             height: 60px;
             cursor: pointer;
             transform: scale(1.2);
+            pointer-events: auto;
         }
 
-        /* Tretie okno - DLHÝ OBDĹŽNIK pre farbu */
+        /* Tretie okno - farba */
         .color-window {
             background-color: #f0f0f0;
             border-radius: 20px;
@@ -105,8 +104,6 @@
         /* Sekcia farieb */
         .colors-section {
             margin-top: 40px;
-            position: relative;
-            z-index: 100;
         }
 
         .section-title {
@@ -131,8 +128,6 @@
             transition: transform 0.2s ease, box-shadow 0.2s ease;
             border: 2px solid #ddd;
             touch-action: manipulation;
-            position: relative;
-            z-index: 101;
         }
 
         .color-square:active {
@@ -154,8 +149,6 @@
             transition: transform 0.2s ease, box-shadow 0.2s ease;
             border: 2px solid #ccc;
             touch-action: manipulation;
-            position: relative;
-            z-index: 101;
         }
 
         .extended-square:active {
@@ -175,8 +168,6 @@
             justify-content: center;
             gap: 40px;
             flex-wrap: wrap;
-            position: relative;
-            z-index: 100;
         }
 
         .reboot-button {
@@ -222,11 +213,9 @@
             text-align: center;
         }
 
-        /* Kresliace plátno - DÔLEŽITÉ: musí mať nižšie z-index */
+        /* Kresliace plátno */
         .draw-section {
             margin-top: 50px;
-            position: relative;
-            z-index: 1;
         }
 
         .draw-title {
@@ -241,6 +230,9 @@
             width: 100%;
             display: flex;
             justify-content: center;
+            background-color: #f5f5f5;
+            border-radius: 15px;
+            padding: 10px;
         }
 
         canvas {
@@ -248,16 +240,13 @@
             border-radius: 15px;
             background-color: white;
             cursor: crosshair;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            touch-action: none;
+            touch-action: none; /* NAJDÔLEŽITEJŠIE - zabraňuje scrollovaniu pri kreslení */
             display: block;
-            max-width: 100%;
+            width: 100%;
             height: auto;
-            position: relative;
-            z-index: 1;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
-        
-        /* Štýl pre tlačidlo Clear */
+
         .clear-button {
             margin-top: 20px;
             padding: 20px 40px;
@@ -276,92 +265,40 @@
             margin-left: auto;
             margin-right: auto;
             text-align: center;
-            position: relative;
-            z-index: 100;
         }
-        
+
         .clear-button:active {
             transform: scale(0.98);
             background-color: #555;
         }
-        
-        /* Responzívne úpravy pre menšie obrazovky */
+
+        /* Responzívne úpravy */
         @media (max-width: 1200px) {
-            body {
-                padding: 15px;
-            }
-            
-            .clock-window {
-                width: 100%;
-            }
-            
-            .clock {
-                font-size: 60px;
-            }
-            
-            .color-square {
-                width: 180px;
-                height: 180px;
-            }
-            
-            .extended-square {
-                width: 160px;
-                height: 160px;
-            }
-            
-            .reboot-button {
-                padding: 20px 40px;
-                font-size: 28px;
-            }
-            
-            .counter-value {
-                font-size: 48px;
-            }
-            
-            .clear-button {
-                padding: 15px 30px;
-                font-size: 24px;
-                max-width: 350px;
-            }
+            body { padding: 15px; }
+            .clock-window { width: 100%; }
+            .clock { font-size: 60px; }
+            .color-square { width: 180px; height: 180px; }
+            .extended-square { width: 160px; height: 160px; }
         }
-        
+
         @media (max-width: 768px) {
-            .color-square {
-                width: 150px;
-                height: 150px;
-            }
-            
-            .extended-square {
-                width: 130px;
-                height: 130px;
-            }
-            
-            .section-title {
-                font-size: 24px;
-            }
-            
-            .clear-button {
-                padding: 12px 25px;
-                font-size: 20px;
-                max-width: 300px;
-            }
+            .color-square { width: 150px; height: 150px; }
+            .extended-square { width: 130px; height: 130px; }
+            .section-title { font-size: 24px; }
         }
     </style>
 </head>
 <body>
     <div class="main-container">
-        <!-- Horná lišta s tromi oknami -->
         <div class="top-bar">
             <div class="clock-window">
                 <div class="clock" id="clock">--:--:--</div>
             </div>
-
             <div class="checkbox-window">
                 <div class="big-checkbox">
                     <input type="checkbox" id="hideSecondsCheckbox">
                 </div>
             </div>
-
             <div class="color-window">
                 <div class="color-display" id="colorDisplay"></div>
             </div>
@@ -370,7 +307,6 @@
         <div class="colors-section">
             <div class="section-title">Základné farby (epapier)</div>
             <div class="color-grid" id="basicColors"></div>
-
             <div class="section-title">Rozšírené farby</div>
             <div class="extended-grid" id="extendedColors"></div>
         </div>
@@ -386,8 +322,9 @@
         <div class="draw-section">
             <div class="draw-title">Kresliace plátno</div>
             <div class="canvas-wrapper">
-                <canvas id="drawCanvas"></canvas>
+                <canvas id="drawCanvas" width="1600" height="1000"></canvas>
             </div>
+            <button class="clear-button" id="clearCanvasBtn">🗑️ VYMAZAŤ PLÁTNO</button>
         </div>
     </div>
 
@@ -403,38 +340,22 @@
         ];
 
         const extendedColors = [
-            { name: "Červená", code: "#FF0000" },
-            { name: "Tmavočervená", code: "#8B0000" },
-            { name: "Vínová", code: "#800000" },
-            { name: "Koralová", code: "#FF7F50" },
-            { name: "Lososová", code: "#FA8072" },
-            { name: "Oranžová", code: "#FFA500" },
-            { name: "Oranžovočervená", code: "#FF4500" },
-            { name: "Oker", code: "#CC7722" },
-            { name: "Jantárová", code: "#FFBF00" },
-            { name: "Žltá", code: "#FFFF00" },
-            { name: "Zlatá", code: "#FFD700" },
-            { name: "Krémová", code: "#FFFDD0" },
-            { name: "Béžová", code: "#F5F5DC" },
-            { name: "Zelená", code: "#00FF00" },
-            { name: "Tmavozelená", code: "#006400" },
-            { name: "Olivová", code: "#808000" },
-            { name: "Mätová", code: "#98FB98" },
-            { name: "Tyrkysová", code: "#40E0D0" },
-            { name: "Modrá", code: "#0000FF" },
-            { name: "Tmavomodrá", code: "#00008B" },
-            { name: "Námornícka modrá", code: "#000080" },
-            { name: "Azúrová", code: "#007FFF" },
-            { name: "Neónová modrá", code: "#1E90FF" },
-            { name: "Indigo", code: "#4B0082" },
-            { name: "Fialová", code: "#800080" },
-            { name: "Levanduľová", code: "#E6E6FA" },
-            { name: "Fuchsiová", code: "#FF00FF" },
-            { name: "Ružová", code: "#FFC0CB" },
-            { name: "Biela", code: "#FFFFFF" },
-            { name: "Sivá", code: "#808080" },
-            { name: "Čierna", code: "#000000" },
-            { name: "Hnedá", code: "#A52A2A" }
+            { name: "Červená", code: "#FF0000" }, { name: "Tmavočervená", code: "#8B0000" },
+            { name: "Vínová", code: "#800000" }, { name: "Koralová", code: "#FF7F50" },
+            { name: "Lososová", code: "#FA8072" }, { name: "Oranžová", code: "#FFA500" },
+            { name: "Oranžovočervená", code: "#FF4500" }, { name: "Oker", code: "#CC7722" },
+            { name: "Jantárová", code: "#FFBF00" }, { name: "Žltá", code: "#FFFF00" },
+            { name: "Zlatá", code: "#FFD700" }, { name: "Krémová", code: "#FFFDD0" },
+            { name: "Béžová", code: "#F5F5DC" }, { name: "Zelená", code: "#00FF00" },
+            { name: "Tmavozelená", code: "#006400" }, { name: "Olivová", code: "#808000" },
+            { name: "Mätová", code: "#98FB98" }, { name: "Tyrkysová", code: "#40E0D0" },
+            { name: "Modrá", code: "#0000FF" }, { name: "Tmavomodrá", code: "#00008B" },
+            { name: "Námornícka modrá", code: "#000080" }, { name: "Azúrová", code: "#007FFF" },
+            { name: "Neónová modrá", code: "#1E90FF" }, { name: "Indigo", code: "#4B0082" },
+            { name: "Fialová", code: "#800080" }, { name: "Levanduľová", code: "#E6E6FA" },
+            { name: "Fuchsiová", code: "#FF00FF" }, { name: "Ružová", code: "#FFC0CB" },
+            { name: "Biela", code: "#FFFFFF" }, { name: "Sivá", code: "#808080" },
+            { name: "Čierna", code: "#000000" }, { name: "Hnedá", code: "#A52A2A" }
         ];
 
         let rebootCounter = 0;
@@ -469,24 +390,15 @@
             const hours = String(now.getHours()).padStart(2, '0');
             const minutes = String(now.getMinutes()).padStart(2, '0');
             const seconds = String(now.getSeconds()).padStart(2, '0');
-            
             const hideSeconds = document.getElementById('hideSecondsCheckbox').checked;
-            
-            let timeString;
-            if (hideSeconds) {
-                timeString = hours + ":" + minutes;
-            } else {
-                timeString = hours + ":" + minutes + ":" + seconds;
-            }
-            
+            let timeString = hideSeconds ? hours + ":" + minutes : hours + ":" + minutes + ":" + seconds;
             document.getElementById('clock').textContent = timeString;
         }
 
         let currentDrawColor = "#000000";
         
         function setColor(colorCode) {
-            const colorDisplay = document.getElementById('colorDisplay');
-            colorDisplay.style.backgroundColor = colorCode;
+            document.getElementById('colorDisplay').style.backgroundColor = colorCode;
             currentDrawColor = colorCode;
         }
 
@@ -494,17 +406,10 @@
         let ctx = canvas.getContext('2d');
         let drawing = false;
         
-        function resizeCanvas() {
-            canvas.width = 1600;
-            canvas.height = 1000;
-            canvas.style.width = '100%';
-            canvas.style.height = 'auto';
-            
-            ctx.strokeStyle = currentDrawColor;
-            ctx.lineWidth = 8;
-            ctx.lineCap = 'round';
-            ctx.lineJoin = 'round';
-        }
+        ctx.strokeStyle = currentDrawColor;
+        ctx.lineWidth = 10;
+        ctx.lineCap = 'round';
+        ctx.lineJoin = 'round';
         
         function getCanvasCoordinates(e) {
             const rect = canvas.getBoundingClientRect();
@@ -512,7 +417,6 @@
             const scaleY = canvas.height / rect.height;
             
             let clientX, clientY;
-            
             if (e.touches) {
                 clientX = e.touches[0].clientX;
                 clientY = e.touches[0].clientY;
@@ -523,10 +427,8 @@
             
             let x = (clientX - rect.left) * scaleX;
             let y = (clientY - rect.top) * scaleY;
-            
             x = Math.max(0, Math.min(canvas.width, x));
             y = Math.max(0, Math.min(canvas.height, y));
-            
             return { x, y };
         }
         
@@ -560,9 +462,6 @@
             ctx.beginPath();
         }
         
-        resizeCanvas();
-        window.addEventListener('resize', resizeCanvas);
-        
         canvas.addEventListener('mousedown', startDrawing);
         canvas.addEventListener('mousemove', draw);
         canvas.addEventListener('mouseup', stopDrawing);
@@ -581,10 +480,7 @@
                 square.style.backgroundColor = color.code;
                 square.title = color.name;
                 square.onclick = () => setColor(color.code);
-                square.ontouchstart = (e) => {
-                    e.preventDefault();
-                    setColor(color.code);
-                };
+                square.ontouchstart = (e) => { e.preventDefault(); setColor(color.code); };
                 container.appendChild(square);
             });
         }
@@ -597,10 +493,7 @@
                 square.style.backgroundColor = color.code;
                 square.title = color.name;
                 square.onclick = () => setColor(color.code);
-                square.ontouchstart = (e) => {
-                    e.preventDefault();
-                    setColor(color.code);
-                };
+                square.ontouchstart = (e) => { e.preventDefault(); setColor(color.code); };
                 container.appendChild(square);
             });
         }
@@ -614,22 +507,11 @@
         
         document.getElementById('hideSecondsCheckbox').addEventListener('change', updateClock);
         document.getElementById('rebootButton').addEventListener('click', reboot);
-        document.getElementById('rebootButton').addEventListener('touchstart', (e) => {
-            e.preventDefault();
-            reboot();
-        });
+        document.getElementById('rebootButton').addEventListener('touchstart', (e) => { e.preventDefault(); reboot(); });
+        document.getElementById('clearCanvasBtn').addEventListener('click', clearCanvas);
+        document.getElementById('clearCanvasBtn').addEventListener('touchstart', (e) => { e.preventDefault(); clearCanvas(); });
         
         setColor("#000000");
-        
-        const clearButton = document.createElement('button');
-        clearButton.textContent = 'VYMAZAŤ PLÁTNO';
-        clearButton.className = 'clear-button';
-        clearButton.onclick = clearCanvas;
-        clearButton.ontouchstart = (e) => {
-            e.preventDefault();
-            clearCanvas();
-        };
-        document.querySelector('.draw-section').appendChild(clearButton);
     </script>
 </body>
 </html>
