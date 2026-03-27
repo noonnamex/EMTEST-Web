@@ -18,16 +18,17 @@
             font-family: Arial, sans-serif;
             height: 100vh;
             overflow: hidden;
-            padding: 10px;
+            padding: 12px;
         }
 
         .main-container {
             height: 100%;
             display: flex;
             flex-direction: column;
-            max-width: 1800px;
+            max-width: 2000px;
             margin: 0 auto;
             position: relative;
+            gap: 8px;
         }
 
         /* Horná lišta */
@@ -35,8 +36,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 10px;
-            gap: 10px;
+            gap: 12px;
             flex-wrap: wrap;
             position: relative;
             z-index: 100;
@@ -45,66 +45,67 @@
 
         .clock-window {
             background-color: #f0f0f0;
-            border-radius: 12px;
+            border-radius: 16px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            padding: 8px 15px;
-            width: 320px;
+            padding: 10px 20px;
+            flex: 2;
+            min-width: 280px;
             border: 2px solid #ddd;
         }
 
         .clock {
-            font-size: 40px;
+            font-size: clamp(28px, 5vw, 70px);
             font-weight: bold;
             font-family: 'Courier New', monospace;
             letter-spacing: 2px;
             color: #333;
             background-color: #fff;
-            padding: 6px 10px;
-            border-radius: 10px;
+            padding: 8px 15px;
+            border-radius: 12px;
             text-align: center;
             width: 100%;
         }
 
         .checkbox-window {
             background-color: #f0f0f0;
-            border-radius: 12px;
+            border-radius: 16px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            padding: 8px 15px;
+            padding: 10px 20px;
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 100px;
+            flex: 0.5;
+            min-width: 90px;
             border: 2px solid #ddd;
         }
 
         .big-checkbox input {
-            width: 35px;
-            height: 35px;
+            width: clamp(30px, 4vw, 50px);
+            height: clamp(30px, 4vw, 50px);
             cursor: pointer;
         }
 
         .color-window {
             background-color: #f0f0f0;
-            border-radius: 12px;
+            border-radius: 16px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            padding: 8px 15px;
-            flex: 1;
-            min-width: 180px;
+            padding: 10px 20px;
+            flex: 3;
+            min-width: 220px;
             border: 2px solid #ddd;
         }
 
         .color-display {
             width: 100%;
-            height: 50px;
+            height: clamp(45px, 6vh, 80px);
             background-color: #000000;
             border: 2px solid #333;
-            border-radius: 10px;
+            border-radius: 12px;
             transition: background-color 0.2s ease;
         }
 
-        /* Sekcia farieb - scrollable area */
+        /* Sekcia farieb */
         .colors-section {
-            margin-top: 8px;
             position: relative;
             z-index: 100;
             flex: 1;
@@ -114,10 +115,10 @@
         }
 
         .section-title {
-            font-size: 16px;
+            font-size: clamp(14px, 2.5vw, 22px);
             font-weight: bold;
-            margin-bottom: 6px;
-            margin-top: 8px;
+            margin-bottom: 8px;
+            margin-top: 5px;
             color: #333;
         }
 
@@ -126,7 +127,7 @@
         }
 
         .color-row {
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             overflow-x: auto;
             overflow-y: hidden;
             white-space: nowrap;
@@ -135,9 +136,9 @@
         }
 
         .row-title {
-            font-size: 14px;
+            font-size: clamp(12px, 2vw, 18px);
             font-weight: bold;
-            margin-bottom: 4px;
+            margin-bottom: 6px;
             color: #555;
             padding-left: 5px;
         }
@@ -145,19 +146,19 @@
         .color-grid {
             display: inline-flex;
             flex-wrap: nowrap;
-            gap: 8px;
+            gap: 10px;
             padding-bottom: 5px;
+            width: 100%;
         }
 
         .color-square {
-            width: 55px;
-            height: 55px;
-            border-radius: 8px;
+            border-radius: 10px;
             cursor: pointer;
             transition: transform 0.15s ease;
-            border: 1px solid #ddd;
+            border: 1.5px solid #ddd;
             touch-action: manipulation;
             flex-shrink: 0;
+            aspect-ratio: 1 / 1;
         }
 
         .color-square:active {
@@ -166,16 +167,16 @@
 
         /* REBOOT sekcia */
         .reboot-section {
-            margin-top: 8px;
-            padding: 8px;
+            margin-top: 5px;
+            padding: 8px 12px;
             background-color: #f8f8f8;
-            border-radius: 12px;
+            border-radius: 14px;
             text-align: center;
             border: 1px solid #e0e0e0;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 15px;
+            gap: 20px;
             flex-wrap: wrap;
             position: relative;
             z-index: 100;
@@ -186,10 +187,10 @@
             background-color: #ff4444;
             color: white;
             border: none;
-            padding: 8px 20px;
-            font-size: 18px;
+            padding: 8px 25px;
+            font-size: clamp(16px, 2.5vw, 28px);
             font-weight: bold;
-            border-radius: 10px;
+            border-radius: 12px;
             cursor: pointer;
             transition: all 0.2s ease;
             touch-action: manipulation;
@@ -202,39 +203,39 @@
         .counter-container {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
             background-color: white;
-            padding: 6px 12px;
-            border-radius: 10px;
+            padding: 6px 15px;
+            border-radius: 12px;
         }
 
         .counter-label {
-            font-size: 14px;
+            font-size: clamp(12px, 2vw, 18px);
             font-weight: bold;
             color: #333;
         }
 
         .counter-value {
-            font-size: 24px;
+            font-size: clamp(20px, 3.5vw, 42px);
             font-weight: bold;
             color: #ff4444;
             font-family: 'Courier New', monospace;
-            min-width: 45px;
+            min-width: 50px;
             text-align: center;
         }
 
         /* Kresliace plátno */
         .draw-section {
-            margin-top: 8px;
             position: relative;
             z-index: 1;
             flex-shrink: 0;
+            margin-top: 5px;
         }
 
         .draw-title {
-            font-size: 16px;
+            font-size: clamp(14px, 2.2vw, 20px);
             font-weight: bold;
-            margin-bottom: 5px;
+            margin-bottom: 6px;
             color: #333;
         }
 
@@ -247,7 +248,7 @@
 
         canvas {
             border: 2px solid #333;
-            border-radius: 10px;
+            border-radius: 12px;
             background-color: white;
             cursor: crosshair;
             box-shadow: 0 1px 5px rgba(0,0,0,0.1);
@@ -255,25 +256,26 @@
             display: block;
             max-width: 100%;
             height: auto;
-            max-height: 180px;
-            width: auto;
+            width: 100%;
+            max-height: 220px;
         }
         
         .clear-button {
-            margin-top: 8px;
+            margin-top: 6px;
             padding: 8px 20px;
             background-color: #666;
             color: white;
             border: none;
-            border-radius: 10px;
-            font-size: 16px;
+            border-radius: 12px;
+            font-size: clamp(14px, 2vw, 20px);
             font-weight: bold;
             cursor: pointer;
             touch-action: manipulation;
             transition: all 0.2s ease;
             display: block;
-            width: 100%;
-            max-width: 200px;
+            width: auto;
+            min-width: 180px;
+            max-width: 250px;
             margin-left: auto;
             margin-right: auto;
             text-align: center;
@@ -286,34 +288,32 @@
         
         /* Scrollbar styling */
         .colors-section::-webkit-scrollbar {
-            width: 4px;
+            width: 5px;
         }
         
         .colors-section::-webkit-scrollbar-track {
             background: #f1f1f1;
-            border-radius: 2px;
+            border-radius: 3px;
         }
         
         .colors-section::-webkit-scrollbar-thumb {
             background: #888;
-            border-radius: 2px;
+            border-radius: 3px;
         }
         
         .color-row::-webkit-scrollbar {
-            height: 4px;
+            height: 5px;
         }
         
         .color-row::-webkit-scrollbar-track {
             background: #f1f1f1;
-            border-radius: 2px;
+            border-radius: 3px;
         }
         
         .color-row::-webkit-scrollbar-thumb {
             background: #888;
-            border-radius: 2px;
+            border-radius: 3px;
         }
-        
-        /* Dynamické veľkosti podľa výšky obrazovky - nastaví JavaScript */
     </style>
 </head>
 <body>
@@ -463,14 +463,14 @@
         
         function resizeCanvas() {
             const container = canvas.parentElement;
-            const containerWidth = container.clientWidth - 20;
-            canvas.width = 800;
-            canvas.height = 500;
+            const containerWidth = container.clientWidth;
+            canvas.width = 1200;
+            canvas.height = 700;
             canvas.style.width = containerWidth + 'px';
-            canvas.style.height = (containerWidth * 500 / 800) + 'px';
+            canvas.style.height = (containerWidth * 700 / 1200) + 'px';
             
             ctx.strokeStyle = currentDrawColor;
-            ctx.lineWidth = 5;
+            ctx.lineWidth = 6;
             ctx.lineCap = 'round';
             ctx.lineJoin = 'round';
         }
@@ -531,11 +531,13 @@
         
         function resizeSquares() {
             const section = document.getElementById('colorsSection');
+            if (!section) return;
+            
             const sectionHeight = section.clientHeight;
             const totalRows = 1 + colorRows.length;
-            const availableHeight = sectionHeight - 60;
-            const rowHeight = availableHeight / totalRows;
-            let squareSize = Math.min(70, Math.max(40, rowHeight - 20));
+            const rowTitleHeight = 28;
+            const availableHeight = sectionHeight - (rowTitleHeight * totalRows) - 20;
+            const squareSize = Math.max(45, Math.min(95, availableHeight / totalRows));
             
             const squares = document.querySelectorAll('.color-square');
             squares.forEach(square => {
@@ -630,7 +632,11 @@
         
         setColor("#000000");
         
-        new ResizeObserver(() => resizeSquares()).observe(document.getElementById('colorsSection'));
+        const observer = new ResizeObserver(() => resizeSquares());
+        const colorsSection = document.getElementById('colorsSection');
+        if (colorsSection) {
+            observer.observe(colorsSection);
+        }
     </script>
 </body>
 </html>
