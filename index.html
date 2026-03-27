@@ -16,15 +16,12 @@
         body {
             background-color: white;
             font-family: Arial, sans-serif;
-            height: 100vh;
-            overflow: hidden;
-            padding: 10px;
+            min-height: 100vh;
+            padding: 20px;
+            overflow-x: hidden;
         }
 
         .main-container {
-            height: 100%;
-            display: flex;
-            flex-direction: column;
             max-width: 1800px;
             margin: 0 auto;
             position: relative;
@@ -35,129 +32,116 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 10px;
-            gap: 10px;
+            margin-bottom: 40px;
+            gap: 20px;
             flex-wrap: wrap;
             position: relative;
             z-index: 100;
-            flex-shrink: 0;
         }
 
         .clock-window {
             background-color: #f0f0f0;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            padding: 8px 15px;
-            width: 320px;
+            border-radius: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            padding: 20px 30px;
+            width: 600px;
             border: 2px solid #ddd;
         }
 
         .clock {
-            font-size: 40px;
+            font-size: 80px;
             font-weight: bold;
             font-family: 'Courier New', monospace;
-            letter-spacing: 2px;
+            letter-spacing: 5px;
             color: #333;
             background-color: #fff;
-            padding: 6px 10px;
-            border-radius: 10px;
+            padding: 15px 20px;
+            border-radius: 15px;
             text-align: center;
             width: 100%;
         }
 
         .checkbox-window {
             background-color: #f0f0f0;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            padding: 8px 15px;
+            border-radius: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            padding: 20px 30px;
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 100px;
+            width: 150px;
             border: 2px solid #ddd;
         }
 
         .big-checkbox input {
-            width: 35px;
-            height: 35px;
+            width: 60px;
+            height: 60px;
             cursor: pointer;
+            transform: scale(1.2);
         }
 
         .color-window {
             background-color: #f0f0f0;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            padding: 8px 15px;
+            border-radius: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            padding: 15px 25px;
             flex: 1;
-            min-width: 180px;
+            min-width: 300px;
             border: 2px solid #ddd;
         }
 
         .color-display {
             width: 100%;
-            height: 50px;
+            height: 100px;
             background-color: #000000;
-            border: 2px solid #333;
-            border-radius: 10px;
+            border: 3px solid #333;
+            border-radius: 15px;
             transition: background-color 0.2s ease;
         }
 
-        /* Sekcia farieb - scrollable area */
+        /* Sekcia farieb */
         .colors-section {
-            margin-top: 8px;
+            margin-top: 40px;
             position: relative;
             z-index: 100;
-            flex: 1;
-            overflow-y: auto;
-            min-height: 0;
-            padding-right: 5px;
         }
 
         .section-title {
-            font-size: 16px;
+            font-size: 28px;
             font-weight: bold;
-            margin-bottom: 6px;
-            margin-top: 8px;
+            margin-bottom: 25px;
             color: #333;
         }
 
-        .section-title:first-of-type {
-            margin-top: 0;
-        }
-
         .color-row {
-            margin-bottom: 10px;
-            overflow-x: auto;
-            overflow-y: hidden;
-            white-space: nowrap;
-            -webkit-overflow-scrolling: touch;
-            scrollbar-width: thin;
+            margin-bottom: 40px;
         }
 
         .row-title {
-            font-size: 14px;
+            font-size: 24px;
             font-weight: bold;
-            margin-bottom: 4px;
+            margin-bottom: 15px;
             color: #555;
-            padding-left: 5px;
+            padding-left: 10px;
         }
 
         .color-grid {
-            display: inline-flex;
-            flex-wrap: nowrap;
-            gap: 8px;
-            padding-bottom: 5px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 20px;
         }
 
         .color-square {
-            width: 55px;
-            height: 55px;
-            border-radius: 8px;
+            width: 140px;
+            height: 140px;
+            border-radius: 12px;
             cursor: pointer;
-            transition: transform 0.15s ease;
-            border: 1px solid #ddd;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            border: 2px solid #ddd;
             touch-action: manipulation;
-            flex-shrink: 0;
+            position: relative;
+            z-index: 101;
         }
 
         .color-square:active {
@@ -166,32 +150,32 @@
 
         /* REBOOT sekcia */
         .reboot-section {
-            margin-top: 8px;
-            padding: 8px;
+            margin-top: 50px;
+            padding: 25px;
             background-color: #f8f8f8;
-            border-radius: 12px;
+            border-radius: 25px;
             text-align: center;
-            border: 1px solid #e0e0e0;
+            border: 2px solid #e0e0e0;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 15px;
+            gap: 40px;
             flex-wrap: wrap;
             position: relative;
             z-index: 100;
-            flex-shrink: 0;
         }
 
         .reboot-button {
             background-color: #ff4444;
             color: white;
             border: none;
-            padding: 8px 20px;
-            font-size: 18px;
+            padding: 25px 50px;
+            font-size: 32px;
             font-weight: bold;
-            border-radius: 10px;
+            border-radius: 20px;
             cursor: pointer;
-            transition: all 0.2s ease;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
             touch-action: manipulation;
         }
 
@@ -202,39 +186,39 @@
         .counter-container {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
+            gap: 20px;
             background-color: white;
-            padding: 6px 12px;
-            border-radius: 10px;
+            padding: 20px 30px;
+            border-radius: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
 
         .counter-label {
-            font-size: 14px;
+            font-size: 24px;
             font-weight: bold;
             color: #333;
         }
 
         .counter-value {
-            font-size: 24px;
+            font-size: 56px;
             font-weight: bold;
             color: #ff4444;
             font-family: 'Courier New', monospace;
-            min-width: 45px;
+            min-width: 100px;
             text-align: center;
         }
 
         /* Kresliace plátno */
         .draw-section {
-            margin-top: 8px;
+            margin-top: 50px;
             position: relative;
             z-index: 1;
-            flex-shrink: 0;
         }
 
         .draw-title {
-            font-size: 16px;
+            font-size: 28px;
             font-weight: bold;
-            margin-bottom: 5px;
+            margin-bottom: 25px;
             color: #333;
         }
 
@@ -246,37 +230,39 @@
         }
 
         canvas {
-            border: 2px solid #333;
-            border-radius: 10px;
+            border: 3px solid #333;
+            border-radius: 15px;
             background-color: white;
             cursor: crosshair;
-            box-shadow: 0 1px 5px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             touch-action: none;
             display: block;
             max-width: 100%;
             height: auto;
-            max-height: 180px;
-            width: auto;
+            position: relative;
+            z-index: 1;
         }
         
         .clear-button {
-            margin-top: 8px;
-            padding: 8px 20px;
+            margin-top: 20px;
+            padding: 20px 40px;
             background-color: #666;
             color: white;
             border: none;
-            border-radius: 10px;
-            font-size: 16px;
+            border-radius: 15px;
+            font-size: 28px;
             font-weight: bold;
             cursor: pointer;
             touch-action: manipulation;
-            transition: all 0.2s ease;
+            transition: all 0.3s ease;
             display: block;
             width: 100%;
-            max-width: 200px;
+            max-width: 400px;
             margin-left: auto;
             margin-right: auto;
             text-align: center;
+            position: relative;
+            z-index: 100;
         }
         
         .clear-button:active {
@@ -284,36 +270,56 @@
             background-color: #555;
         }
         
-        /* Scrollbar styling */
-        .colors-section::-webkit-scrollbar {
-            width: 4px;
+        @media (max-width: 1200px) {
+            body {
+                padding: 15px;
+            }
+            
+            .clock-window {
+                width: 100%;
+            }
+            
+            .clock {
+                font-size: 60px;
+            }
+            
+            .color-square {
+                width: 120px;
+                height: 120px;
+            }
+            
+            .reboot-button {
+                padding: 20px 40px;
+                font-size: 28px;
+            }
+            
+            .counter-value {
+                font-size: 48px;
+            }
+            
+            .clear-button {
+                padding: 15px 30px;
+                font-size: 24px;
+                max-width: 350px;
+            }
         }
         
-        .colors-section::-webkit-scrollbar-track {
-            background: #f1f1f1;
-            border-radius: 2px;
+        @media (max-width: 768px) {
+            .color-square {
+                width: 100px;
+                height: 100px;
+            }
+            
+            .section-title {
+                font-size: 24px;
+            }
+            
+            .clear-button {
+                padding: 12px 25px;
+                font-size: 20px;
+                max-width: 300px;
+            }
         }
-        
-        .colors-section::-webkit-scrollbar-thumb {
-            background: #888;
-            border-radius: 2px;
-        }
-        
-        .color-row::-webkit-scrollbar {
-            height: 4px;
-        }
-        
-        .color-row::-webkit-scrollbar-track {
-            background: #f1f1f1;
-            border-radius: 2px;
-        }
-        
-        .color-row::-webkit-scrollbar-thumb {
-            background: #888;
-            border-radius: 2px;
-        }
-        
-        /* Dynamické veľkosti podľa výšky obrazovky - nastaví JavaScript */
     </style>
 </head>
 <body>
@@ -334,11 +340,9 @@
             </div>
         </div>
 
-        <div class="colors-section" id="colorsSection">
+        <div class="colors-section">
             <div class="section-title">Základné farby E-papiera</div>
-            <div class="color-row">
-                <div class="color-grid" id="basicColors"></div>
-            </div>
+            <div class="color-grid" id="basicColors"></div>
 
             <div class="section-title">Odtiene farieb</div>
             <div id="colorRows"></div>
@@ -357,7 +361,6 @@
             <div class="canvas-wrapper">
                 <canvas id="drawCanvas"></canvas>
             </div>
-            <button class="clear-button" id="clearButton">VYMAZAŤ PLÁTNO</button>
         </div>
     </div>
 
@@ -376,31 +379,45 @@
         const colorRows = [
             {
                 name: "Červená",
-                shades: ["#4D0000", "#660000", "#800000", "#990000", "#B30000", "#CC0000", "#E60000", "#FF0000", "#FF3333", "#FF6666", "#FF9999", "#FFCCCC"]
+                shades: [
+                    "#4D0000", "#660000", "#800000", "#990000", "#B30000", "#CC0000", "#E60000", "#FF0000", "#FF3333", "#FF6666", "#FF9999", "#FFCCCC"
+                ]
             },
             {
                 name: "Oranžová",
-                shades: ["#4D2A00", "#663800", "#804600", "#995400", "#B36200", "#CC7000", "#E67E00", "#FF8C00", "#FFA033", "#FFB466", "#FFC899", "#FFDCCC"]
+                shades: [
+                    "#4D2A00", "#663800", "#804600", "#995400", "#B36200", "#CC7000", "#E67E00", "#FF8C00", "#FFA033", "#FFB466", "#FFC899", "#FFDCCC"
+                ]
             },
             {
                 name: "Žltá",
-                shades: ["#4D4D00", "#666600", "#808000", "#999900", "#B3B300", "#CCCC00", "#E6E600", "#FFFF00", "#FFFF33", "#FFFF66", "#FFFF99", "#FFFFCC"]
+                shades: [
+                    "#4D4D00", "#666600", "#808000", "#999900", "#B3B300", "#CCCC00", "#E6E600", "#FFFF00", "#FFFF33", "#FFFF66", "#FFFF99", "#FFFFCC"
+                ]
             },
             {
                 name: "Zelená",
-                shades: ["#004D00", "#006600", "#008000", "#009900", "#00B300", "#00CC00", "#00E600", "#00FF00", "#33FF33", "#66FF66", "#99FF99", "#CCFFCC"]
+                shades: [
+                    "#004D00", "#006600", "#008000", "#009900", "#00B300", "#00CC00", "#00E600", "#00FF00", "#33FF33", "#66FF66", "#99FF99", "#CCFFCC"
+                ]
             },
             {
                 name: "Modrá",
-                shades: ["#00004D", "#000066", "#000080", "#000099", "#0000B3", "#0000CC", "#0000E6", "#0000FF", "#3333FF", "#6666FF", "#9999FF", "#CCCCFF"]
+                shades: [
+                    "#00004D", "#000066", "#000080", "#000099", "#0000B3", "#0000CC", "#0000E6", "#0000FF", "#3333FF", "#6666FF", "#9999FF", "#CCCCFF"
+                ]
             },
             {
                 name: "Fialová",
-                shades: ["#2E004D", "#3D0066", "#4D0080", "#5C0099", "#6B00B3", "#7A00CC", "#8A00E6", "#9900FF", "#AD33FF", "#C266FF", "#D699FF", "#EBCCFF"]
+                shades: [
+                    "#2E004D", "#3D0066", "#4D0080", "#5C0099", "#6B00B3", "#7A00CC", "#8A00E6", "#9900FF", "#AD33FF", "#C266FF", "#D699FF", "#EBCCFF"
+                ]
             },
             {
                 name: "Čierna",
-                shades: ["#000000", "#1A1A1A", "#333333", "#4D4D4D", "#666666", "#808080", "#999999", "#B3B3B3", "#CCCCCC", "#E6E6E6"]
+                shades: [
+                    "#000000", "#1A1A1A", "#333333", "#4D4D4D", "#666666", "#808080", "#999999", "#B3B3B3", "#CCCCCC", "#E6E6E6"
+                ]
             }
         ];
 
@@ -463,14 +480,14 @@
         
         function resizeCanvas() {
             const container = canvas.parentElement;
-            const containerWidth = container.clientWidth - 20;
-            canvas.width = 800;
-            canvas.height = 500;
+            const containerWidth = container.clientWidth - 40;
+            canvas.width = 1600;
+            canvas.height = 1000;
             canvas.style.width = containerWidth + 'px';
-            canvas.style.height = (containerWidth * 500 / 800) + 'px';
+            canvas.style.height = (containerWidth * 1000 / 1600) + 'px';
             
             ctx.strokeStyle = currentDrawColor;
-            ctx.lineWidth = 5;
+            ctx.lineWidth = 8;
             ctx.lineCap = 'round';
             ctx.lineJoin = 'round';
         }
@@ -529,26 +546,8 @@
             ctx.beginPath();
         }
         
-        function resizeSquares() {
-            const section = document.getElementById('colorsSection');
-            const sectionHeight = section.clientHeight;
-            const totalRows = 1 + colorRows.length;
-            const availableHeight = sectionHeight - 60;
-            const rowHeight = availableHeight / totalRows;
-            let squareSize = Math.min(70, Math.max(40, rowHeight - 20));
-            
-            const squares = document.querySelectorAll('.color-square');
-            squares.forEach(square => {
-                square.style.width = squareSize + 'px';
-                square.style.height = squareSize + 'px';
-            });
-        }
-        
         resizeCanvas();
-        window.addEventListener('resize', () => {
-            resizeCanvas();
-            setTimeout(resizeSquares, 100);
-        });
+        window.addEventListener('resize', resizeCanvas);
         
         canvas.addEventListener('mousedown', startDrawing);
         canvas.addEventListener('mousemove', draw);
@@ -606,7 +605,6 @@
                 rowDiv.appendChild(grid);
                 container.appendChild(rowDiv);
             });
-            setTimeout(resizeSquares, 50);
         }
 
         loadCounter();
@@ -622,15 +620,18 @@
             e.preventDefault();
             reboot();
         });
-        document.getElementById('clearButton').addEventListener('click', clearCanvas);
-        document.getElementById('clearButton').addEventListener('touchstart', (e) => {
-            e.preventDefault();
-            clearCanvas();
-        });
         
         setColor("#000000");
         
-        new ResizeObserver(() => resizeSquares()).observe(document.getElementById('colorsSection'));
+        const clearButton = document.createElement('button');
+        clearButton.textContent = 'VYMAZAŤ PLÁTNO';
+        clearButton.className = 'clear-button';
+        clearButton.onclick = clearCanvas;
+        clearButton.ontouchstart = (e) => {
+            e.preventDefault();
+            clearCanvas();
+        };
+        document.querySelector('.draw-section').appendChild(clearButton);
     </script>
 </body>
 </html>
