@@ -104,7 +104,7 @@
             transition: background-color 0.2s ease;
         }
 
-        /* Sekcia farieb - scrollable */
+        /* Sekcia farieb */
         .colors-section {
             position: relative;
             z-index: 100;
@@ -117,8 +117,8 @@
         .section-title {
             font-size: clamp(11px, 2vw, 16px);
             font-weight: bold;
-            margin-bottom: 4px;
-            margin-top: 3px;
+            margin-bottom: 8px;
+            margin-top: 5px;
             color: #333;
         }
 
@@ -127,7 +127,7 @@
         }
 
         .color-row {
-            margin-bottom: 5px;
+            margin-bottom: 15px;
             overflow-x: auto;
             overflow-y: hidden;
             -webkit-overflow-scrolling: touch;
@@ -137,7 +137,7 @@
         .row-title {
             font-size: clamp(10px, 1.6vw, 14px);
             font-weight: bold;
-            margin-bottom: 2px;
+            margin-bottom: 5px;
             color: #555;
             padding-left: 3px;
         }
@@ -145,35 +145,41 @@
         .color-grid {
             display: flex;
             flex-wrap: nowrap;
-            gap: 5px;
-            padding-bottom: 3px;
+            gap: 8px;
+            padding-bottom: 5px;
             width: 100%;
         }
 
-        .color-square {
-            border-radius: 6px;
+        .basic-color-square {
+            width: 200px;
+            height: 200px;
+            border-radius: 12px;
             cursor: pointer;
             transition: transform 0.1s ease;
-            border: 1px solid #ccc;
+            border: 2px solid #ccc;
             touch-action: manipulation;
             flex-shrink: 0;
         }
 
-        /* Špeciálna trieda pre základné farby - 2x väčšie */
-        .basic-color-square {
-            width: 90px;
-            height: 90px;
+        .shade-color-square {
+            width: 180px;
+            height: 180px;
             border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.1s ease;
+            border: 1.5px solid #ccc;
+            touch-action: manipulation;
+            flex-shrink: 0;
         }
 
-        .color-square:active {
+        .basic-color-square:active, .shade-color-square:active {
             transform: scale(0.96);
         }
 
         /* REBOOT sekcia */
         .reboot-section {
-            margin-top: 2px;
-            padding: 6px 10px;
+            margin-top: 5px;
+            padding: 8px 12px;
             background-color: #f8f8f8;
             border-radius: 12px;
             text-align: center;
@@ -192,8 +198,8 @@
             background-color: #ff4444;
             color: white;
             border: none;
-            padding: 10px 28px;
-            font-size: clamp(16px, 2.5vw, 24px);
+            padding: 12px 32px;
+            font-size: clamp(18px, 3vw, 28px);
             font-weight: bold;
             border-radius: 12px;
             cursor: pointer;
@@ -210,22 +216,22 @@
             align-items: center;
             gap: 8px;
             background-color: white;
-            padding: 5px 15px;
+            padding: 6px 15px;
             border-radius: 10px;
         }
 
         .counter-label {
-            font-size: clamp(11px, 1.8vw, 16px);
+            font-size: clamp(12px, 1.8vw, 16px);
             font-weight: bold;
             color: #333;
         }
 
         .counter-value {
-            font-size: clamp(18px, 3vw, 32px);
+            font-size: clamp(20px, 3vw, 36px);
             font-weight: bold;
             color: #ff4444;
             font-family: 'Courier New', monospace;
-            min-width: 40px;
+            min-width: 45px;
             text-align: center;
         }
 
@@ -234,14 +240,14 @@
             position: relative;
             z-index: 1;
             flex-shrink: 0;
-            margin-top: 2px;
+            margin-top: 5px;
             width: 100%;
         }
 
         .draw-title {
-            font-size: clamp(11px, 1.8vw, 16px);
+            font-size: clamp(12px, 1.8vw, 16px);
             font-weight: bold;
-            margin-bottom: 2px;
+            margin-bottom: 4px;
             color: #333;
         }
 
@@ -262,25 +268,25 @@
             display: block;
             width: 100%;
             height: auto;
-            max-height: 130px;
+            max-height: 150px;
         }
         
         .clear-button {
-            margin-top: 4px;
-            padding: 8px 24px;
+            margin-top: 5px;
+            padding: 10px 28px;
             background-color: #666;
             color: white;
             border: none;
             border-radius: 10px;
-            font-size: clamp(14px, 2vw, 20px);
+            font-size: clamp(16px, 2vw, 22px);
             font-weight: bold;
             cursor: pointer;
             touch-action: manipulation;
             transition: all 0.2s ease;
             display: block;
             width: auto;
-            min-width: 160px;
-            max-width: 220px;
+            min-width: 180px;
+            max-width: 250px;
             margin-left: auto;
             margin-right: auto;
             text-align: center;
@@ -293,7 +299,7 @@
         
         /* Scrollbar styling */
         .colors-section::-webkit-scrollbar {
-            width: 3px;
+            width: 4px;
         }
         
         .colors-section::-webkit-scrollbar-track {
@@ -307,7 +313,7 @@
         }
         
         .color-row::-webkit-scrollbar {
-            height: 3px;
+            height: 5px;
         }
         
         .color-row::-webkit-scrollbar-track {
@@ -321,24 +327,47 @@
         }
         
         /* Responzívne pre menšie obrazovky */
+        @media (max-width: 1000px) {
+            .basic-color-square {
+                width: 160px;
+                height: 160px;
+            }
+            .shade-color-square {
+                width: 140px;
+                height: 140px;
+            }
+        }
+        
         @media (max-width: 800px) {
             .basic-color-square {
-                width: 70px;
-                height: 70px;
+                width: 130px;
+                height: 130px;
+            }
+            .shade-color-square {
+                width: 110px;
+                height: 110px;
             }
         }
         
         @media (max-width: 600px) {
             .basic-color-square {
-                width: 60px;
-                height: 60px;
+                width: 100px;
+                height: 100px;
+            }
+            .shade-color-square {
+                width: 85px;
+                height: 85px;
             }
         }
         
         @media (max-width: 480px) {
             .basic-color-square {
-                width: 50px;
-                height: 50px;
+                width: 80px;
+                height: 80px;
+            }
+            .shade-color-square {
+                width: 70px;
+                height: 70px;
             }
         }
     </style>
@@ -556,23 +585,9 @@
             ctx.beginPath();
         }
         
-        function resizeSquares() {
-            const containerWidth = document.querySelector('.main-container').clientWidth;
-            const squaresInRow = 12;
-            const gap = 5;
-            const squareSize = Math.max(35, Math.min(55, (containerWidth - (gap * (squaresInRow - 1))) / squaresInRow));
-            
-            const shadeSquares = document.querySelectorAll('#colorRows .color-square');
-            shadeSquares.forEach(square => {
-                square.style.width = squareSize + 'px';
-                square.style.height = squareSize + 'px';
-            });
-        }
-        
         resizeCanvas();
         window.addEventListener('resize', () => {
             resizeCanvas();
-            setTimeout(resizeSquares, 50);
         });
         
         canvas.addEventListener('mousedown', startDrawing);
@@ -589,7 +604,7 @@
             const container = document.getElementById('basicColors');
             basicColors.forEach(color => {
                 const square = document.createElement('div');
-                square.className = 'color-square basic-color-square';
+                square.className = 'basic-color-square';
                 square.style.backgroundColor = color.code;
                 square.title = color.name;
                 square.onclick = () => setColor(color.code);
@@ -617,7 +632,7 @@
                 
                 row.shades.forEach(shade => {
                     const square = document.createElement('div');
-                    square.className = 'color-square';
+                    square.className = 'shade-color-square';
                     square.style.backgroundColor = shade;
                     square.title = shade;
                     square.onclick = () => setColor(shade);
@@ -631,7 +646,6 @@
                 rowDiv.appendChild(grid);
                 container.appendChild(rowDiv);
             });
-            setTimeout(resizeSquares, 50);
         }
 
         loadCounter();
@@ -654,10 +668,6 @@
         });
         
         setColor("#000000");
-        
-        const observer = new ResizeObserver(() => resizeSquares());
-        observer.observe(document.querySelector('.main-container'));
-        setTimeout(resizeSquares, 100);
     </script>
 </body>
 </html>
