@@ -347,11 +347,11 @@
         </div>
 
         <div class="colors-section">
-            <div class="section-title">Základné farby (epapier)</div>
+            <div class="section-title">Základné farby E-papiera</div>
             <div class="color-grid" id="basicColors"></div>
 
-            <div class="section-title">Rozšírené farby</div>
-            <div class="extended-grid" id="extendedColors"></div>
+            <div class="section-title">Odtiene farieb</div>
+            <div id="colorRows"></div>
         </div>
 
         <div class="reboot-section">
@@ -370,48 +370,45 @@
 
     <script>
         const basicColors = [
-            { name: "Červená", code: "#FF0000" },
-            { name: "Zelená", code: "#00FF00" },
-            { name: "Modrá", code: "#0000FF" },
-            { name: "Žltá", code: "#FFFF00" },
-            { name: "Oranžová", code: "#FFA500" },
-            { name: "Fialová", code: "#800080" },
-            { name: "Ružová", code: "#FFC0CB" }
+            { name: "Red", code: "#FF0000" },
+            { name: "Green", code: "#00FF00" },
+            { name: "Blue", code: "#0000FF" },
+            { name: "Cyan", code: "#00FFFF" },
+            { name: "Magenta", code: "#FF00FF" },
+            { name: "Yellow", code: "#FFFF00" },
+            { name: "White", code: "#FFFFFF" },
+            { name: "Black", code: "#000000" }
         ];
 
-        const extendedColors = [
-            { name: "Červená", code: "#FF0000" },
-            { name: "Tmavočervená", code: "#8B0000" },
-            { name: "Vínová", code: "#800000" },
-            { name: "Koralová", code: "#FF7F50" },
-            { name: "Lososová", code: "#FA8072" },
-            { name: "Oranžová", code: "#FFA500" },
-            { name: "Oranžovočervená", code: "#FF4500" },
-            { name: "Oker", code: "#CC7722" },
-            { name: "Jantárová", code: "#FFBF00" },
-            { name: "Žltá", code: "#FFFF00" },
-            { name: "Zlatá", code: "#FFD700" },
-            { name: "Krémová", code: "#FFFDD0" },
-            { name: "Béžová", code: "#F5F5DC" },
-            { name: "Zelená", code: "#00FF00" },
-            { name: "Tmavozelená", code: "#006400" },
-            { name: "Olivová", code: "#808000" },
-            { name: "Mätová", code: "#98FB98" },
-            { name: "Tyrkysová", code: "#40E0D0" },
-            { name: "Modrá", code: "#0000FF" },
-            { name: "Tmavomodrá", code: "#00008B" },
-            { name: "Námornícka modrá", code: "#000080" },
-            { name: "Azúrová", code: "#007FFF" },
-            { name: "Neónová modrá", code: "#1E90FF" },
-            { name: "Indigo", code: "#4B0082" },
-            { name: "Fialová", code: "#800080" },
-            { name: "Levanduľová", code: "#E6E6FA" },
-            { name: "Fuchsiová", code: "#FF00FF" },
-            { name: "Ružová", code: "#FFC0CB" },
-            { name: "Biela", code: "#FFFFFF" },
-            { name: "Sivá", code: "#808080" },
-            { name: "Čierna", code: "#000000" },
-            { name: "Hnedá", code: "#A52A2A" }
+        const colorRows = [
+            {
+                name: "Červená",
+                shades: ["#4D0000", "#660000", "#800000", "#990000", "#B30000", "#CC0000", "#E60000", "#FF0000", "#FF3333", "#FF6666", "#FF9999", "#FFCCCC"]
+            },
+            {
+                name: "Oranžová",
+                shades: ["#4D2A00", "#663800", "#804600", "#995400", "#B36200", "#CC7000", "#E67E00", "#FF8C00", "#FFA033", "#FFB466", "#FFC899", "#FFDCCC"]
+            },
+            {
+                name: "Žltá",
+                shades: ["#4D4D00", "#666600", "#808000", "#999900", "#B3B300", "#CCCC00", "#E6E600", "#FFFF00", "#FFFF33", "#FFFF66", "#FFFF99", "#FFFFCC"]
+            },
+            {
+                name: "Zelená",
+                shades: ["#004D00", "#006600", "#008000", "#009900", "#00B300", "#00CC00", "#00E600", "#00FF00", "#33FF33", "#66FF66", "#99FF99", "#CCFFCC"]
+            },
+            {
+                name: "Modrá",
+                shades: ["#00004D", "#000066", "#000080", "#000099", "#0000B3", "#0000CC", "#0000E6", "#0000FF", "#3333FF", "#6666FF", "#9999FF", "#CCCCFF"]
+            },
+            {
+                name: "Fialová",
+                shades: ["#2E004D", "#3D0066", "#4D0080", "#5C0099", "#6B00B3", "#7A00CC", "#8A00E6", "#9900FF", "#AD33FF", "#C266FF", "#D699FF", "#EBCCFF"]
+            },
+            {
+                name: "Čierna",
+                shades: ["#000000", "#1A1A1A", "#333333", "#4D4D4D", "#666666", "#808080", "#999999", "#B3B3B3", "#CCCCCC", "#E6E6E6"]
+            }
         ];
 
         let rebootCounter = 0;
@@ -471,22 +468,14 @@
         let ctx = canvas.getContext('2d');
         let drawing = false;
         
-        // Nastavenie canvasu na správnu veľkosť
         function resizeCanvas() {
-            // Získanie šírky rodičovského kontajnera
             const container = canvas.parentElement;
-            const containerWidth = container.clientWidth - 40; // odpočet paddingov
-            
-            // Nastavenie logickej veľkosti canvasu (pre kreslenie)
-            // Používame pomer strán 16:10 pre lepšiu kompatibilitu
+            const containerWidth = container.clientWidth - 40;
             canvas.width = 1600;
             canvas.height = 1000;
-            
-            // Nastavenie zobrazovacej veľkosti (prispôsobenie šírke)
             canvas.style.width = containerWidth + 'px';
             canvas.style.height = (containerWidth * 1000 / 1600) + 'px';
             
-            // Obnovenie nastavení kreslenia po zmene veľkosti
             ctx.strokeStyle = currentDrawColor;
             ctx.lineWidth = 8;
             ctx.lineCap = 'round';
@@ -547,7 +536,6 @@
             ctx.beginPath();
         }
         
-        // Inicializácia canvasu
         resizeCanvas();
         window.addEventListener('resize', resizeCanvas);
         
@@ -577,25 +565,46 @@
             });
         }
 
-        function renderExtendedColors() {
-            const container = document.getElementById('extendedColors');
-            extendedColors.forEach(color => {
-                const square = document.createElement('div');
-                square.className = 'extended-square';
-                square.style.backgroundColor = color.code;
-                square.title = color.name;
-                square.onclick = () => setColor(color.code);
-                square.ontouchstart = (e) => {
-                    e.preventDefault();
-                    setColor(color.code);
-                };
-                container.appendChild(square);
+        function renderColorRows() {
+            const container = document.getElementById('colorRows');
+            colorRows.forEach(row => {
+                const rowDiv = document.createElement('div');
+                rowDiv.className = 'extended-grid';
+                
+                const title = document.createElement('div');
+                title.className = 'section-title';
+                title.style.fontSize = '24px';
+                title.style.marginBottom = '15px';
+                title.style.width = '100%';
+                title.textContent = row.name;
+                rowDiv.appendChild(title);
+                
+                const grid = document.createElement('div');
+                grid.className = 'extended-grid';
+                grid.style.width = '100%';
+                grid.style.marginBottom = '20px';
+                
+                row.shades.forEach(shade => {
+                    const square = document.createElement('div');
+                    square.className = 'extended-square';
+                    square.style.backgroundColor = shade;
+                    square.title = shade;
+                    square.onclick = () => setColor(shade);
+                    square.ontouchstart = (e) => {
+                        e.preventDefault();
+                        setColor(shade);
+                    };
+                    grid.appendChild(square);
+                });
+                
+                rowDiv.appendChild(grid);
+                container.appendChild(rowDiv);
             });
         }
 
         loadCounter();
         renderBasicColors();
-        renderExtendedColors();
+        renderColorRows();
         
         updateClock();
         setInterval(updateClock, 1000);
@@ -609,7 +618,6 @@
         
         setColor("#000000");
         
-        // Pridanie tlačidla na vymazanie canvasu (väčšie)
         const clearButton = document.createElement('button');
         clearButton.textContent = 'VYMAZAŤ PLÁTNO';
         clearButton.className = 'clear-button';
