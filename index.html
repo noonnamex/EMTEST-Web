@@ -18,7 +18,7 @@
             font-family: Arial, sans-serif;
             height: 100vh;
             overflow: hidden;
-            padding: 8px 12px;
+            padding: 8px 10px;
         }
 
         .main-container {
@@ -28,7 +28,7 @@
             max-width: 100%;
             margin: 0 auto;
             position: relative;
-            gap: 6px;
+            gap: 4px;
         }
 
         /* Horná lišta */
@@ -36,7 +36,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
             flex-wrap: wrap;
             position: relative;
             z-index: 100;
@@ -45,66 +45,66 @@
 
         .clock-window {
             background-color: #f0f0f0;
-            border-radius: 14px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-            padding: 8px 15px;
+            border-radius: 10px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+            padding: 5px 10px;
             flex: 2;
-            min-width: 250px;
-            border: 2px solid #ddd;
+            min-width: 200px;
+            border: 1px solid #ddd;
         }
 
         .clock {
-            font-size: clamp(24px, 4vw, 60px);
+            font-size: clamp(20px, 3.5vw, 45px);
             font-weight: bold;
             font-family: 'Courier New', monospace;
-            letter-spacing: 2px;
+            letter-spacing: 1px;
             color: #333;
             background-color: #fff;
-            padding: 6px 12px;
-            border-radius: 10px;
+            padding: 4px 8px;
+            border-radius: 8px;
             text-align: center;
             width: 100%;
         }
 
         .checkbox-window {
             background-color: #f0f0f0;
-            border-radius: 14px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-            padding: 8px 15px;
+            border-radius: 10px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+            padding: 5px 10px;
             display: flex;
             align-items: center;
             justify-content: center;
             flex: 0.5;
-            min-width: 80px;
-            border: 2px solid #ddd;
+            min-width: 60px;
+            border: 1px solid #ddd;
         }
 
         .big-checkbox input {
-            width: clamp(28px, 3.5vw, 45px);
-            height: clamp(28px, 3.5vw, 45px);
+            width: clamp(22px, 3vw, 35px);
+            height: clamp(22px, 3vw, 35px);
             cursor: pointer;
         }
 
         .color-window {
             background-color: #f0f0f0;
-            border-radius: 14px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-            padding: 8px 15px;
+            border-radius: 10px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+            padding: 5px 10px;
             flex: 3;
-            min-width: 200px;
-            border: 2px solid #ddd;
+            min-width: 150px;
+            border: 1px solid #ddd;
         }
 
         .color-display {
             width: 100%;
-            height: clamp(40px, 5vh, 70px);
+            height: clamp(30px, 4vh, 50px);
             background-color: #000000;
-            border: 2px solid #333;
-            border-radius: 10px;
+            border: 1px solid #333;
+            border-radius: 8px;
             transition: background-color 0.2s ease;
         }
 
-        /* Sekcia farieb */
+        /* Sekcia farieb - scrollable */
         .colors-section {
             position: relative;
             z-index: 100;
@@ -115,9 +115,9 @@
         }
 
         .section-title {
-            font-size: clamp(13px, 2.2vw, 20px);
+            font-size: clamp(11px, 2vw, 16px);
             font-weight: bold;
-            margin-bottom: 6px;
+            margin-bottom: 4px;
             margin-top: 3px;
             color: #333;
         }
@@ -127,7 +127,7 @@
         }
 
         .color-row {
-            margin-bottom: 8px;
+            margin-bottom: 5px;
             overflow-x: auto;
             overflow-y: hidden;
             -webkit-overflow-scrolling: touch;
@@ -135,29 +135,30 @@
         }
 
         .row-title {
-            font-size: clamp(11px, 1.8vw, 16px);
+            font-size: clamp(10px, 1.6vw, 14px);
             font-weight: bold;
-            margin-bottom: 4px;
+            margin-bottom: 2px;
             color: #555;
-            padding-left: 5px;
+            padding-left: 3px;
         }
 
         .color-grid {
             display: flex;
             flex-wrap: nowrap;
-            gap: 8px;
-            padding-bottom: 4px;
+            gap: 5px;
+            padding-bottom: 3px;
             width: 100%;
         }
 
         .color-square {
-            border-radius: 8px;
+            border-radius: 6px;
             cursor: pointer;
-            transition: transform 0.12s ease;
-            border: 1.5px solid #ddd;
+            transition: transform 0.1s ease;
+            border: 1px solid #ccc;
             touch-action: manipulation;
             flex-shrink: 0;
-            aspect-ratio: 1 / 1;
+            width: 45px;
+            height: 45px;
         }
 
         .color-square:active {
@@ -166,16 +167,16 @@
 
         /* REBOOT sekcia */
         .reboot-section {
-            margin-top: 0;
-            padding: 6px 10px;
+            margin-top: 2px;
+            padding: 4px 8px;
             background-color: #f8f8f8;
-            border-radius: 12px;
+            border-radius: 10px;
             text-align: center;
             border: 1px solid #e0e0e0;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 15px;
+            gap: 10px;
             flex-wrap: wrap;
             position: relative;
             z-index: 100;
@@ -186,10 +187,10 @@
             background-color: #ff4444;
             color: white;
             border: none;
-            padding: 6px 20px;
-            font-size: clamp(14px, 2.2vw, 24px);
+            padding: 4px 15px;
+            font-size: clamp(12px, 2vw, 20px);
             font-weight: bold;
-            border-radius: 10px;
+            border-radius: 8px;
             cursor: pointer;
             transition: all 0.2s ease;
             touch-action: manipulation;
@@ -202,40 +203,40 @@
         .counter-container {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
+            gap: 5px;
             background-color: white;
-            padding: 4px 12px;
-            border-radius: 10px;
+            padding: 3px 10px;
+            border-radius: 8px;
         }
 
         .counter-label {
-            font-size: clamp(11px, 1.8vw, 16px);
+            font-size: clamp(10px, 1.6vw, 14px);
             font-weight: bold;
             color: #333;
         }
 
         .counter-value {
-            font-size: clamp(18px, 3vw, 36px);
+            font-size: clamp(16px, 2.5vw, 28px);
             font-weight: bold;
             color: #ff4444;
             font-family: 'Courier New', monospace;
-            min-width: 45px;
+            min-width: 35px;
             text-align: center;
         }
 
-        /* Kresliace plátno - hneď pod farbami */
+        /* Kresliace plátno */
         .draw-section {
             position: relative;
             z-index: 1;
             flex-shrink: 0;
-            margin-top: 0;
+            margin-top: 2px;
             width: 100%;
         }
 
         .draw-title {
-            font-size: clamp(13px, 2vw, 18px);
+            font-size: clamp(11px, 1.8vw, 16px);
             font-weight: bold;
-            margin-bottom: 4px;
+            margin-bottom: 2px;
             color: #333;
         }
 
@@ -247,34 +248,34 @@
         }
 
         canvas {
-            border: 2px solid #333;
-            border-radius: 10px;
+            border: 1px solid #333;
+            border-radius: 8px;
             background-color: white;
             cursor: crosshair;
-            box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
             touch-action: none;
             display: block;
             width: 100%;
             height: auto;
-            max-height: 200px;
+            max-height: 130px;
         }
         
         .clear-button {
-            margin-top: 4px;
-            padding: 6px 16px;
+            margin-top: 3px;
+            padding: 4px 12px;
             background-color: #666;
             color: white;
             border: none;
-            border-radius: 10px;
-            font-size: clamp(13px, 1.8vw, 18px);
+            border-radius: 8px;
+            font-size: clamp(11px, 1.6vw, 16px);
             font-weight: bold;
             cursor: pointer;
             touch-action: manipulation;
             transition: all 0.2s ease;
             display: block;
             width: auto;
-            min-width: 150px;
-            max-width: 220px;
+            min-width: 120px;
+            max-width: 180px;
             margin-left: auto;
             margin-right: auto;
             text-align: center;
@@ -287,7 +288,7 @@
         
         /* Scrollbar styling */
         .colors-section::-webkit-scrollbar {
-            width: 4px;
+            width: 3px;
         }
         
         .colors-section::-webkit-scrollbar-track {
@@ -301,7 +302,7 @@
         }
         
         .color-row::-webkit-scrollbar {
-            height: 4px;
+            height: 3px;
         }
         
         .color-row::-webkit-scrollbar-track {
@@ -463,13 +464,13 @@
         function resizeCanvas() {
             const container = canvas.parentElement;
             const containerWidth = container.clientWidth;
-            canvas.width = 1200;
-            canvas.height = 700;
+            canvas.width = 1000;
+            canvas.height = 550;
             canvas.style.width = containerWidth + 'px';
-            canvas.style.height = (containerWidth * 700 / 1200) + 'px';
+            canvas.style.height = (containerWidth * 550 / 1000) + 'px';
             
             ctx.strokeStyle = currentDrawColor;
-            ctx.lineWidth = 5;
+            ctx.lineWidth = 4;
             ctx.lineCap = 'round';
             ctx.lineJoin = 'round';
         }
@@ -529,13 +530,10 @@
         }
         
         function resizeSquares() {
-            const section = document.getElementById('colorsSection');
-            if (!section) return;
-            
-            const containerWidth = section.clientWidth;
-            const squaresPerRow = 8;
-            const gap = 8;
-            const squareSize = Math.max(40, Math.min(80, (containerWidth - (gap * (squaresPerRow - 1))) / squaresPerRow));
+            const containerWidth = document.querySelector('.main-container').clientWidth;
+            const squaresInRow = 12;
+            const gap = 5;
+            const squareSize = Math.max(35, Math.min(55, (containerWidth - (gap * (squaresInRow - 1))) / squaresInRow));
             
             const squares = document.querySelectorAll('.color-square');
             squares.forEach(square => {
@@ -547,7 +545,7 @@
         resizeCanvas();
         window.addEventListener('resize', () => {
             resizeCanvas();
-            setTimeout(resizeSquares, 100);
+            setTimeout(resizeSquares, 50);
         });
         
         canvas.addEventListener('mousedown', startDrawing);
@@ -631,11 +629,8 @@
         setColor("#000000");
         
         const observer = new ResizeObserver(() => resizeSquares());
-        const colorsSection = document.getElementById('colorsSection');
-        if (colorsSection) {
-            observer.observe(colorsSection);
-        }
-        observer.observe(document.body);
+        observer.observe(document.querySelector('.main-container'));
+        setTimeout(resizeSquares, 100);
     </script>
 </body>
 </html>
