@@ -18,17 +18,16 @@
             font-family: Arial, sans-serif;
             height: 100vh;
             overflow: hidden;
-            padding: 8px 10px;
+            padding: 10px;
         }
 
         .main-container {
             height: 100%;
             display: flex;
             flex-direction: column;
-            max-width: 100%;
+            max-width: 1800px;
             margin: 0 auto;
             position: relative;
-            gap: 4px;
         }
 
         /* Horná lišta */
@@ -36,7 +35,8 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            gap: 8px;
+            margin-bottom: 10px;
+            gap: 10px;
             flex-wrap: wrap;
             position: relative;
             z-index: 100;
@@ -45,80 +45,79 @@
 
         .clock-window {
             background-color: #f0f0f0;
-            border-radius: 10px;
-            box-shadow: 0 1px 4px rgba(0,0,0,0.1);
-            padding: 5px 10px;
-            flex: 2;
-            min-width: 200px;
-            border: 1px solid #ddd;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            padding: 8px 15px;
+            width: 320px;
+            border: 2px solid #ddd;
         }
 
         .clock {
-            font-size: clamp(20px, 3.5vw, 45px);
+            font-size: 40px;
             font-weight: bold;
             font-family: 'Courier New', monospace;
-            letter-spacing: 1px;
+            letter-spacing: 2px;
             color: #333;
             background-color: #fff;
-            padding: 4px 8px;
-            border-radius: 8px;
+            padding: 6px 10px;
+            border-radius: 10px;
             text-align: center;
             width: 100%;
         }
 
         .checkbox-window {
             background-color: #f0f0f0;
-            border-radius: 10px;
-            box-shadow: 0 1px 4px rgba(0,0,0,0.1);
-            padding: 5px 10px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            padding: 8px 15px;
             display: flex;
             align-items: center;
             justify-content: center;
-            flex: 0.5;
-            min-width: 60px;
-            border: 1px solid #ddd;
+            width: 100px;
+            border: 2px solid #ddd;
         }
 
         .big-checkbox input {
-            width: clamp(22px, 3vw, 35px);
-            height: clamp(22px, 3vw, 35px);
+            width: 35px;
+            height: 35px;
             cursor: pointer;
         }
 
         .color-window {
             background-color: #f0f0f0;
-            border-radius: 10px;
-            box-shadow: 0 1px 4px rgba(0,0,0,0.1);
-            padding: 5px 10px;
-            flex: 3;
-            min-width: 150px;
-            border: 1px solid #ddd;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            padding: 8px 15px;
+            flex: 1;
+            min-width: 180px;
+            border: 2px solid #ddd;
         }
 
         .color-display {
             width: 100%;
-            height: clamp(30px, 4vh, 50px);
+            height: 50px;
             background-color: #000000;
-            border: 1px solid #333;
-            border-radius: 8px;
+            border: 2px solid #333;
+            border-radius: 10px;
             transition: background-color 0.2s ease;
         }
 
-        /* Sekcia farieb */
+        /* Sekcia farieb - scrollable area */
         .colors-section {
+            margin-top: 8px;
             position: relative;
             z-index: 100;
             flex: 1;
             overflow-y: auto;
             min-height: 0;
-            padding-right: 3px;
+            padding-right: 5px;
         }
 
         .section-title {
-            font-size: clamp(11px, 2vw, 16px);
+            font-size: 16px;
             font-weight: bold;
-            margin-bottom: 8px;
-            margin-top: 5px;
+            margin-bottom: 6px;
+            margin-top: 8px;
             color: #333;
         }
 
@@ -127,59 +126,48 @@
         }
 
         .color-row {
-            margin-bottom: 15px;
+            margin-bottom: 10px;
             overflow-x: auto;
             overflow-y: hidden;
+            white-space: nowrap;
             -webkit-overflow-scrolling: touch;
             scrollbar-width: thin;
         }
 
         .row-title {
-            font-size: clamp(10px, 1.6vw, 14px);
+            font-size: 14px;
             font-weight: bold;
-            margin-bottom: 5px;
+            margin-bottom: 4px;
             color: #555;
-            padding-left: 3px;
+            padding-left: 5px;
         }
 
         .color-grid {
-            display: flex;
+            display: inline-flex;
             flex-wrap: nowrap;
             gap: 8px;
             padding-bottom: 5px;
-            width: 100%;
         }
 
-        .basic-color-square {
-            width: 200px;
-            height: 200px;
-            border-radius: 12px;
+        .color-square {
+            width: 55px;
+            height: 55px;
+            border-radius: 8px;
             cursor: pointer;
-            transition: transform 0.1s ease;
-            border: 2px solid #ccc;
+            transition: transform 0.15s ease;
+            border: 1px solid #ddd;
             touch-action: manipulation;
             flex-shrink: 0;
         }
 
-        .shade-color-square {
-            width: 180px;
-            height: 180px;
-            border-radius: 10px;
-            cursor: pointer;
-            transition: transform 0.1s ease;
-            border: 1.5px solid #ccc;
-            touch-action: manipulation;
-            flex-shrink: 0;
-        }
-
-        .basic-color-square:active, .shade-color-square:active {
-            transform: scale(0.96);
+        .color-square:active {
+            transform: scale(0.95);
         }
 
         /* REBOOT sekcia */
         .reboot-section {
-            margin-top: 5px;
-            padding: 8px 12px;
+            margin-top: 8px;
+            padding: 8px;
             background-color: #f8f8f8;
             border-radius: 12px;
             text-align: center;
@@ -198,10 +186,10 @@
             background-color: #ff4444;
             color: white;
             border: none;
-            padding: 12px 32px;
-            font-size: clamp(18px, 3vw, 28px);
+            padding: 8px 20px;
+            font-size: 18px;
             font-weight: bold;
-            border-radius: 12px;
+            border-radius: 10px;
             cursor: pointer;
             transition: all 0.2s ease;
             touch-action: manipulation;
@@ -216,18 +204,18 @@
             align-items: center;
             gap: 8px;
             background-color: white;
-            padding: 6px 15px;
+            padding: 6px 12px;
             border-radius: 10px;
         }
 
         .counter-label {
-            font-size: clamp(12px, 1.8vw, 16px);
+            font-size: 14px;
             font-weight: bold;
             color: #333;
         }
 
         .counter-value {
-            font-size: clamp(20px, 3vw, 36px);
+            font-size: 24px;
             font-weight: bold;
             color: #ff4444;
             font-family: 'Courier New', monospace;
@@ -237,17 +225,16 @@
 
         /* Kresliace plátno */
         .draw-section {
+            margin-top: 8px;
             position: relative;
             z-index: 1;
             flex-shrink: 0;
-            margin-top: 5px;
-            width: 100%;
         }
 
         .draw-title {
-            font-size: clamp(12px, 1.8vw, 16px);
+            font-size: 16px;
             font-weight: bold;
-            margin-bottom: 4px;
+            margin-bottom: 5px;
             color: #333;
         }
 
@@ -259,34 +246,34 @@
         }
 
         canvas {
-            border: 1px solid #333;
-            border-radius: 8px;
+            border: 2px solid #333;
+            border-radius: 10px;
             background-color: white;
             cursor: crosshair;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            box-shadow: 0 1px 5px rgba(0,0,0,0.1);
             touch-action: none;
             display: block;
-            width: 100%;
+            max-width: 100%;
             height: auto;
-            max-height: 150px;
+            max-height: 180px;
+            width: auto;
         }
         
         .clear-button {
-            margin-top: 5px;
-            padding: 10px 28px;
+            margin-top: 8px;
+            padding: 8px 20px;
             background-color: #666;
             color: white;
             border: none;
             border-radius: 10px;
-            font-size: clamp(16px, 2vw, 22px);
+            font-size: 16px;
             font-weight: bold;
             cursor: pointer;
             touch-action: manipulation;
             transition: all 0.2s ease;
             display: block;
-            width: auto;
-            min-width: 180px;
-            max-width: 250px;
+            width: 100%;
+            max-width: 200px;
             margin-left: auto;
             margin-right: auto;
             text-align: center;
@@ -313,7 +300,7 @@
         }
         
         .color-row::-webkit-scrollbar {
-            height: 5px;
+            height: 4px;
         }
         
         .color-row::-webkit-scrollbar-track {
@@ -326,50 +313,7 @@
             border-radius: 2px;
         }
         
-        /* Responzívne pre menšie obrazovky */
-        @media (max-width: 1000px) {
-            .basic-color-square {
-                width: 160px;
-                height: 160px;
-            }
-            .shade-color-square {
-                width: 140px;
-                height: 140px;
-            }
-        }
-        
-        @media (max-width: 800px) {
-            .basic-color-square {
-                width: 130px;
-                height: 130px;
-            }
-            .shade-color-square {
-                width: 110px;
-                height: 110px;
-            }
-        }
-        
-        @media (max-width: 600px) {
-            .basic-color-square {
-                width: 100px;
-                height: 100px;
-            }
-            .shade-color-square {
-                width: 85px;
-                height: 85px;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .basic-color-square {
-                width: 80px;
-                height: 80px;
-            }
-            .shade-color-square {
-                width: 70px;
-                height: 70px;
-            }
-        }
+        /* Dynamické veľkosti podľa výšky obrazovky - nastaví JavaScript */
     </style>
 </head>
 <body>
@@ -401,7 +345,7 @@
         </div>
 
         <div class="reboot-section">
-            <button class="reboot-button" id="rebootButton">Hammer reboot</button>
+            <button class="reboot-button" id="rebootButton">REBOOT</button>
             <div class="counter-container">
                 <span class="counter-label">Počet REBOOTOV:</span>
                 <span class="counter-value" id="counterValue">0</span>
@@ -519,14 +463,14 @@
         
         function resizeCanvas() {
             const container = canvas.parentElement;
-            const containerWidth = container.clientWidth;
-            canvas.width = 1000;
-            canvas.height = 550;
+            const containerWidth = container.clientWidth - 20;
+            canvas.width = 800;
+            canvas.height = 500;
             canvas.style.width = containerWidth + 'px';
-            canvas.style.height = (containerWidth * 550 / 1000) + 'px';
+            canvas.style.height = (containerWidth * 500 / 800) + 'px';
             
             ctx.strokeStyle = currentDrawColor;
-            ctx.lineWidth = 4;
+            ctx.lineWidth = 5;
             ctx.lineCap = 'round';
             ctx.lineJoin = 'round';
         }
@@ -585,9 +529,25 @@
             ctx.beginPath();
         }
         
+        function resizeSquares() {
+            const section = document.getElementById('colorsSection');
+            const sectionHeight = section.clientHeight;
+            const totalRows = 1 + colorRows.length;
+            const availableHeight = sectionHeight - 60;
+            const rowHeight = availableHeight / totalRows;
+            let squareSize = Math.min(70, Math.max(40, rowHeight - 20));
+            
+            const squares = document.querySelectorAll('.color-square');
+            squares.forEach(square => {
+                square.style.width = squareSize + 'px';
+                square.style.height = squareSize + 'px';
+            });
+        }
+        
         resizeCanvas();
         window.addEventListener('resize', () => {
             resizeCanvas();
+            setTimeout(resizeSquares, 100);
         });
         
         canvas.addEventListener('mousedown', startDrawing);
@@ -604,7 +564,7 @@
             const container = document.getElementById('basicColors');
             basicColors.forEach(color => {
                 const square = document.createElement('div');
-                square.className = 'basic-color-square';
+                square.className = 'color-square';
                 square.style.backgroundColor = color.code;
                 square.title = color.name;
                 square.onclick = () => setColor(color.code);
@@ -632,7 +592,7 @@
                 
                 row.shades.forEach(shade => {
                     const square = document.createElement('div');
-                    square.className = 'shade-color-square';
+                    square.className = 'color-square';
                     square.style.backgroundColor = shade;
                     square.title = shade;
                     square.onclick = () => setColor(shade);
@@ -646,6 +606,7 @@
                 rowDiv.appendChild(grid);
                 container.appendChild(rowDiv);
             });
+            setTimeout(resizeSquares, 50);
         }
 
         loadCounter();
@@ -668,6 +629,8 @@
         });
         
         setColor("#000000");
+        
+        new ResizeObserver(() => resizeSquares()).observe(document.getElementById('colorsSection'));
     </script>
 </body>
 </html>
