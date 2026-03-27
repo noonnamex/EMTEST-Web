@@ -103,13 +103,6 @@
             margin-top: 40px;
         }
 
-        .section-title {
-            font-size: 28px;
-            font-weight: bold;
-            margin-bottom: 25px;
-            color: #333;
-        }
-
         .color-grid {
             display: flex;
             flex-wrap: wrap;
@@ -312,10 +305,6 @@
                 height: 130px;
             }
             
-            .section-title {
-                font-size: 24px;
-            }
-            
             .clear-button {
                 padding: 12px 25px;
                 font-size: 20px;
@@ -347,10 +336,7 @@
         </div>
 
         <div class="colors-section">
-            <div class="section-title">Základné farby E-papiera</div>
             <div class="color-grid" id="basicColors"></div>
-
-            <div class="section-title">Odtiene farieb</div>
             <div id="colorRows"></div>
         </div>
 
@@ -381,36 +367,28 @@
         ];
 
         const colorRows = [
-    {
-        name: "Červená",
-        shades: ["#B30000", "#CC0000", "#E60000", "#FF0000", "#FF3333", "#FF6666", "#FF9999", "#FFCCCC", "#FFE5E5"]
-    },
-    {
-        name: "Oranžová",
-        shades: ["#B36200", "#CC7000", "#E67E00", "#FF8C00", "#FFA033", "#FFB466", "#FFC899", "#FFDCCC", "#FFEEE6"]
-    },
-    {
-        name: "Žltá",
-        shades: ["#B3B300", "#CCCC00", "#E6E600", "#FFFF00", "#FFFF33", "#FFFF66", "#FFFF99", "#FFFFCC", "#FFFFE5"]
-    },
-    {
-        name: "Zelená",
-        shades: ["#00B300", "#00CC00", "#00E600", "#00FF00", "#33FF33", "#66FF66", "#99FF99", "#CCFFCC", "#E5FFE5"]
-    },
-    {
-        name: "Modrá",
-        shades: ["#0000B3", "#0000CC", "#0000E6", "#0000FF", "#3333FF", "#6666FF", "#9999FF", "#CCCCFF", "#E5E5FF"]
-    },
-    {
-        name: "Fialová",
-        shades: ["#6B00B3", "#7A00CC", "#8A00E6", "#9900FF", "#AD33FF", "#C266FF", "#D699FF", "#EBCCFF", "#F5E5FF"]
-    },
-    {
-        name: "Čierna",
-        shades: ["#666666", "#808080", "#999999", "#B3B3B3", "#CCCCCC", "#E6E6E6", "#F0F0F0", "#F5F5F5", "#FAFAFA"]
-    }
-];
-        
+            {
+                shades: ["#B30000", "#CC0000", "#E60000", "#FF0000", "#FF3333", "#FF6666", "#FF9999", "#FFCCCC", "#FFE5E5"]
+            },
+            {
+                shades: ["#B36200", "#CC7000", "#E67E00", "#FF8C00", "#FFA033", "#FFB466", "#FFC899", "#FFDCCC", "#FFEEE6"]
+            },
+            {
+                shades: ["#B3B300", "#CCCC00", "#E6E600", "#FFFF00", "#FFFF33", "#FFFF66", "#FFFF99", "#FFFFCC", "#FFFFE5"]
+            },
+            {
+                shades: ["#00B300", "#00CC00", "#00E600", "#00FF00", "#33FF33", "#66FF66", "#99FF99", "#CCFFCC", "#E5FFE5"]
+            },
+            {
+                shades: ["#0000B3", "#0000CC", "#0000E6", "#0000FF", "#3333FF", "#6666FF", "#9999FF", "#CCCCFF", "#E5E5FF"]
+            },
+            {
+                shades: ["#6B00B3", "#7A00CC", "#8A00E6", "#9900FF", "#AD33FF", "#C266FF", "#D699FF", "#EBCCFF", "#F5E5FF"]
+            },
+            {
+                shades: ["#666666", "#808080", "#999999", "#B3B3B3", "#CCCCCC", "#E6E6E6", "#F0F0F0", "#F5F5F5", "#FAFAFA"]
+            }
+        ];
 
         let rebootCounter = 0;
         
@@ -569,21 +547,9 @@
         function renderColorRows() {
             const container = document.getElementById('colorRows');
             colorRows.forEach(row => {
-                const rowDiv = document.createElement('div');
-                rowDiv.className = 'extended-grid';
-                
-                const title = document.createElement('div');
-                title.className = 'section-title';
-                title.style.fontSize = '24px';
-                title.style.marginBottom = '15px';
-                title.style.width = '100%';
-                title.textContent = row.name;
-                rowDiv.appendChild(title);
-                
                 const grid = document.createElement('div');
                 grid.className = 'extended-grid';
                 grid.style.width = '100%';
-                grid.style.marginBottom = '20px';
                 
                 row.shades.forEach(shade => {
                     const square = document.createElement('div');
@@ -598,8 +564,7 @@
                     grid.appendChild(square);
                 });
                 
-                rowDiv.appendChild(grid);
-                container.appendChild(rowDiv);
+                container.appendChild(grid);
             });
         }
 
