@@ -17,8 +17,7 @@
             background-color: white;
             font-family: Arial, sans-serif;
             min-height: 100vh;
-            /* Používame vw na padding, aby sa škáloval s šírkou */
-            padding: clamp(10px, 2vw, 40px);
+            padding: clamp(8px, 2vw, 40px);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -29,8 +28,6 @@
             width: 100%;
             max-width: 1800px;
             margin: 0 auto;
-            /* Základná veľkosť písma sa odvíja od šírky viewportu */
-            font-size: 1vw;
         }
 
         /* Horná lišta - flexibilné medzery */
@@ -38,95 +35,94 @@
             display: flex;
             justify-content: space-between;
             align-items: stretch;
-            gap: clamp(10px, 2vw, 40px);
+            gap: clamp(8px, 1.5vw, 40px);
             flex-wrap: wrap;
-            margin-bottom: clamp(20px, 4vw, 80px);
+            margin-bottom: clamp(15px, 3vw, 80px);
         }
 
-        /* Prvé okno - ČAS (relatívna šírka) */
+        /* Prvé okno - ČAS */
         .clock-window {
             background-color: #f0f0f0;
-            border-radius: clamp(10px, 1.5vw, 30px);
+            border-radius: clamp(8px, 1.2vw, 30px);
             box-shadow: 0 0.2vw 0.6vw rgba(0,0,0,0.1);
-            padding: clamp(10px, 1.5vw, 30px) clamp(15px, 2vw, 40px);
+            padding: clamp(8px, 1.2vw, 30px) clamp(12px, 1.8vw, 40px);
             width: 35%;
-            min-width: 200px;
+            min-width: 180px;
             border: 0.15vw solid #ddd;
         }
 
         .clock {
-            font-size: clamp(24px, 5vw, 100px);
+            font-size: clamp(20px, 4vw, 100px);
             font-weight: bold;
             font-family: 'Courier New', monospace;
             letter-spacing: 0.2vw;
             color: #333;
             background-color: #fff;
-            padding: clamp(8px, 1.2vw, 25px) clamp(10px, 1.5vw, 30px);
-            border-radius: clamp(8px, 1vw, 20px);
+            padding: clamp(6px, 1vw, 25px) clamp(8px, 1.2vw, 30px);
+            border-radius: clamp(6px, 0.8vw, 20px);
             text-align: center;
             width: 100%;
             word-break: break-word;
         }
 
-        /* Druhé okno - checkbox (relatívna šírka) */
+        /* Druhé okno - checkbox */
         .checkbox-window {
             background-color: #f0f0f0;
-            border-radius: clamp(10px, 1.5vw, 30px);
+            border-radius: clamp(8px, 1.2vw, 30px);
             box-shadow: 0 0.2vw 0.6vw rgba(0,0,0,0.1);
-            padding: clamp(10px, 1.5vw, 30px);
+            padding: clamp(8px, 1.2vw, 30px);
             display: flex;
             align-items: center;
             justify-content: center;
             width: 10%;
-            min-width: 80px;
+            min-width: 70px;
             border: 0.15vw solid #ddd;
         }
 
         .big-checkbox input {
-            width: clamp(30px, 4vw, 80px);
-            height: clamp(30px, 4vw, 80px);
+            width: clamp(25px, 3.5vw, 80px);
+            height: clamp(25px, 3.5vw, 80px);
             cursor: pointer;
-            transform: scale(1);
         }
 
-        /* Tretie okno - farba (relatívna šírka) */
+        /* Tretie okno - farba */
         .color-window {
             background-color: #f0f0f0;
-            border-radius: clamp(10px, 1.5vw, 30px);
+            border-radius: clamp(8px, 1.2vw, 30px);
             box-shadow: 0 0.2vw 0.6vw rgba(0,0,0,0.1);
-            padding: clamp(8px, 1vw, 20px) clamp(12px, 1.8vw, 35px);
+            padding: clamp(6px, 0.8vw, 20px) clamp(10px, 1.5vw, 35px);
             flex: 1;
-            min-width: 200px;
+            min-width: 180px;
             border: 0.15vw solid #ddd;
         }
 
         .color-display {
             width: 100%;
-            height: clamp(60px, 8vw, 150px);
+            height: clamp(50px, 6vw, 150px);
             background-color: #000000;
             border: 0.2vw solid #333;
-            border-radius: clamp(8px, 1vw, 20px);
+            border-radius: clamp(6px, 0.8vw, 20px);
             transition: background-color 0.2s ease;
         }
 
         /* Sekcia farieb */
         .colors-section {
-            margin-top: clamp(20px, 3vw, 60px);
+            margin-top: clamp(15px, 2.5vw, 60px);
         }
 
         /* Základná mriežka farieb */
         .color-grid {
             display: flex;
             flex-wrap: wrap;
-            gap: clamp(8px, 1.5vw, 30px);
-            margin-bottom: clamp(20px, 3vw, 60px);
+            gap: clamp(6px, 1.2vw, 30px);
+            margin-bottom: clamp(15px, 2.5vw, 60px);
             justify-content: center;
         }
 
         .color-square {
-            width: clamp(80px, 8vw, 250px);
-            height: clamp(80px, 8vw, 250px);
-            border-radius: clamp(6px, 1vw, 20px);
+            width: clamp(60px, 7vw, 250px);
+            height: clamp(60px, 7vw, 250px);
+            border-radius: clamp(5px, 0.8vw, 20px);
             cursor: pointer;
             transition: transform 0.2s ease, box-shadow 0.2s ease;
             border: 0.15vw solid #ddd;
@@ -142,15 +138,15 @@
         .extended-grid {
             display: flex;
             flex-wrap: wrap;
-            gap: clamp(6px, 1vw, 20px);
-            margin-bottom: clamp(15px, 2vw, 40px);
+            gap: clamp(5px, 0.8vw, 20px);
+            margin-bottom: clamp(12px, 1.8vw, 40px);
             justify-content: center;
         }
 
         .extended-square {
-            width: clamp(70px, 7vw, 220px);
-            height: clamp(70px, 7vw, 220px);
-            border-radius: clamp(5px, 0.8vw, 15px);
+            width: clamp(50px, 6vw, 220px);
+            height: clamp(50px, 6vw, 220px);
+            border-radius: clamp(4px, 0.6vw, 15px);
             cursor: pointer;
             transition: transform 0.2s ease, box-shadow 0.2s ease;
             border: 0.15vw solid #ccc;
@@ -164,27 +160,34 @@
 
         /* REBOOT sekcia */
         .reboot-section {
-            margin-top: clamp(25px, 4vw, 80px);
-            padding: clamp(12px, 2vw, 40px);
+            margin-top: clamp(20px, 3vw, 80px);
+            padding: clamp(10px, 1.5vw, 40px);
             background-color: #f8f8f8;
-            border-radius: clamp(12px, 2vw, 40px);
+            border-radius: clamp(10px, 1.5vw, 40px);
             text-align: center;
             border: 0.15vw solid #e0e0e0;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: clamp(15px, 3vw, 60px);
+            gap: clamp(12px, 2.5vw, 60px);
             flex-wrap: wrap;
+        }
+
+        .reboot-buttons {
+            display: flex;
+            gap: clamp(8px, 1.5vw, 20px);
+            flex-wrap: wrap;
+            justify-content: center;
         }
 
         .reboot-button {
             background-color: #ff4444;
             color: white;
             border: none;
-            padding: clamp(12px, 1.8vw, 35px) clamp(25px, 3.5vw, 70px);
-            font-size: clamp(18px, 2.5vw, 48px);
+            padding: clamp(10px, 1.5vw, 35px) clamp(20px, 3vw, 70px);
+            font-size: clamp(14px, 2vw, 48px);
             font-weight: bold;
-            border-radius: clamp(10px, 1.5vw, 30px);
+            border-radius: clamp(8px, 1.2vw, 30px);
             cursor: pointer;
             transition: all 0.3s ease;
             box-shadow: 0 0.2vw 0.6vw rgba(0,0,0,0.15);
@@ -198,56 +201,56 @@
         .counter-container {
             display: inline-flex;
             align-items: center;
-            gap: clamp(10px, 1.5vw, 30px);
+            gap: clamp(8px, 1.2vw, 30px);
             background-color: white;
-            padding: clamp(10px, 1.5vw, 30px) clamp(15px, 2.2vw, 45px);
-            border-radius: clamp(10px, 1.5vw, 30px);
+            padding: clamp(8px, 1.2vw, 30px) clamp(12px, 1.8vw, 45px);
+            border-radius: clamp(8px, 1.2vw, 30px);
             box-shadow: 0 0.15vw 0.5vw rgba(0,0,0,0.1);
         }
 
         .counter-label {
-            font-size: clamp(14px, 1.8vw, 36px);
+            font-size: clamp(12px, 1.5vw, 36px);
             font-weight: bold;
             color: #333;
         }
 
         .counter-value {
-            font-size: clamp(28px, 4vw, 80px);
+            font-size: clamp(20px, 3.5vw, 80px);
             font-weight: bold;
             color: #ff4444;
             font-family: 'Courier New', monospace;
-            min-width: clamp(50px, 6vw, 120px);
+            min-width: clamp(40px, 5vw, 120px);
             text-align: center;
         }
 
         /* Kresliace plátno */
         .draw-section {
-            margin-top: clamp(25px, 4vw, 80px);
+            margin-top: clamp(20px, 3vw, 80px);
         }
         
         .draw-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: clamp(12px, 1.8vw, 35px);
+            margin-bottom: clamp(10px, 1.5vw, 35px);
             flex-wrap: wrap;
-            gap: clamp(10px, 2vw, 20px);
+            gap: clamp(8px, 1.5vw, 20px);
         }
         
         .draw-title {
-            font-size: clamp(18px, 2.2vw, 42px);
+            font-size: clamp(14px, 1.8vw, 42px);
             font-weight: bold;
             color: #333;
         }
         
         /* Štýl pre tlačidlo Clear */
         .clear-button {
-            padding: clamp(8px, 1.2vw, 20px) clamp(15px, 2.5vw, 40px);
+            padding: clamp(6px, 1vw, 20px) clamp(12px, 2vw, 40px);
             background-color: #666;
             color: white;
             border: none;
-            border-radius: clamp(8px, 1.2vw, 25px);
-            font-size: clamp(14px, 1.8vw, 32px);
+            border-radius: clamp(6px, 1vw, 25px);
+            font-size: clamp(12px, 1.5vw, 32px);
             font-weight: bold;
             cursor: pointer;
             touch-action: manipulation;
@@ -262,7 +265,7 @@
         
         canvas {
             border: 0.2vw solid #333;
-            border-radius: clamp(8px, 1.2vw, 25px);
+            border-radius: clamp(6px, 1vw, 25px);
             background-color: white;
             cursor: crosshair;
             display: block;
@@ -273,10 +276,9 @@
             touch-action: none;
             aspect-ratio: 16 / 5;
         }
-        
 
-        /* Veľmi malé obrazovky (mobily) - dodatočné úpravy */
-        @media (max-width: 600px) {
+        /* Responzívne úpravy pre menšie obrazovky */
+        @media (max-width: 768px) {
             .top-bar {
                 flex-direction: column;
                 align-items: stretch;
@@ -284,6 +286,7 @@
             
             .clock-window {
                 width: 100%;
+                min-width: auto;
             }
             
             .checkbox-window {
@@ -293,15 +296,81 @@
             
             .color-window {
                 width: 100%;
+                min-width: auto;
             }
             
             .reboot-section {
                 flex-direction: column;
+                gap: clamp(12px, 2vw, 20px);
+            }
+            
+            .reboot-buttons {
+                width: 100%;
+                flex-direction: column;
+            }
+            
+            .reboot-button {
+                width: 100%;
             }
             
             .counter-container {
                 width: 100%;
                 justify-content: center;
+            }
+            
+            .draw-header {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .draw-title {
+                text-align: center;
+            }
+            
+            .clear-button {
+                width: 100%;
+                white-space: normal;
+                text-align: center;
+            }
+        }
+
+        /* Veľmi malé obrazovky */
+        @media (max-width: 480px) {
+            body {
+                padding: clamp(5px, 1.5vw, 10px);
+            }
+            
+            .color-square {
+                width: clamp(45px, 12vw, 70px);
+                height: clamp(45px, 12vw, 70px);
+            }
+            
+            .extended-square {
+                width: clamp(40px, 10vw, 60px);
+                height: clamp(40px, 10vw, 60px);
+            }
+            
+            .reboot-button {
+                padding: clamp(8px, 2vw, 12px) clamp(12px, 3vw, 20px);
+                font-size: clamp(12px, 3vw, 16px);
+            }
+            
+            .counter-label {
+                font-size: clamp(10px, 2.5vw, 14px);
+            }
+            
+            .counter-value {
+                font-size: clamp(16px, 4vw, 24px);
+                min-width: clamp(35px, 8vw, 50px);
+            }
+            
+            .draw-title {
+                font-size: clamp(12px, 2.5vw, 16px);
+            }
+            
+            .clear-button {
+                font-size: clamp(10px, 2vw, 14px);
+                padding: clamp(5px, 1.2vw, 8px) clamp(8px, 2vw, 12px);
             }
         }
 
@@ -327,19 +396,14 @@
     <div class="main-container">
         <!-- Horná lišta s tromi oknami -->
         <div class="top-bar">
-            <!-- Prvé okno: ČAS -->
             <div class="clock-window">
                 <div class="clock" id="clock">--:--:--</div>
             </div>
-
-            <!-- Druhé okno: CHECKBOX -->
             <div class="checkbox-window">
                 <div class="big-checkbox">
                     <input type="checkbox" id="hideSecondsCheckbox">
                 </div>
             </div>
-
-            <!-- Tretie okno: FARBA -->
             <div class="color-window">
                 <div class="color-display" id="colorDisplay"></div>
             </div>
@@ -351,7 +415,7 @@
         </div>
 
         <div class="reboot-section">
-            <div style="display: flex; gap: clamp(10px, 2vw, 20px); flex-wrap: wrap; justify-content: center;">
+            <div class="reboot-buttons">
                 <button class="reboot-button" id="rebootButton">REBOOT</button>
                 <button class="reboot-button" id="hammerButton">HAMMER REBOOT</button>
                 <button class="reboot-button" id="nukeButton">NUKE</button>
@@ -431,7 +495,6 @@
         function nukeReboot() {
             addDamage(5);
         }
-        
 
         function updateClock() {
             const now = new Date();
@@ -464,8 +527,6 @@
         let drawing = false;
         
         function resizeCanvas() {
-            // Canvas má už nastavené aspect-ratio v CSS
-            // Zachovávame rozlíšenie 1600x900 pre kreslenie
             if (canvas.width !== 1600 || canvas.height !== 500) {
                 canvas.width = 1600;
                 canvas.height = 500;
@@ -531,10 +592,8 @@
             ctx.beginPath();
         }
         
-        // Inicializácia canvasu
         resizeCanvas();
         
-        // Event listeners pre kreslenie
         canvas.addEventListener('mousedown', startDrawing);
         canvas.addEventListener('mousemove', draw);
         canvas.addEventListener('mouseup', stopDrawing);
@@ -545,9 +604,7 @@
         canvas.addEventListener('touchcancel', stopDrawing);
         canvas.addEventListener('contextmenu', (e) => e.preventDefault());
         
-        // Resize event - aktualizácia pri zmene veľkosti okna
         window.addEventListener('resize', () => {
-            // Len pre istotu aktualizujeme context
             ctx.strokeStyle = currentDrawColor;
         });
         
@@ -593,7 +650,6 @@
             });
         }
 
-        // Inicializácia
         loadCounter();
         renderBasicColors();
         renderColorRows();
@@ -602,7 +658,7 @@
         setInterval(updateClock, 1000);
         
         document.getElementById('hideSecondsCheckbox').addEventListener('change', updateClock);
-        // Event listeners pre tlačidlá
+        
         document.getElementById('rebootButton').addEventListener('click', reboot);
         document.getElementById('rebootButton').addEventListener('touchstart', (e) => {
             e.preventDefault();
@@ -623,7 +679,6 @@
         
         setColor("#000000");
         
-        // Pridanie tlačidla Clear
         const clearButton = document.getElementById('clearButton');
         clearButton.onclick = clearCanvas;
         clearButton.ontouchstart = (e) => {
@@ -633,4 +688,3 @@
     </script>
 </body>
 </html>
-
