@@ -21,6 +21,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            position: relative;
         }
 
         /* Hlavný kontajner - relatívne rozmery */
@@ -28,6 +29,8 @@
             width: 100%;
             max-width: 1800px;
             margin: 0 auto;
+            position: relative;
+            z-index: 1;
         }
 
         /* Horná lišta - flexibilné medzery */
@@ -277,7 +280,18 @@
             aspect-ratio: 16 / 5;
         }
 
-        /* Responzívne úpravy pre menšie obrazovky */
+        /* overlay canvas pre efekty */
+        #effectCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+            background: transparent;
+        }
+
         @media (max-width: 768px) {
             .top-bar {
                 flex-direction: column;
@@ -334,7 +348,6 @@
             }
         }
 
-        /* Veľmi malé obrazovky */
         @media (max-width: 480px) {
             body {
                 padding: clamp(5px, 1.5vw, 10px);
@@ -374,7 +387,6 @@
             }
         }
 
-        /* Podpora pre dotykové zariadenia */
         @media (hover: hover) {
             .color-square:hover, .extended-square:hover {
                 transform: scale(1.02);
@@ -394,7 +406,6 @@
 </head>
 <body>
     <div class="main-container">
-        <!-- Horná lišta s tromi oknami -->
         <div class="top-bar">
             <div class="clock-window">
                 <div class="clock" id="clock">--:--:--</div>
@@ -435,7 +446,122 @@
         </div>
     </div>
 
+    <canvas id="effectCanvas"></canvas>
+
     <script>
+        // EFEKTY
+        const effectCanvas = document.getElementById("effectCanvas");
+        const effectCtx = effectCanvas.getContext("2d");
+
+        function resizeEffectCanvas() {
+            effectCanvas.width = window.innerWidth;
+            effectCanvas.height = window.innerHeight;
+        }
+        resizeEffectCanvas();
+        window.addEventListener("resize", resizeEffectCanvas);
+
+        // HAMMER EFEKT - praskliny (bez bieleho fade-out)
+        function drawCrack(x, y, length, angle, depth) {
+            if(depth <= 0) return;
+            if(length < 5) return;
+
+            const x2 = x + Math.cos(angle) * length;
+            const y2 = y + Math.sin(angle) * length;
+
+            effectCtx.beginPath();
+            effectCtx.moveTo(x, y);
+            effectCtx.lineTo(x2, y2);
+            effectCtx.stroke();
+
+            drawCrack(x2, y2, length * 0.65, angle + (Math.random() - 0.5) * 0.8, depth - 1);
+            drawCrack(x2, y2, length * 0.65, angle - (Math.random() - 0.5) * 0.8, depth - 1);
+        }
+
+        function hammerRebootEffect() {
+            effectCtx.clearRect(0, 0, effectCanvas.width, effectCanvas.height);
+            effectCtx.strokeStyle = "#2c2c2c";
+            effectCtx.lineWidth = 3;
+            effectCtx.lineCap = "round";
+            
+            const centerX = effectCanvas.width/2;
+            const centerY = effectCanvas.height/2;
+            
+            let cracks = 0;
+            const totalCracks = 12;
+            
+            const interval = setInterval(() => {
+                const angle = Math.random() * Math.PI * 2;
+                const length = 60 + Math.random() * 50;
+                const offsetX = (Math.random() - 0.5) * 60;
+                const offsetY = (Math.random() - 0.5) * 60;
+                
+                drawCrack(centerX + offsetX, centerY + offsetY, length, angle, 3);
+                cracks++;
+                
+                if(cracks >= totalCracks) {
+                    clearInterval(interval);
+                    // Jednoducho po 3 sekundách vymažeme praskliny - žiadne bielenie
+                    setTimeout(() => {
+                        effectCtx.clearRect(0, 0, effectCanvas.width, effectCanvas.height);
+                    }, 3000);
+                }
+            }, 60);
+        }
+
+        // NUKE EFEKT - výbuch
+        function nukeRebootEffect() {
+            effectCtx.clearRect(0, 0, effectCanvas.width, effectCanvas.height);
+            
+            let radius = 10;
+            const maxRadius = Math.max(effectCanvas.width, effectCanvas.height);
+            const centerX = effectCanvas.width/2;
+            const centerY = effectCanvas.height/2;
+            
+            // Biely záblesk
+            effectCtx.fillStyle = "white";
+            effectCtx.fillRect(0, 0, effectCanvas.width, effectCanvas.height);
+            
+            setTimeout(() => {
+                effectCtx.clearRect(0, 0, effectCanvas.width, effectCanvas.height);
+                
+                const interval = setInterval(() => {
+                    effectCtx.clearRect(0, 0, effectCanvas.width, effectCanvas.height);
+                    
+                    const gradient = effectCtx.createRadialGradient(
+                        centerX, centerY, radius * 0.2,
+                        centerX, centerY, radius
+                    );
+                    
+                    gradient.addColorStop(0, "rgba(255,255,200,1)");
+                    gradient.addColorStop(0.3, "rgba(255,150,50,0.9)");
+                    gradient.addColorStop(0.6, "rgba(200,60,0,0.7)");
+                    gradient.addColorStop(1, "rgba(0,0,0,0)");
+                    
+                    effectCtx.fillStyle = gradient;
+                    effectCtx.beginPath();
+                    effectCtx.arc(centerX, centerY, radius, 0, Math.PI * 2);
+                    effectCtx.fill();
+                    
+                    radius += 25;
+                    
+                    if(radius > maxRadius) {
+                        clearInterval(interval);
+                        let opacity = 0.8;
+                        const fade = setInterval(() => {
+                            effectCtx.fillStyle = `rgba(0,0,0,${opacity})`;
+                            effectCtx.fillRect(0, 0, effectCanvas.width, effectCanvas.height);
+                            opacity -= 0.07;
+                            if(opacity <= 0) {
+                                clearInterval(fade);
+                                effectCtx.clearRect(0, 0, effectCanvas.width, effectCanvas.height);
+                            }
+                        }, 50);
+                    }
+                }, 30);
+            }, 80);
+        }
+
+        // PÔVODNÝ KÓD
         const basicColors = [
             { name: "Red", code: "#FF0000" },
             { name: "Green", code: "#00FF00" },
@@ -490,10 +616,12 @@
         
         function hammerReboot() {
             addDamage(3);
+            hammerRebootEffect();
         }
         
         function nukeReboot() {
             addDamage(5);
+            nukeRebootEffect();
         }
 
         function updateClock() {
