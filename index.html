@@ -460,10 +460,10 @@
         resizeEffectCanvas();
         window.addEventListener("resize", resizeEffectCanvas);
 
-        // HAMMER EFEKT - praskliny (bez bieleho fade-out)
+        // HAMMER EFEKT - praskliny (stred v strede HAMMER tlačidla, 4x väčšie)
         function drawCrack(x, y, length, angle, depth) {
             if(depth <= 0) return;
-            if(length < 5) return;
+            if(length < 8) return;
 
             const x2 = x + Math.cos(angle) * length;
             const y2 = y + Math.sin(angle) * length;
@@ -473,46 +473,51 @@
             effectCtx.lineTo(x2, y2);
             effectCtx.stroke();
 
-            drawCrack(x2, y2, length * 0.65, angle + (Math.random() - 0.5) * 0.8, depth - 1);
-            drawCrack(x2, y2, length * 0.65, angle - (Math.random() - 0.5) * 0.8, depth - 1);
+            drawCrack(x2, y2, length * 0.7, angle + (Math.random() - 0.5) * 0.7, depth - 1);
+            drawCrack(x2, y2, length * 0.7, angle - (Math.random() - 0.5) * 0.7, depth - 1);
         }
 
         function hammerRebootEffect() {
             effectCtx.clearRect(0, 0, effectCanvas.width, effectCanvas.height);
             effectCtx.strokeStyle = "#2c2c2c";
-            effectCtx.lineWidth = 3;
+            effectCtx.lineWidth = 5;
             effectCtx.lineCap = "round";
             
-            const centerX = effectCanvas.width/2;
-            const centerY = effectCanvas.height/2;
+            // Získanie pozície HAMMER tlačidla
+            const hammerBtn = document.getElementById('hammerButton');
+            const btnRect = hammerBtn.getBoundingClientRect();
+            const centerX = btnRect.left + btnRect.width / 2;
+            const centerY = btnRect.top + btnRect.height / 2;
             
             let cracks = 0;
-            const totalCracks = 12;
+            const totalCracks = 10;
+            // 4x väčšie praskliny
+            const minLength = 180;
+            const maxLength = 280;
             
             const interval = setInterval(() => {
                 const angle = Math.random() * Math.PI * 2;
-                const length = 60 + Math.random() * 50;
-                const offsetX = (Math.random() - 0.5) * 60;
-                const offsetY = (Math.random() - 0.5) * 60;
+                const length = minLength + Math.random() * (maxLength - minLength);
+                const offsetX = (Math.random() - 0.5) * 40;
+                const offsetY = (Math.random() - 0.5) * 40;
                 
                 drawCrack(centerX + offsetX, centerY + offsetY, length, angle, 3);
                 cracks++;
                 
                 if(cracks >= totalCracks) {
                     clearInterval(interval);
-                    // Jednoducho po 3 sekundách vymažeme praskliny - žiadne bielenie
                     setTimeout(() => {
                         effectCtx.clearRect(0, 0, effectCanvas.width, effectCanvas.height);
                     }, 3000);
                 }
-            }, 60);
+            }, 70);
         }
 
-        // NUKE EFEKT - výbuch
+        // NUKE EFEKT - zjednodušený pre pomalý procesor (menej snímkov)
         function nukeRebootEffect() {
             effectCtx.clearRect(0, 0, effectCanvas.width, effectCanvas.height);
             
-            let radius = 10;
+            let radius = 15;
             const maxRadius = Math.max(effectCanvas.width, effectCanvas.height);
             const centerX = effectCanvas.width/2;
             const centerY = effectCanvas.height/2;
@@ -524,17 +529,21 @@
             setTimeout(() => {
                 effectCtx.clearRect(0, 0, effectCanvas.width, effectCanvas.height);
                 
+                let step = 0;
+                const totalSteps = 18; // Menej krokov pre rýchlejšie spracovanie
+                const radiusStep = maxRadius / totalSteps;
+                
                 const interval = setInterval(() => {
                     effectCtx.clearRect(0, 0, effectCanvas.width, effectCanvas.height);
                     
+                    // Jednoduchý kruh s gradientom
                     const gradient = effectCtx.createRadialGradient(
                         centerX, centerY, radius * 0.2,
                         centerX, centerY, radius
                     );
                     
-                    gradient.addColorStop(0, "rgba(255,255,200,1)");
-                    gradient.addColorStop(0.3, "rgba(255,150,50,0.9)");
-                    gradient.addColorStop(0.6, "rgba(200,60,0,0.7)");
+                    gradient.addColorStop(0, "rgba(255,220,100,1)");
+                    gradient.addColorStop(0.5, "rgba(255,100,30,0.8)");
                     gradient.addColorStop(1, "rgba(0,0,0,0)");
                     
                     effectCtx.fillStyle = gradient;
@@ -542,23 +551,25 @@
                     effectCtx.arc(centerX, centerY, radius, 0, Math.PI * 2);
                     effectCtx.fill();
                     
-                    radius += 25;
+                    radius += radiusStep;
+                    step++;
                     
-                    if(radius > maxRadius) {
+                    if(step >= totalSteps) {
                         clearInterval(interval);
-                        let opacity = 0.8;
+                        // Rýchle stmavenie
+                        let opacity = 0.7;
                         const fade = setInterval(() => {
                             effectCtx.fillStyle = `rgba(0,0,0,${opacity})`;
                             effectCtx.fillRect(0, 0, effectCanvas.width, effectCanvas.height);
-                            opacity -= 0.07;
+                            opacity -= 0.1;
                             if(opacity <= 0) {
                                 clearInterval(fade);
                                 effectCtx.clearRect(0, 0, effectCanvas.width, effectCanvas.height);
                             }
-                        }, 50);
+                        }, 40);
                     }
-                }, 30);
-            }, 80);
+                }, 35); // Dlhší interval = menej snímkov za sekundu
+            }, 60);
         }
 
         // PÔVODNÝ KÓD
