@@ -490,7 +490,7 @@
             const centerY = btnRect.top + btnRect.height / 2;
             
             let cracks = 0;
-            const totalCracks = 10;
+            const totalCracks = 20;
             // 4x väčšie praskliny
             const minLength = 180;
             const maxLength = 280;
@@ -513,11 +513,11 @@
             }, 70);
         }
 
-        // NUKE EFEKT - zjednodušený pre pomalý procesor (menej snímkov)
+        // NUKE EFEKT - rýchlejší (polovičný čas) a kratšie čierne stmavenie
         function nukeRebootEffect() {
             effectCtx.clearRect(0, 0, effectCanvas.width, effectCanvas.height);
             
-            let radius = 15;
+            let radius = 20;
             const maxRadius = Math.max(effectCanvas.width, effectCanvas.height);
             const centerX = effectCanvas.width/2;
             const centerY = effectCanvas.height/2;
@@ -530,7 +530,7 @@
                 effectCtx.clearRect(0, 0, effectCanvas.width, effectCanvas.height);
                 
                 let step = 0;
-                const totalSteps = 18; // Menej krokov pre rýchlejšie spracovanie
+                const totalSteps = 9; // Polovica pôvodných 18 krokov
                 const radiusStep = maxRadius / totalSteps;
                 
                 const interval = setInterval(() => {
@@ -556,20 +556,23 @@
                     
                     if(step >= totalSteps) {
                         clearInterval(interval);
-                        // Rýchle stmavenie
+                        // Rýchle stmavenie - polovičný čas (20ms namiesto 40ms, 4 kroky namiesto 7)
                         let opacity = 0.7;
-                        const fade = setInterval(() => {
+                        let fadeSteps = 0;
+                        const totalFadeSteps = 4; // Polovica pôvodných 7-8 krokov
+                        const fadeInterval = setInterval(() => {
                             effectCtx.fillStyle = `rgba(0,0,0,${opacity})`;
                             effectCtx.fillRect(0, 0, effectCanvas.width, effectCanvas.height);
-                            opacity -= 0.1;
-                            if(opacity <= 0) {
-                                clearInterval(fade);
+                            opacity -= 0.18;
+                            fadeSteps++;
+                            if(fadeSteps >= totalFadeSteps || opacity <= 0) {
+                                clearInterval(fadeInterval);
                                 effectCtx.clearRect(0, 0, effectCanvas.width, effectCanvas.height);
                             }
-                        }, 40);
+                        }, 20); // Polovičný interval
                     }
-                }, 35); // Dlhší interval = menej snímkov za sekundu
-            }, 60);
+                }, 25); // Rýchlejší interval (25ms namiesto 35ms)
+            }, 40); // Kratší oneskorenie (40ms namiesto 60ms)
         }
 
         // PÔVODNÝ KÓD
