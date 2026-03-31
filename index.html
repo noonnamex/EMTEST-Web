@@ -530,7 +530,7 @@
                 effectCtx.clearRect(0, 0, effectCanvas.width, effectCanvas.height);
                 
                 let step = 0;
-                const totalSteps = 9; // Polovica pôvodných 18 krokov
+                const totalSteps = 11; // Predĺžené z 9 na 11 (o cca 22%)
                 const radiusStep = maxRadius / totalSteps;
                 
                 const interval = setInterval(() => {
@@ -556,23 +556,26 @@
                     
                     if(step >= totalSteps) {
                         clearInterval(interval);
-                        // Rýchle stmavenie - polovičný čas (20ms namiesto 40ms, 4 kroky namiesto 7)
-                        let opacity = 0.7;
+                        // Predĺžené stmavenie - dlhšie trvanie čiernej
+                        let opacity = 0.8;
                         let fadeSteps = 0;
-                        const totalFadeSteps = 4; // Polovica pôvodných 7-8 krokov
+                        const totalFadeSteps = 5; // Zvýšené z 4 na 5
                         const fadeInterval = setInterval(() => {
                             effectCtx.fillStyle = `rgba(0,0,0,${opacity})`;
                             effectCtx.fillRect(0, 0, effectCanvas.width, effectCanvas.height);
-                            opacity -= 0.18;
+                            opacity -= 0.16;
                             fadeSteps++;
                             if(fadeSteps >= totalFadeSteps || opacity <= 0) {
                                 clearInterval(fadeInterval);
-                                effectCtx.clearRect(0, 0, effectCanvas.width, effectCanvas.height);
+                                // Pridané oneskorenie pred vymazaním čiernej obrazovky
+                                setTimeout(() => {
+                                    effectCtx.clearRect(0, 0, effectCanvas.width, effectCanvas.height);
+                                }, 50);
                             }
-                        }, 20); // Polovičný interval
+                        }, 40); // Predĺžený interval z 20ms na 40ms
                     }
-                }, 25); // Rýchlejší interval (25ms namiesto 35ms)
-            }, 40); // Kratší oneskorenie (40ms namiesto 60ms)
+                }, 28); // Mierne predĺžený interval (28ms namiesto 25ms)
+            }, 50); // Mierne predĺžené oneskorenie (50ms namiesto 40ms)
         }
 
         // PÔVODNÝ KÓD
