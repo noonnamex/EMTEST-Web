@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Farebná paleta + Kreslenie</title>
+    <title>Farebná paleta - Responzívne</title>
     <style>
         * {
             margin: 0;
@@ -24,6 +24,7 @@
             position: relative;
         }
 
+        /* Hlavný kontajner - relatívne rozmery */
         .main-container {
             width: 100%;
             max-width: 1800px;
@@ -32,7 +33,7 @@
             z-index: 1;
         }
 
-        /* Horná lišta */
+        /* Horná lišta - flexibilné medzery */
         .top-bar {
             display: flex;
             justify-content: space-between;
@@ -42,6 +43,7 @@
             margin-bottom: clamp(15px, 3vw, 80px);
         }
 
+        /* Prvé okno - ČAS */
         .clock-window {
             background-color: #f0f0f0;
             border-radius: clamp(8px, 1.2vw, 30px);
@@ -63,8 +65,10 @@
             border-radius: clamp(6px, 0.8vw, 20px);
             text-align: center;
             width: 100%;
+            word-break: break-word;
         }
 
+        /* Druhé okno - checkbox */
         .checkbox-window {
             background-color: #f0f0f0;
             border-radius: clamp(8px, 1.2vw, 30px);
@@ -84,6 +88,7 @@
             cursor: pointer;
         }
 
+        /* Tretie okno - farba */
         .color-window {
             background-color: #f0f0f0;
             border-radius: clamp(8px, 1.2vw, 30px);
@@ -106,9 +111,9 @@
         /* Sekcia farieb */
         .colors-section {
             margin-top: clamp(15px, 2.5vw, 60px);
-            transition: opacity 0.2s ease;
         }
 
+        /* Základná mriežka farieb */
         .color-grid {
             display: flex;
             flex-wrap: wrap;
@@ -132,6 +137,7 @@
             transform: scale(0.95);
         }
 
+        /* Rozšírená mriežka farieb */
         .extended-grid {
             display: flex;
             flex-wrap: wrap;
@@ -240,6 +246,7 @@
             color: #333;
         }
         
+        /* Štýl pre tlačidlo Clear */
         .clear-button {
             padding: clamp(6px, 1vw, 20px) clamp(12px, 2vw, 40px);
             background-color: #666;
@@ -273,88 +280,35 @@
             aspect-ratio: 16 / 5;
         }
 
-        /* NOVÉ: Dve prepínacie tlačidlá pod plátnom */
-        .mode-buttons {
-            display: flex;
-            justify-content: center;
-            gap: clamp(15px, 3vw, 50px);
-            margin-top: clamp(15px, 2vw, 40px);
-            margin-bottom: clamp(10px, 1.5vw, 30px);
-        }
-        
-        .mode-btn {
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            padding: clamp(10px, 1.5vw, 25px) clamp(20px, 3vw, 50px);
-            font-size: clamp(16px, 2.5vw, 40px);
-            font-weight: bold;
-            border-radius: clamp(12px, 2vw, 40px);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 0.2vw 0.6vw rgba(0,0,0,0.2);
-            touch-action: manipulation;
-            flex: 0 1 auto;
-            min-width: 150px;
-            text-align: center;
-        }
-        
-        .mode-btn.active {
-            background-color: #2E7D32;
-            box-shadow: inset 0 0.1vw 0.3vw rgba(0,0,0,0.3);
-            transform: scale(0.98);
-        }
-        
-        .mode-btn:active {
-            transform: scale(0.96);
-        }
-
-        /* Biele plátno pre mód Plátno (kreslenie čiernou) */
-        .whiteboard-canvas {
-            border: 0.2vw solid #333;
-            border-radius: clamp(6px, 1vw, 25px);
-            background-color: white;
-            cursor: crosshair;
-            display: block;
-            margin: 0 auto;
-            box-shadow: 0 0.15vw 0.6vw rgba(0,0,0,0.1);
+        /* overlay canvas pre efekty */
+        #effectCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
             width: 100%;
-            height: auto;
-            touch-action: none;
-            aspect-ratio: 16 / 5;
-        }
-        
-        /* Skrytie sekcie farieb v móde Plátno */
-        .colors-section.hidden {
-            display: none;
-        }
-        
-        /* Zobrazenie bieleho plátna len v móde Plátno */
-        #whiteboardCanvas {
-            display: none;
-        }
-        
-        #whiteboardCanvas.active {
-            display: block;
-        }
-        
-        /* Normálne plátno (pre farby) */
-        #drawCanvas {
-            display: block;
-        }
-        
-        #drawCanvas.hidden {
-            display: none;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+            background: transparent;
         }
 
-        /* Responsive */
         @media (max-width: 768px) {
             .top-bar {
                 flex-direction: column;
                 align-items: stretch;
             }
             
-            .clock-window, .checkbox-window, .color-window {
+            .clock-window {
+                width: 100%;
+                min-width: auto;
+            }
+            
+            .checkbox-window {
+                width: 100%;
+                min-width: auto;
+            }
+            
+            .color-window {
                 width: 100%;
                 min-width: auto;
             }
@@ -391,17 +345,6 @@
                 width: 100%;
                 white-space: normal;
                 text-align: center;
-            }
-            
-            .mode-buttons {
-                flex-direction: column;
-                align-items: stretch;
-                gap: 12px;
-            }
-            
-            .mode-btn {
-                width: 100%;
-                min-width: unset;
             }
         }
 
@@ -442,11 +385,6 @@
                 font-size: clamp(10px, 2vw, 14px);
                 padding: clamp(5px, 1.2vw, 8px) clamp(8px, 2vw, 12px);
             }
-            
-            .mode-btn {
-                font-size: clamp(14px, 3vw, 20px);
-                padding: clamp(8px, 1.2vw, 12px) clamp(12px, 2vw, 20px);
-            }
         }
 
         @media (hover: hover) {
@@ -462,10 +400,6 @@
             
             .clear-button:hover {
                 background-color: #555;
-            }
-            
-            .mode-btn:hover {
-                background-color: #45a049;
             }
         }
     </style>
@@ -486,7 +420,7 @@
             </div>
         </div>
 
-        <div class="colors-section" id="colorsSection">
+        <div class="colors-section">
             <div class="color-grid" id="basicColors"></div>
             <div id="colorRows"></div>
         </div>
@@ -508,23 +442,14 @@
                 <div class="draw-title">Kresliace plátno</div>
                 <button class="clear-button" id="clearButton">VYMAZAŤ PLÁTNO</button>
             </div>
-            <!-- Farebné plátno (pôvodné) -->
             <canvas id="drawCanvas" width="1600" height="500"></canvas>
-            <!-- Biele plátno pre mód Plátno (kreslenie čiernou) -->
-            <canvas id="whiteboardCanvas" width="1600" height="500"></canvas>
-        </div>
-
-        <!-- NOVÉ: Dve prepínacie tlačidlá -->
-        <div class="mode-buttons">
-            <button class="mode-btn" id="colorsModeBtn">🎨 Colors</button>
-            <button class="mode-btn" id="canvasModeBtn">✏️ Plátno</button>
         </div>
     </div>
 
     <canvas id="effectCanvas"></canvas>
 
     <script>
-        // EFEKTY (rovnaké ako pôvodne)
+        // EFEKTY
         const effectCanvas = document.getElementById("effectCanvas");
         const effectCtx = effectCanvas.getContext("2d");
 
@@ -535,15 +460,19 @@
         resizeEffectCanvas();
         window.addEventListener("resize", resizeEffectCanvas);
 
+        // HAMMER EFEKT - praskliny (stred v strede HAMMER tlačidla, 4x väčšie)
         function drawCrack(x, y, length, angle, depth) {
             if(depth <= 0) return;
             if(length < 8) return;
+
             const x2 = x + Math.cos(angle) * length;
             const y2 = y + Math.sin(angle) * length;
+
             effectCtx.beginPath();
             effectCtx.moveTo(x, y);
             effectCtx.lineTo(x2, y2);
             effectCtx.stroke();
+
             drawCrack(x2, y2, length * 0.7, angle + (Math.random() - 0.5) * 0.7, depth - 1);
             drawCrack(x2, y2, length * 0.7, angle - (Math.random() - 0.5) * 0.7, depth - 1);
         }
@@ -553,21 +482,28 @@
             effectCtx.strokeStyle = "#2c2c2c";
             effectCtx.lineWidth = 5;
             effectCtx.lineCap = "round";
+            
+            // Získanie pozície HAMMER tlačidla
             const hammerBtn = document.getElementById('hammerButton');
             const btnRect = hammerBtn.getBoundingClientRect();
             const centerX = btnRect.left + btnRect.width / 2;
             const centerY = btnRect.top + btnRect.height / 2;
+            
             let cracks = 0;
             const totalCracks = 20;
+            // 4x väčšie praskliny
             const minLength = 180;
             const maxLength = 280;
+            
             const interval = setInterval(() => {
                 const angle = Math.random() * Math.PI * 2;
                 const length = minLength + Math.random() * (maxLength - minLength);
                 const offsetX = (Math.random() - 0.5) * 40;
                 const offsetY = (Math.random() - 0.5) * 40;
+                
                 drawCrack(centerX + offsetX, centerY + offsetY, length, angle, 3);
                 cracks++;
+                
                 if(cracks >= totalCracks) {
                     clearInterval(interval);
                     setTimeout(() => {
@@ -577,39 +513,53 @@
             }, 70);
         }
 
+        // NUKE EFEKT - rýchlejší (polovičný čas) a kratšie čierne stmavenie
         function nukeRebootEffect() {
             effectCtx.clearRect(0, 0, effectCanvas.width, effectCanvas.height);
+            
             let radius = 20;
             const maxRadius = Math.max(effectCanvas.width, effectCanvas.height);
             const centerX = effectCanvas.width/2;
             const centerY = effectCanvas.height/2;
+            
+            // Biely záblesk
             effectCtx.fillStyle = "white";
             effectCtx.fillRect(0, 0, effectCanvas.width, effectCanvas.height);
+            
             setTimeout(() => {
                 effectCtx.clearRect(0, 0, effectCanvas.width, effectCanvas.height);
+                
                 let step = 0;
-                const totalSteps = 11;
+                const totalSteps = 11; // Predĺžené z 9 na 11 (o cca 22%)
                 const radiusStep = maxRadius / totalSteps;
+                
                 const interval = setInterval(() => {
                     effectCtx.clearRect(0, 0, effectCanvas.width, effectCanvas.height);
+                    
+                    // Jednoduchý kruh s gradientom
                     const gradient = effectCtx.createRadialGradient(
                         centerX, centerY, radius * 0.2,
                         centerX, centerY, radius
                     );
+                    
                     gradient.addColorStop(0, "rgba(255,220,100,1)");
                     gradient.addColorStop(0.5, "rgba(255,100,30,0.8)");
                     gradient.addColorStop(1, "rgba(0,0,0,0)");
+                    
                     effectCtx.fillStyle = gradient;
                     effectCtx.beginPath();
                     effectCtx.arc(centerX, centerY, radius, 0, Math.PI * 2);
                     effectCtx.fill();
+                    
                     radius += radiusStep;
                     step++;
+                    
                     if(step >= totalSteps) {
                         clearInterval(interval);
+                        // Predĺžené stmavenie - dlhšie trvanie čiernej
                         let opacity = 0.8;
                         let fadeSteps = 0;
-                        const totalFadeSteps = 5;
+                        const totalFadeSteps = 5; // Zvýšené z 4 na 5
                         const fadeInterval = setInterval(() => {
                             effectCtx.fillStyle = `rgba(0,0,0,${opacity})`;
                             effectCtx.fillRect(0, 0, effectCanvas.width, effectCanvas.height);
@@ -617,17 +567,18 @@
                             fadeSteps++;
                             if(fadeSteps >= totalFadeSteps || opacity <= 0) {
                                 clearInterval(fadeInterval);
+                                // Pridané oneskorenie pred vymazaním čiernej obrazovky
                                 setTimeout(() => {
                                     effectCtx.clearRect(0, 0, effectCanvas.width, effectCanvas.height);
                                 }, 50);
                             }
-                        }, 40);
+                        }, 40); // Predĺžený interval z 20ms na 40ms
                     }
-                }, 28);
-            }, 50);
+                }, 28); // Mierne predĺžený interval (28ms namiesto 25ms)
+            }, 50); // Mierne predĺžené oneskorenie (50ms namiesto 40ms)
         }
 
-        // PÔVODNÉ PREMENNÉ A FUNKCIE
+        // PÔVODNÝ KÓD
         const basicColors = [
             { name: "Red", code: "#FF0000" },
             { name: "Green", code: "#00FF00" },
@@ -695,8 +646,16 @@
             const hours = String(now.getHours()).padStart(2, '0');
             const minutes = String(now.getMinutes()).padStart(2, '0');
             const seconds = String(now.getSeconds()).padStart(2, '0');
+            
             const hideSeconds = document.getElementById('hideSecondsCheckbox').checked;
-            let timeString = hideSeconds ? hours + ":" + minutes : hours + ":" + minutes + ":" + seconds;
+            
+            let timeString;
+            if (hideSeconds) {
+                timeString = hours + ":" + minutes;
+            } else {
+                timeString = hours + ":" + minutes + ":" + seconds;
+            }
+            
             document.getElementById('clock').textContent = timeString;
         }
 
@@ -708,7 +667,6 @@
             currentDrawColor = colorCode;
         }
 
-        // ---- Farebné plátno (pôvodné) ----
         let canvas = document.getElementById('drawCanvas');
         let ctx = canvas.getContext('2d');
         let drawing = false;
@@ -718,17 +676,20 @@
                 canvas.width = 1600;
                 canvas.height = 500;
             }
+            
             ctx.strokeStyle = currentDrawColor;
             ctx.lineWidth = 8;
             ctx.lineCap = 'round';
             ctx.lineJoin = 'round';
         }
         
-        function getCanvasCoordinates(e, targetCanvas) {
-            const rect = targetCanvas.getBoundingClientRect();
-            const scaleX = targetCanvas.width / rect.width;
-            const scaleY = targetCanvas.height / rect.height;
+        function getCanvasCoordinates(e) {
+            const rect = canvas.getBoundingClientRect();
+            const scaleX = canvas.width / rect.width;
+            const scaleY = canvas.height / rect.height;
+            
             let clientX, clientY;
+            
             if (e.touches) {
                 clientX = e.touches[0].clientX;
                 clientY = e.touches[0].clientY;
@@ -736,169 +697,61 @@
                 clientX = e.clientX;
                 clientY = e.clientY;
             }
+            
             let x = (clientX - rect.left) * scaleX;
             let y = (clientY - rect.top) * scaleY;
-            x = Math.max(0, Math.min(targetCanvas.width, x));
-            y = Math.max(0, Math.min(targetCanvas.height, y));
+            
+            x = Math.max(0, Math.min(canvas.width, x));
+            y = Math.max(0, Math.min(canvas.height, y));
+            
             return { x, y };
         }
         
-        function startDrawing(e, targetCanvas, targetCtx) {
+        function startDrawing(e) {
             e.preventDefault();
             drawing = true;
-            const { x, y } = getCanvasCoordinates(e, targetCanvas);
-            targetCtx.beginPath();
-            targetCtx.moveTo(x, y);
+            const { x, y } = getCanvasCoordinates(e);
+            ctx.beginPath();
+            ctx.moveTo(x, y);
         }
         
-        function draw(e, targetCanvas, targetCtx, color) {
+        function draw(e) {
             if (!drawing) return;
             e.preventDefault();
-            const { x, y } = getCanvasCoordinates(e, targetCanvas);
-            targetCtx.strokeStyle = color;
-            targetCtx.lineTo(x, y);
-            targetCtx.stroke();
-            targetCtx.beginPath();
-            targetCtx.moveTo(x, y);
+            const { x, y } = getCanvasCoordinates(e);
+            ctx.strokeStyle = currentDrawColor;
+            ctx.lineTo(x, y);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(x, y);
         }
         
         function stopDrawing(e) {
             if (e) e.preventDefault();
             drawing = false;
-            // Záleží na aktuálnom kontexte - ale každé plátno si ukončí vlastnú cestu
-            if (activeCanvas === 'color') {
-                ctx.beginPath();
-            } else if (activeCanvas === 'whiteboard') {
-                whiteboardCtx.beginPath();
-            }
+            ctx.beginPath();
         }
         
         function clearCanvas() {
-            if (activeCanvas === 'color') {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-                ctx.beginPath();
-            } else if (activeCanvas === 'whiteboard') {
-                whiteboardCtx.clearRect(0, 0, whiteboardCanvas.width, whiteboardCanvas.height);
-                whiteboardCtx.beginPath();
-            }
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.beginPath();
         }
         
         resizeCanvas();
         
-        // ---- Biele plátno pre mód Plátno (kreslenie čiernou) ----
-        let whiteboardCanvas = document.getElementById('whiteboardCanvas');
-        let whiteboardCtx = whiteboardCanvas.getContext('2d');
+        canvas.addEventListener('mousedown', startDrawing);
+        canvas.addEventListener('mousemove', draw);
+        canvas.addEventListener('mouseup', stopDrawing);
+        canvas.addEventListener('mouseleave', stopDrawing);
+        canvas.addEventListener('touchstart', startDrawing, { passive: false });
+        canvas.addEventListener('touchmove', draw, { passive: false });
+        canvas.addEventListener('touchend', stopDrawing);
+        canvas.addEventListener('touchcancel', stopDrawing);
+        canvas.addEventListener('contextmenu', (e) => e.preventDefault());
         
-        function resizeWhiteboardCanvas() {
-            if (whiteboardCanvas.width !== 1600 || whiteboardCanvas.height !== 500) {
-                whiteboardCanvas.width = 1600;
-                whiteboardCanvas.height = 500;
-            }
-            whiteboardCtx.strokeStyle = "#000000";
-            whiteboardCtx.lineWidth = 8;
-            whiteboardCtx.lineCap = 'round';
-            whiteboardCtx.lineJoin = 'round';
-            whiteboardCtx.fillStyle = "white";
-            whiteboardCtx.fillRect(0, 0, whiteboardCanvas.width, whiteboardCanvas.height);
-        }
-        resizeWhiteboardCanvas();
-        
-        // Ktoré plátno je aktívne pre kreslenie? 'color' alebo 'whiteboard'
-        let activeCanvas = 'color'; // štandardne farby
-        
-        // Prepínanie udalostí myši/touch podľa aktívneho plátna
-        function rebindEvents() {
-            // Odstránime všetky eventy z oboch canvasov
-            const canvases = [canvas, whiteboardCanvas];
-            canvases.forEach(c => {
-                c.removeEventListener('mousedown', handleStart);
-                c.removeEventListener('mousemove', handleMove);
-                c.removeEventListener('mouseup', handleStop);
-                c.removeEventListener('mouseleave', handleStop);
-                c.removeEventListener('touchstart', handleStart);
-                c.removeEventListener('touchmove', handleMove);
-                c.removeEventListener('touchend', handleStop);
-                c.removeEventListener('touchcancel', handleStop);
-            });
-            
-            // Pridáme eventy iba na aktívny canvas
-            const active = (activeCanvas === 'color') ? canvas : whiteboardCanvas;
-            active.addEventListener('mousedown', handleStart);
-            active.addEventListener('mousemove', handleMove);
-            active.addEventListener('mouseup', handleStop);
-            active.addEventListener('mouseleave', handleStop);
-            active.addEventListener('touchstart', handleStart, { passive: false });
-            active.addEventListener('touchmove', handleMove, { passive: false });
-            active.addEventListener('touchend', handleStop);
-            active.addEventListener('touchcancel', handleStop);
-        }
-        
-        function handleStart(e) {
-            if (activeCanvas === 'color') {
-                startDrawing(e, canvas, ctx);
-            } else {
-                startDrawing(e, whiteboardCanvas, whiteboardCtx);
-            }
-        }
-        
-        function handleMove(e) {
-            if (activeCanvas === 'color') {
-                draw(e, canvas, ctx, currentDrawColor);
-            } else {
-                draw(e, whiteboardCanvas, whiteboardCtx, "#000000");
-            }
-        }
-        
-        function handleStop(e) {
-            stopDrawing(e);
-        }
-        
-        // Inicializácia udalostí
-        rebindEvents();
-        
-        // Vymazanie plátna (oba)
-        const clearBtn = document.getElementById('clearButton');
-        clearBtn.onclick = clearCanvas;
-        clearBtn.ontouchstart = (e) => { e.preventDefault(); clearCanvas(); };
-        
-        // Prepínanie medzi režimami Colors a Plátno
-        const colorsSection = document.getElementById('colorsSection');
-        const colorCanvas = document.getElementById('drawCanvas');
-        const whiteboardCanvasElem = document.getElementById('whiteboardCanvas');
-        const colorsModeBtn = document.getElementById('colorsModeBtn');
-        const canvasModeBtn = document.getElementById('canvasModeBtn');
-        
-        function setModeColors() {
-            activeCanvas = 'color';
-            colorsSection.classList.remove('hidden');
-            colorCanvas.classList.remove('hidden');
-            whiteboardCanvasElem.classList.remove('active');
-            whiteboardCanvasElem.style.display = 'none';
-            colorCanvas.style.display = 'block';
-            colorsModeBtn.classList.add('active');
-            canvasModeBtn.classList.remove('active');
-            rebindEvents();
-        }
-        
-        function setModeCanvas() {
-            activeCanvas = 'whiteboard';
-            colorsSection.classList.add('hidden');
-            colorCanvas.classList.add('hidden');
-            colorCanvas.style.display = 'none';
-            whiteboardCanvasElem.style.display = 'block';
-            whiteboardCanvasElem.classList.add('active');
-            colorsModeBtn.classList.remove('active');
-            canvasModeBtn.classList.add('active');
-            rebindEvents();
-        }
-        
-        colorsModeBtn.addEventListener('click', setModeColors);
-        colorsModeBtn.addEventListener('touchstart', (e) => { e.preventDefault(); setModeColors(); });
-        canvasModeBtn.addEventListener('click', setModeCanvas);
-        canvasModeBtn.addEventListener('touchstart', (e) => { e.preventDefault(); setModeCanvas(); });
-        
-        // Štandardne nastavíme režim Colors (aktívne)
-        setModeColors();
+        window.addEventListener('resize', () => {
+            ctx.strokeStyle = currentDrawColor;
+        });
         
         function renderBasicColors() {
             const container = document.getElementById('basicColors');
@@ -909,7 +762,10 @@
                 square.style.backgroundColor = color.code;
                 square.title = color.name;
                 square.onclick = () => setColor(color.code);
-                square.ontouchstart = (e) => { e.preventDefault(); setColor(color.code); };
+                square.ontouchstart = (e) => {
+                    e.preventDefault();
+                    setColor(color.code);
+                };
                 container.appendChild(square);
             });
         }
@@ -920,15 +776,21 @@
             colorRows.forEach(row => {
                 const grid = document.createElement('div');
                 grid.className = 'extended-grid';
+                grid.style.width = '100%';
+                
                 row.shades.forEach(shade => {
                     const square = document.createElement('div');
                     square.className = 'extended-square';
                     square.style.backgroundColor = shade;
                     square.title = shade;
                     square.onclick = () => setColor(shade);
-                    square.ontouchstart = (e) => { e.preventDefault(); setColor(shade); };
+                    square.ontouchstart = (e) => {
+                        e.preventDefault();
+                        setColor(shade);
+                    };
                     grid.appendChild(square);
                 });
+                
                 container.appendChild(grid);
             });
         }
@@ -941,14 +803,33 @@
         setInterval(updateClock, 1000);
         
         document.getElementById('hideSecondsCheckbox').addEventListener('change', updateClock);
+        
         document.getElementById('rebootButton').addEventListener('click', reboot);
-        document.getElementById('rebootButton').addEventListener('touchstart', (e) => { e.preventDefault(); reboot(); });
+        document.getElementById('rebootButton').addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            reboot();
+        });
+        
         document.getElementById('hammerButton').addEventListener('click', hammerReboot);
-        document.getElementById('hammerButton').addEventListener('touchstart', (e) => { e.preventDefault(); hammerReboot(); });
+        document.getElementById('hammerButton').addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            hammerReboot();
+        });
+        
         document.getElementById('nukeButton').addEventListener('click', nukeReboot);
-        document.getElementById('nukeButton').addEventListener('touchstart', (e) => { e.preventDefault(); nukeReboot(); });
+        document.getElementById('nukeButton').addEventListener('touchstart', (e) => {
+            e.preventDefault();
+            nukeReboot();
+        });
         
         setColor("#000000");
+        
+        const clearButton = document.getElementById('clearButton');
+        clearButton.onclick = clearCanvas;
+        clearButton.ontouchstart = (e) => {
+            e.preventDefault();
+            clearCanvas();
+        };
     </script>
 </body>
 </html>
