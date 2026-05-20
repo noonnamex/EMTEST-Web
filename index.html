@@ -24,7 +24,6 @@
             position: relative;
         }
 
-        /* Hlavný kontajner - relatívne rozmery */
         .main-container {
             width: 100%;
             max-width: 1800px;
@@ -33,7 +32,6 @@
             z-index: 1;
         }
 
-        /* Horná lišta - flexibilné medzery */
         .top-bar {
             display: flex;
             justify-content: space-between;
@@ -43,7 +41,6 @@
             margin-bottom: clamp(15px, 3vw, 80px);
         }
 
-        /* Prvé okno - ČAS */
         .clock-window {
             background-color: #f0f0f0;
             border-radius: clamp(8px, 1.2vw, 30px);
@@ -68,7 +65,6 @@
             word-break: break-word;
         }
 
-        /* Druhé okno - checkbox */
         .checkbox-window {
             background-color: #f0f0f0;
             border-radius: clamp(8px, 1.2vw, 30px);
@@ -88,7 +84,6 @@
             cursor: pointer;
         }
 
-        /* Tretie okno - farba */
         .color-window {
             background-color: #f0f0f0;
             border-radius: clamp(8px, 1.2vw, 30px);
@@ -108,12 +103,10 @@
             transition: background-color 0.2s ease;
         }
 
-        /* Sekcia farieb */
         .colors-section {
             margin-top: clamp(15px, 2.5vw, 60px);
         }
 
-        /* Základná mriežka farieb */
         .color-grid {
             display: flex;
             flex-wrap: wrap;
@@ -137,7 +130,6 @@
             transform: scale(0.95);
         }
 
-        /* Rozšírená mriežka farieb */
         .extended-grid {
             display: flex;
             flex-wrap: wrap;
@@ -161,7 +153,6 @@
             transform: scale(0.95);
         }
 
-        /* REBOOT sekcia */
         .reboot-section {
             margin-top: clamp(20px, 3vw, 80px);
             padding: clamp(10px, 1.5vw, 40px);
@@ -226,7 +217,6 @@
             text-align: center;
         }
 
-        /* Kresliace plátno */
         .draw-section {
             margin-top: clamp(20px, 3vw, 80px);
         }
@@ -246,7 +236,6 @@
             color: #333;
         }
         
-        /* Štýl pre tlačidlo Clear */
         .clear-button {
             padding: clamp(6px, 1vw, 20px) clamp(12px, 2vw, 40px);
             background-color: #666;
@@ -280,7 +269,6 @@
             aspect-ratio: 16 / 5;
         }
 
-        /* overlay canvas pre efekty */
         #effectCanvas {
             position: fixed;
             top: 0;
@@ -292,55 +280,58 @@
             background: transparent;
         }
 
+        /* INDICATOR - červený kruh so žltým okrajom + šípka zvonku ukazujúca na kruh */
+        .click-indicator {
+            position: fixed;
+            pointer-events: none;
+            z-index: 10000;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+            will-change: transform, opacity;
+            animation: fadeIn 0.2s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
         @media (max-width: 768px) {
             .top-bar {
                 flex-direction: column;
                 align-items: stretch;
             }
-            
-            .clock-window {
+            .clock-window, .checkbox-window, .color-window {
                 width: 100%;
                 min-width: auto;
             }
-            
-            .checkbox-window {
-                width: 100%;
-                min-width: auto;
-            }
-            
-            .color-window {
-                width: 100%;
-                min-width: auto;
-            }
-            
             .reboot-section {
                 flex-direction: column;
                 gap: clamp(12px, 2vw, 20px);
             }
-            
             .reboot-buttons {
                 width: 100%;
                 flex-direction: column;
             }
-            
             .reboot-button {
                 width: 100%;
             }
-            
             .counter-container {
                 width: 100%;
                 justify-content: center;
             }
-            
             .draw-header {
                 flex-direction: column;
                 align-items: stretch;
             }
-            
             .draw-title {
                 text-align: center;
             }
-            
             .clear-button {
                 width: 100%;
                 white-space: normal;
@@ -352,35 +343,28 @@
             body {
                 padding: clamp(5px, 1.5vw, 10px);
             }
-            
             .color-square {
                 width: clamp(45px, 12vw, 70px);
                 height: clamp(45px, 12vw, 70px);
             }
-            
             .extended-square {
                 width: clamp(40px, 10vw, 60px);
                 height: clamp(40px, 10vw, 60px);
             }
-            
             .reboot-button {
                 padding: clamp(8px, 2vw, 12px) clamp(12px, 3vw, 20px);
                 font-size: clamp(12px, 3vw, 16px);
             }
-            
             .counter-label {
                 font-size: clamp(10px, 2.5vw, 14px);
             }
-            
             .counter-value {
                 font-size: clamp(16px, 4vw, 24px);
                 min-width: clamp(35px, 8vw, 50px);
             }
-            
             .draw-title {
                 font-size: clamp(12px, 2.5vw, 16px);
             }
-            
             .clear-button {
                 font-size: clamp(10px, 2vw, 14px);
                 padding: clamp(5px, 1.2vw, 8px) clamp(8px, 2vw, 12px);
@@ -392,12 +376,10 @@
                 transform: scale(1.02);
                 box-shadow: 0 0.3vw 1vw rgba(0,0,0,0.2);
             }
-            
             .reboot-button:hover {
                 background-color: #ff2222;
                 transform: scale(1.02);
             }
-            
             .clear-button:hover {
                 background-color: #555;
             }
@@ -449,7 +431,7 @@
     <canvas id="effectCanvas"></canvas>
 
     <script>
-        // EFEKTY
+        // EFEKTY (HAMMER, NUKE)
         const effectCanvas = document.getElementById("effectCanvas");
         const effectCtx = effectCanvas.getContext("2d");
 
@@ -460,19 +442,15 @@
         resizeEffectCanvas();
         window.addEventListener("resize", resizeEffectCanvas);
 
-        // HAMMER EFEKT - praskliny (stred v strede HAMMER tlačidla, 4x väčšie)
         function drawCrack(x, y, length, angle, depth) {
             if(depth <= 0) return;
             if(length < 8) return;
-
             const x2 = x + Math.cos(angle) * length;
             const y2 = y + Math.sin(angle) * length;
-
             effectCtx.beginPath();
             effectCtx.moveTo(x, y);
             effectCtx.lineTo(x2, y2);
             effectCtx.stroke();
-
             drawCrack(x2, y2, length * 0.7, angle + (Math.random() - 0.5) * 0.7, depth - 1);
             drawCrack(x2, y2, length * 0.7, angle - (Math.random() - 0.5) * 0.7, depth - 1);
         }
@@ -482,28 +460,21 @@
             effectCtx.strokeStyle = "#2c2c2c";
             effectCtx.lineWidth = 5;
             effectCtx.lineCap = "round";
-            
-            // Získanie pozície HAMMER tlačidla
             const hammerBtn = document.getElementById('hammerButton');
             const btnRect = hammerBtn.getBoundingClientRect();
             const centerX = btnRect.left + btnRect.width / 2;
             const centerY = btnRect.top + btnRect.height / 2;
-            
             let cracks = 0;
             const totalCracks = 20;
-            // 4x väčšie praskliny
             const minLength = 180;
             const maxLength = 280;
-            
             const interval = setInterval(() => {
                 const angle = Math.random() * Math.PI * 2;
                 const length = minLength + Math.random() * (maxLength - minLength);
                 const offsetX = (Math.random() - 0.5) * 40;
                 const offsetY = (Math.random() - 0.5) * 40;
-                
                 drawCrack(centerX + offsetX, centerY + offsetY, length, angle, 3);
                 cracks++;
-                
                 if(cracks >= totalCracks) {
                     clearInterval(interval);
                     setTimeout(() => {
@@ -513,53 +484,36 @@
             }, 70);
         }
 
-        // NUKE EFEKT - rýchlejší (polovičný čas) a kratšie čierne stmavenie
         function nukeRebootEffect() {
             effectCtx.clearRect(0, 0, effectCanvas.width, effectCanvas.height);
-            
             let radius = 20;
             const maxRadius = Math.max(effectCanvas.width, effectCanvas.height);
             const centerX = effectCanvas.width/2;
             const centerY = effectCanvas.height/2;
-            
-            // Biely záblesk
             effectCtx.fillStyle = "white";
             effectCtx.fillRect(0, 0, effectCanvas.width, effectCanvas.height);
-            
             setTimeout(() => {
                 effectCtx.clearRect(0, 0, effectCanvas.width, effectCanvas.height);
-                
                 let step = 0;
-                const totalSteps = 11; // Predĺžené z 9 na 11 (o cca 22%)
+                const totalSteps = 11;
                 const radiusStep = maxRadius / totalSteps;
-                
                 const interval = setInterval(() => {
                     effectCtx.clearRect(0, 0, effectCanvas.width, effectCanvas.height);
-                    
-                    // Jednoduchý kruh s gradientom
-                    const gradient = effectCtx.createRadialGradient(
-                        centerX, centerY, radius * 0.2,
-                        centerX, centerY, radius
-                    );
-                    
+                    const gradient = effectCtx.createRadialGradient(centerX, centerY, radius * 0.2, centerX, centerY, radius);
                     gradient.addColorStop(0, "rgba(255,220,100,1)");
                     gradient.addColorStop(0.5, "rgba(255,100,30,0.8)");
                     gradient.addColorStop(1, "rgba(0,0,0,0)");
-                    
                     effectCtx.fillStyle = gradient;
                     effectCtx.beginPath();
                     effectCtx.arc(centerX, centerY, radius, 0, Math.PI * 2);
                     effectCtx.fill();
-                    
                     radius += radiusStep;
                     step++;
-                    
                     if(step >= totalSteps) {
                         clearInterval(interval);
-                        // Predĺžené stmavenie - dlhšie trvanie čiernej
                         let opacity = 0.8;
                         let fadeSteps = 0;
-                        const totalFadeSteps = 5; // Zvýšené z 4 na 5
+                        const totalFadeSteps = 5;
                         const fadeInterval = setInterval(() => {
                             effectCtx.fillStyle = `rgba(0,0,0,${opacity})`;
                             effectCtx.fillRect(0, 0, effectCanvas.width, effectCanvas.height);
@@ -567,18 +521,118 @@
                             fadeSteps++;
                             if(fadeSteps >= totalFadeSteps || opacity <= 0) {
                                 clearInterval(fadeInterval);
-                                // Pridané oneskorenie pred vymazaním čiernej obrazovky
                                 setTimeout(() => {
                                     effectCtx.clearRect(0, 0, effectCanvas.width, effectCanvas.height);
                                 }, 50);
                             }
-                        }, 40); // Predĺžený interval z 20ms na 40ms
+                        }, 40);
                     }
-                }, 28); // Mierne predĺžený interval (28ms namiesto 25ms)
-            }, 50); // Mierne predĺžené oneskorenie (50ms namiesto 40ms)
+                }, 28);
+            }, 50);
         }
 
-        // PÔVODNÝ KÓD
+        // ============================================================
+        // INDIKÁTOR: červený kruh so žltým obvodom + ŠÍPKA ZVONKU (mimo kruh) ukazujúca na kruh
+        // ============================================================
+        function createClickIndicator(x, y) {
+    const indicator = document.createElement('div');
+    indicator.className = 'click-indicator';
+    
+    const dotSize = Math.max(14, Math.min(20, window.innerWidth * 0.065));
+    const borderWidth = Math.max(1.5, Math.min(3, window.innerWidth * 0.004));
+    const arrowSize = dotSize * 1.0;
+    const gap = dotSize * 0.25;
+    
+    indicator.style.left = (x - dotSize/2) + 'px';
+    indicator.style.top = (y - dotSize/2 - arrowSize - gap) + 'px';
+    indicator.style.width = dotSize + 'px';
+    indicator.style.height = (dotSize + arrowSize + gap) + 'px';
+    
+    const svgNS = "http://www.w3.org/2000/svg";
+    const svg = document.createElementNS(svgNS, "svg");
+    svg.setAttribute("width", "100%");
+    svg.setAttribute("height", "100%");
+    svg.setAttribute("viewBox", `0 0 ${dotSize} ${dotSize + arrowSize + gap}`);
+    svg.style.display = "block";
+    svg.style.position = "absolute";
+    svg.style.top = "0";
+    svg.style.left = "0";
+    
+    // Červený kruh so žltým obvodom
+    const circleY = arrowSize + gap + (dotSize/2);
+    const circle = document.createElementNS(svgNS, "circle");
+    circle.setAttribute("cx", dotSize/2);
+    circle.setAttribute("cy", circleY);
+    circle.setAttribute("r", dotSize/2 - borderWidth/2);
+    circle.setAttribute("fill", "#ff3333");
+    circle.setAttribute("stroke", "#ffcc00");
+    circle.setAttribute("stroke-width", borderWidth);
+    svg.appendChild(circle);
+    
+    // Čierna šípka (jednoduchá čiara so šípkou na konci)
+    const arrowGroup = document.createElementNS(svgNS, "g");
+    
+    // Hlavná čiara šípky (zvislá, smerom nadol ku kruhu)
+    const line = document.createElementNS(svgNS, "line");
+    const lineStartX = dotSize/2;
+    const lineStartY = gap + 5;
+    const lineEndX = dotSize/2;
+    const lineEndY = arrowSize + gap - 3;
+    line.setAttribute("x1", lineStartX);
+    line.setAttribute("y1", lineStartY);
+    line.setAttribute("x2", lineEndX);
+    line.setAttribute("y2", lineEndY);
+    line.setAttribute("stroke", "#000000");
+    line.setAttribute("stroke-width", "2");
+    line.setAttribute("stroke-linecap", "round");
+    arrowGroup.appendChild(line);
+    
+    // Šípka (trojuholníček na konci čiary)
+    const arrowTipX = dotSize/2;
+    const arrowTipY = lineEndY;
+    const arrowWing = dotSize * 0.2;
+    const arrowHead = document.createElementNS(svgNS, "polygon");
+    arrowHead.setAttribute("points", 
+        `${arrowTipX},${arrowTipY} ${arrowTipX - arrowWing},${arrowTipY - arrowWing} ${arrowTipX + arrowWing},${arrowTipY - arrowWing}`
+    );
+    arrowHead.setAttribute("fill", "#000000");
+    arrowGroup.appendChild(arrowHead);
+    
+    svg.appendChild(arrowGroup);
+    indicator.appendChild(svg);
+    document.body.appendChild(indicator);
+    
+    setTimeout(() => {
+        if (indicator && indicator.parentNode) {
+            indicator.style.transition = 'opacity 0.3s ease';
+            indicator.style.opacity = '0';
+            setTimeout(() => {
+                if (indicator && indicator.parentNode) indicator.remove();
+            }, 300);
+        }
+    }, 10000);
+    
+    return indicator;
+}
+        
+        // Spracovanie kliknutí myšou
+        document.addEventListener('click', function(e) {
+            let x = e.clientX;
+            let y = e.clientY;
+            if (x !== undefined && y !== undefined) {
+                createClickIndicator(x, y);
+            }
+        });
+        
+        // Spracovanie dotykov (touch) - prvý dotyk
+        document.addEventListener('touchstart', function(e) {
+            if (e.touches && e.touches.length > 0) {
+                const touch = e.touches[0];
+                createClickIndicator(touch.clientX, touch.clientY);
+            }
+        }, { passive: true });
+        
+        // ========== PÔVODNÝ KÓD APLIKÁCIE ==========
         const basicColors = [
             { name: "Red", code: "#FF0000" },
             { name: "Green", code: "#00FF00" },
@@ -627,43 +681,23 @@
             saveCounter();
         }
         
-        function reboot() {
-            addDamage(1);
-        }
-        
-        function hammerReboot() {
-            addDamage(3);
-            hammerRebootEffect();
-        }
-        
-        function nukeReboot() {
-            addDamage(5);
-            nukeRebootEffect();
-        }
+        function reboot() { addDamage(1); }
+        function hammerReboot() { addDamage(3); hammerRebootEffect(); }
+        function nukeReboot() { addDamage(5); nukeRebootEffect(); }
 
         function updateClock() {
             const now = new Date();
             const hours = String(now.getHours()).padStart(2, '0');
             const minutes = String(now.getMinutes()).padStart(2, '0');
             const seconds = String(now.getSeconds()).padStart(2, '0');
-            
             const hideSeconds = document.getElementById('hideSecondsCheckbox').checked;
-            
-            let timeString;
-            if (hideSeconds) {
-                timeString = hours + ":" + minutes;
-            } else {
-                timeString = hours + ":" + minutes + ":" + seconds;
-            }
-            
+            let timeString = hideSeconds ? hours + ":" + minutes : hours + ":" + minutes + ":" + seconds;
             document.getElementById('clock').textContent = timeString;
         }
 
         let currentDrawColor = "#000000";
-        
         function setColor(colorCode) {
-            const colorDisplay = document.getElementById('colorDisplay');
-            colorDisplay.style.backgroundColor = colorCode;
+            document.getElementById('colorDisplay').style.backgroundColor = colorCode;
             currentDrawColor = colorCode;
         }
 
@@ -676,7 +710,6 @@
                 canvas.width = 1600;
                 canvas.height = 500;
             }
-            
             ctx.strokeStyle = currentDrawColor;
             ctx.lineWidth = 8;
             ctx.lineCap = 'round';
@@ -687,9 +720,7 @@
             const rect = canvas.getBoundingClientRect();
             const scaleX = canvas.width / rect.width;
             const scaleY = canvas.height / rect.height;
-            
             let clientX, clientY;
-            
             if (e.touches) {
                 clientX = e.touches[0].clientX;
                 clientY = e.touches[0].clientY;
@@ -697,13 +728,10 @@
                 clientX = e.clientX;
                 clientY = e.clientY;
             }
-            
             let x = (clientX - rect.left) * scaleX;
             let y = (clientY - rect.top) * scaleY;
-            
             x = Math.max(0, Math.min(canvas.width, x));
             y = Math.max(0, Math.min(canvas.height, y));
-            
             return { x, y };
         }
         
@@ -738,7 +766,6 @@
         }
         
         resizeCanvas();
-        
         canvas.addEventListener('mousedown', startDrawing);
         canvas.addEventListener('mousemove', draw);
         canvas.addEventListener('mouseup', stopDrawing);
@@ -748,10 +775,7 @@
         canvas.addEventListener('touchend', stopDrawing);
         canvas.addEventListener('touchcancel', stopDrawing);
         canvas.addEventListener('contextmenu', (e) => e.preventDefault());
-        
-        window.addEventListener('resize', () => {
-            ctx.strokeStyle = currentDrawColor;
-        });
+        window.addEventListener('resize', () => { ctx.strokeStyle = currentDrawColor; });
         
         function renderBasicColors() {
             const container = document.getElementById('basicColors');
@@ -762,10 +786,7 @@
                 square.style.backgroundColor = color.code;
                 square.title = color.name;
                 square.onclick = () => setColor(color.code);
-                square.ontouchstart = (e) => {
-                    e.preventDefault();
-                    setColor(color.code);
-                };
+                square.ontouchstart = (e) => { e.preventDefault(); setColor(color.code); };
                 container.appendChild(square);
             });
         }
@@ -777,20 +798,15 @@
                 const grid = document.createElement('div');
                 grid.className = 'extended-grid';
                 grid.style.width = '100%';
-                
                 row.shades.forEach(shade => {
                     const square = document.createElement('div');
                     square.className = 'extended-square';
                     square.style.backgroundColor = shade;
                     square.title = shade;
                     square.onclick = () => setColor(shade);
-                    square.ontouchstart = (e) => {
-                        e.preventDefault();
-                        setColor(shade);
-                    };
+                    square.ontouchstart = (e) => { e.preventDefault(); setColor(shade); };
                     grid.appendChild(square);
                 });
-                
                 container.appendChild(grid);
             });
         }
@@ -798,38 +814,18 @@
         loadCounter();
         renderBasicColors();
         renderColorRows();
-        
         updateClock();
         setInterval(updateClock, 1000);
-        
         document.getElementById('hideSecondsCheckbox').addEventListener('change', updateClock);
-        
         document.getElementById('rebootButton').addEventListener('click', reboot);
-        document.getElementById('rebootButton').addEventListener('touchstart', (e) => {
-            e.preventDefault();
-            reboot();
-        });
-        
+        document.getElementById('rebootButton').addEventListener('touchstart', (e) => { e.preventDefault(); reboot(); });
         document.getElementById('hammerButton').addEventListener('click', hammerReboot);
-        document.getElementById('hammerButton').addEventListener('touchstart', (e) => {
-            e.preventDefault();
-            hammerReboot();
-        });
-        
+        document.getElementById('hammerButton').addEventListener('touchstart', (e) => { e.preventDefault(); hammerReboot(); });
         document.getElementById('nukeButton').addEventListener('click', nukeReboot);
-        document.getElementById('nukeButton').addEventListener('touchstart', (e) => {
-            e.preventDefault();
-            nukeReboot();
-        });
-        
+        document.getElementById('nukeButton').addEventListener('touchstart', (e) => { e.preventDefault(); nukeReboot(); });
         setColor("#000000");
-        
-        const clearButton = document.getElementById('clearButton');
-        clearButton.onclick = clearCanvas;
-        clearButton.ontouchstart = (e) => {
-            e.preventDefault();
-            clearCanvas();
-        };
+        document.getElementById('clearButton').onclick = clearCanvas;
+        document.getElementById('clearButton').ontouchstart = (e) => { e.preventDefault(); clearCanvas(); };
     </script>
 </body>
 </html>
