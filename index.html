@@ -280,27 +280,6 @@
             background: transparent;
         }
 
-        /* INDICATOR - červený kruh so žltým okrajom + šípka zvonku ukazujúca na kruh */
-        .click-indicator {
-            position: fixed;
-            pointer-events: none;
-            z-index: 10000;
-            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
-            will-change: transform, opacity;
-            animation: fadeIn 0.2s ease-out;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: scale(0.8);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-
         @media (max-width: 768px) {
             .top-bar {
                 flex-direction: column;
@@ -532,88 +511,92 @@
         }
 
         // ============================================================
-        // INDIKÁTOR: červený kruh so žltým obvodom + ŠÍPKA ZVONKU (mimo kruh) ukazujúca na kruh
+        // BODKA PO KLIKNUTÍ - kreslí sa na canvas (rovnako ako Hammer a Nuke)
         // ============================================================
-        function createClickIndicator(x, y) {
-    const indicator = document.createElement('div');
-    indicator.className = 'click-indicator';
+        
+        // Pole pre uloženie aktívnych bodiek
+        let activeDots = [];
+        
+        // Funkcia na vykreslenie jednej bodky na canvas
+        function drawDotOnCanvas(x, y) {
+    const dotSize = 16;      // malý kruh
+    const arrowSize = 18;    // veľkosť šípky
+    const gap = 4;           // medzera medzi šípkou a kruhom
     
-    const dotSize = Math.max(14, Math.min(20, window.innerWidth * 0.065));
-    const borderWidth = Math.max(1.5, Math.min(3, window.innerWidth * 0.004));
-    const arrowSize = dotSize * 1.0;
-    const gap = dotSize * 0.25;
+    effectCtx.save();
     
-    indicator.style.left = (x - dotSize/2) + 'px';
-    indicator.style.top = (y - dotSize/2 - arrowSize - gap) + 'px';
-    indicator.style.width = dotSize + 'px';
-    indicator.style.height = (dotSize + arrowSize + gap) + 'px';
+    // KRUH je PRESNE na mieste kliknutia (x, y)
+    const circleX = x;
+    const circleY = y;        // ← OPRAVA: kruh je tam, kde si klikol
     
-    const svgNS = "http://www.w3.org/2000/svg";
-    const svg = document.createElementNS(svgNS, "svg");
-    svg.setAttribute("width", "100%");
-    svg.setAttribute("height", "100%");
-    svg.setAttribute("viewBox", `0 0 ${dotSize} ${dotSize + arrowSize + gap}`);
-    svg.style.display = "block";
-    svg.style.position = "absolute";
-    svg.style.top = "0";
-    svg.style.left = "0";
+    const radius = dotSize / 2;
     
-    // Červený kruh so žltým obvodom
-    const circleY = arrowSize + gap + (dotSize/2);
-    const circle = document.createElementNS(svgNS, "circle");
-    circle.setAttribute("cx", dotSize/2);
-    circle.setAttribute("cy", circleY);
-    circle.setAttribute("r", dotSize/2 - borderWidth/2);
-    circle.setAttribute("fill", "#ff3333");
-    circle.setAttribute("stroke", "#ffcc00");
-    circle.setAttribute("stroke-width", borderWidth);
-    svg.appendChild(circle);
+    // Žltý obvod (väčší kruh)
+    effectCtx.beginPath();
+    effectCtx.arc(circleX, circleY, radius + 2, 0, Math.PI * 2);
+    effectCtx.fillStyle = "#ffcc00";
+    effectCtx.fill();
     
-    // Čierna šípka (jednoduchá čiara so šípkou na konci)
-    const arrowGroup = document.createElementNS(svgNS, "g");
+    // Červený vnútorný kruh
+    effectCtx.beginPath();
+    effectCtx.arc(circleX, circleY, radius, 0, Math.PI * 2);
+    effectCtx.fillStyle = "#ff3333";
+    effectCtx.fill();
     
-    // Hlavná čiara šípky (zvislá, smerom nadol ku kruhu)
-    const line = document.createElementNS(svgNS, "line");
-    const lineStartX = dotSize/2;
-    const lineStartY = gap + 5;
-    const lineEndX = dotSize/2;
-    const lineEndY = arrowSize + gap - 3;
-    line.setAttribute("x1", lineStartX);
-    line.setAttribute("y1", lineStartY);
-    line.setAttribute("x2", lineEndX);
-    line.setAttribute("y2", lineEndY);
-    line.setAttribute("stroke", "#000000");
-    line.setAttribute("stroke-width", "2");
-    line.setAttribute("stroke-linecap", "round");
-    arrowGroup.appendChild(line);
+    // Čierna šípka (smeruje ku kruhu - nad ním)
+    const arrowTipX = x;
+    const arrowTipY = y - gap - 2;                    // Špička šípky tesne nad kruhom
+    const arrowBaseY = arrowTipY - arrowSize + 4;     // Základňa šípky (hore)
     
-    // Šípka (trojuholníček na konci čiary)
-    const arrowTipX = dotSize/2;
-    const arrowTipY = lineEndY;
-    const arrowWing = dotSize * 0.2;
-    const arrowHead = document.createElementNS(svgNS, "polygon");
-    arrowHead.setAttribute("points", 
-        `${arrowTipX},${arrowTipY} ${arrowTipX - arrowWing},${arrowTipY - arrowWing} ${arrowTipX + arrowWing},${arrowTipY - arrowWing}`
-    );
-    arrowHead.setAttribute("fill", "#000000");
-    arrowGroup.appendChild(arrowHead);
+    // Čiara šípky
+    effectCtx.beginPath();
+    effectCtx.moveTo(arrowTipX, arrowBaseY);
+    effectCtx.lineTo(arrowTipX, arrowTipY);
+    effectCtx.strokeStyle = "#000000";
+    effectCtx.lineWidth = 2;
+    effectCtx.stroke();
     
-    svg.appendChild(arrowGroup);
-    indicator.appendChild(svg);
-    document.body.appendChild(indicator);
+    // Hlava šípky (trojuholník)
+    const wing = 5;
+    effectCtx.beginPath();
+    effectCtx.moveTo(arrowTipX, arrowTipY);
+    effectCtx.lineTo(arrowTipX - wing, arrowTipY - wing);
+    effectCtx.lineTo(arrowTipX + wing, arrowTipY - wing);
+    effectCtx.fillStyle = "#000000";
+    effectCtx.fill();
     
-    setTimeout(() => {
-        if (indicator && indicator.parentNode) {
-            indicator.style.transition = 'opacity 0.3s ease';
-            indicator.style.opacity = '0';
-            setTimeout(() => {
-                if (indicator && indicator.parentNode) indicator.remove();
-            }, 300);
-        }
-    }, 10000);
-    
-    return indicator;
+    effectCtx.restore();
 }
+        
+        // Hlavná funkcia na zobrazenie bodky
+        function createClickIndicator(x, y) {
+    // Vykreslíme bodku priamo na miesto kliknutia
+    drawDotOnCanvas(x, y);
+    
+    // Uložíme informácie o bodke pre neskoršie vymazanie
+    const dotInfo = {
+        x: x,
+        y: y,
+        timeout: setTimeout(() => {
+            const index = activeDots.indexOf(dotInfo);
+            if (index > -1) activeDots.splice(index, 1);
+            redrawAllDots();
+        }, 10000)
+    };
+    activeDots.push(dotInfo);
+}
+        
+        // Prekreslenie všetkých aktívnych bodiek
+        function redrawAllDots() {
+            // Vyčistíme celý efekt canvas
+            effectCtx.clearRect(0, 0, effectCanvas.width, effectCanvas.height);
+            
+            // Prekreslíme všetky uložené bodky
+            for (let i = 0; i < activeDots.length; i++) {
+                const dot = activeDots[i];
+                drawDotOnCanvas(dot.x, dot.y);
+            }
+        }
         
         // Spracovanie kliknutí myšou
         document.addEventListener('click', function(e) {
@@ -624,7 +607,7 @@
             }
         });
         
-        // Spracovanie dotykov (touch) - prvý dotyk
+        // Spracovanie dotykov (touch)
         document.addEventListener('touchstart', function(e) {
             if (e.touches && e.touches.length > 0) {
                 const touch = e.touches[0];
